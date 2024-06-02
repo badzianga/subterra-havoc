@@ -1,0 +1,209 @@
+[gd_scene load_steps=20 format=3 uid="uid://bpydjicf6po2r"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="1_x20l2"]
+[ext_resource type="Script" path="res://Scenes/Enemies/charger.gd" id="1_x30gf"]
+[ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="3_1spmh"]
+[ext_resource type="PackedScene" uid="uid://cdy80jl7s457c" path="res://Scenes/EnemyStateMachine/wander_state.tscn" id="4_t07wq"]
+[ext_resource type="PackedScene" uid="uid://dotyn4mp6jdd3" path="res://Scenes/EnemyStateMachine/prepare_state.tscn" id="5_xl4rn"]
+[ext_resource type="PackedScene" uid="uid://dgofnl36mnvu4" path="res://Scenes/EnemyStateMachine/charge_state.tscn" id="6_lvxtb"]
+[ext_resource type="PackedScene" uid="uid://dkngw8lejpmrs" path="res://Scenes/EnemyStateMachine/cooldown_state.tscn" id="7_edxgu"]
+[ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="8_rfqwd"]
+[ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="9_v5wrf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4r4ry"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_5wl0p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i7inm"]
+resource_name = "charge"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.643137, 0, 0, 1), Color(0.392157, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ia2y0"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(0, 1, 0.501961, 1), Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h2d5g"]
+resource_name = "prepare"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(1, 1, 0, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ov8cb"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(0.501961, 1, 0, 1), Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dryc3"]
+_data = {
+"RESET": SubResource("Animation_5wl0p"),
+"charge": SubResource("Animation_i7inm"),
+"idle": SubResource("Animation_ia2y0"),
+"prepare": SubResource("Animation_h2d5g"),
+"walk": SubResource("Animation_ov8cb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_570vc"]
+radius = 192.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjs17"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duqe5"]
+size = Vector2(64, 64)
+
+[node name="Charger" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_x30gf")
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -32.0
+offset_top = -58.0
+offset_right = 46.0
+offset_bottom = -35.0
+text = "State: null"
+
+[node name="Sprite" type="ColorRect" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4r4ry")
+
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_state")]
+script = ExtResource("1_x20l2")
+_state = NodePath("IdleState")
+
+[node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("3_1spmh")]
+_actor = NodePath("../..")
+_animator = NodePath("../../AnimationPlayer")
+_vision_cast = NodePath("../../VisionCast")
+_state_label = NodePath("../../StateLabel")
+_idle_time_min = 1.0
+_idle_time_max = 3.0
+
+[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("4_t07wq")]
+_actor = NodePath("../..")
+_animator = NodePath("../../AnimationPlayer")
+_vision_cast = NodePath("../../VisionCast")
+_state_label = NodePath("../../StateLabel")
+_wander_time_min = 3.0
+_wander_time_max = 5.0
+
+[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("5_xl4rn")]
+_actor = NodePath("../..")
+_animator = NodePath("../../AnimationPlayer")
+_vision_cast = NodePath("../../VisionCast")
+_state_label = NodePath("../../StateLabel")
+_prepare_time = 1.5
+
+[node name="ChargeState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_hitbox_collision_shape", "_state_label") instance=ExtResource("6_lvxtb")]
+_actor = NodePath("../..")
+_animator = NodePath("../../AnimationPlayer")
+_hitbox_collision_shape = NodePath("../../HitboxComponent/CollisionShape")
+_state_label = NodePath("../../StateLabel")
+_charge_time = 0.6
+
+[node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("7_edxgu")]
+_actor = NodePath("../..")
+_animator = NodePath("../../AnimationPlayer")
+_vision_cast = NodePath("../../VisionCast")
+_state_label = NodePath("../../StateLabel")
+_cooldown_time = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dryc3")
+}
+
+[node name="VisionCast" type="RayCast2D" parent="."]
+target_position = Vector2(192, 0)
+collision_mask = 2
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_570vc")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("8_rfqwd")]
+collision_layer = 16
+collision_mask = 2
+damage = 34
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_qjs17")
+disabled = true
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("9_v5wrf")]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_duqe5")
+
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]

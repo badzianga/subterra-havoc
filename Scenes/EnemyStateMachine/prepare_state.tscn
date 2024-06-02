@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dotyn4mp6jdd3"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/prepare_state.gd" id="1_s84i2"]
+
+[node name="PrepareState" type="Node"]
+script = ExtResource("1_s84i2")
+
+[node name="PrepareTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PrepareTimer" to="." method="_on_prepare_timer_timeout"]

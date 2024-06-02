@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://xxblkft74jip"]
+
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
+[ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_t8wox"]
+[ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_5p6vv"]
+[ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="4_oiunc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1lnf"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ni52"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_cpb11")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_t8wox")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_x1lnf")
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(1.75, 1.75)
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("3_5p6vv")
+max_health = 100
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("4_oiunc")]
+collision_layer = 2
+collision_mask = 16
+_health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_7ni52")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0, 1, 0, 1)
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = -24.0
+value = 100.0
+show_percentage = false
+
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

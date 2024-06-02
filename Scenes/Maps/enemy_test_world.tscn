@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsyfptrrm3rhj"]
+
+[ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_odaif"]
+[ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="2_ruyi1"]
+[ext_resource type="PackedScene" uid="uid://bpydjicf6po2r" path="res://Scenes/Enemies/charger.tscn" id="3_abomd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itr6l"]
+size = Vector2(1357, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4s2u"]
+size = Vector2(74, 770)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2bbs"]
+size = Vector2(1298, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1t04"]
+size = Vector2(72, 818)
+
+[node name="EnemyTestWorld" type="Node2D"]
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Left" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(32, 360.5)
+scale = Vector2(0.5, 5.63281)
+texture = ExtResource("1_odaif")
+
+[node name="Right" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1240, 329.5)
+scale = Vector2(0.625, 6.14844)
+texture = ExtResource("1_odaif")
+
+[node name="Top" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(646, 15.75)
+scale = Vector2(10.7891, 0.878906)
+texture = ExtResource("1_odaif")
+
+[node name="Bottom" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(667, 728.25)
+scale = Vector2(11.2891, 1.00391)
+texture = ExtResource("1_odaif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2(668.5, 31)
+shape = SubResource("RectangleShape2D_itr6l")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders"]
+position = Vector2(27, 375)
+shape = SubResource("RectangleShape2D_n4s2u")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Borders"]
+position = Vector2(631, 720)
+shape = SubResource("RectangleShape2D_d2bbs")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Borders"]
+position = Vector2(1236, 391)
+shape = SubResource("RectangleShape2D_q1t04")
+
+[node name="Player" parent="." instance=ExtResource("2_ruyi1")]
+position = Vector2(168, 616)
+
+[node name="Charger" parent="." instance=ExtResource("3_abomd")]
+position = Vector2(560, 592)

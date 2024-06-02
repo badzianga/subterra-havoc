@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdy80jl7s457c"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/wander_state.gd" id="1_j8uti"]
+
+[node name="WanderState" type="Node"]
+script = ExtResource("1_j8uti")
+
+[node name="WanderTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WanderTimer" to="." method="_on_wander_timer_timeout"]

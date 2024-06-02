@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkngw8lejpmrs"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/cooldown_state.gd" id="1_d4gr4"]
+
+[node name="CooldownState" type="Node"]
+script = ExtResource("1_d4gr4")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

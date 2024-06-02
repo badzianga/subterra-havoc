@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3htwosdpinol"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/idle_state.gd" id="1_ww3eh"]
+
+[node name="IdleState" type="Node"]
+script = ExtResource("1_ww3eh")
+
+[node name="IdleTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
