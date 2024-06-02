@@ -7,6 +7,7 @@ signal player_seen
 @export var _actor: Enemy
 @export var _animator: AnimationPlayer
 @export var _vision_cast: RayCast2D
+@export var _sprite: Sprite2D
 @export var _state_label: Label
 @export var _wander_time_min: float
 @export var _wander_time_max: float
@@ -30,6 +31,9 @@ func _physics_process(delta: float) -> void:
 	if _actor.is_on_wall():
 		_direction *= -1.0
 		_actor.velocity.x = _direction * _speed
+		# TODO: with flip, change sprite position because Max cannot draw centered images
+		_sprite.flip_h = (_direction > 0.0)
+		_sprite.position.x = 8.0 - 16.0 * float(_direction > 0.0)
 	_actor.move_and_slide()
 	
 	if not _vision_cast.is_colliding() and _actor.player_in_detection_area:
@@ -49,6 +53,9 @@ func enter_state() -> void:
 	else:
 		_direction = -1.0
 	_actor.velocity.x = _direction * _speed
+	# TODO: with flip, change sprite position because Max cannot draw centered images
+	_sprite.flip_h = (_direction > 0.0)
+	_sprite.position.x = 8.0 - 16.0 * float(_direction > 0.0)
 
 
 func exit_state() -> void:
