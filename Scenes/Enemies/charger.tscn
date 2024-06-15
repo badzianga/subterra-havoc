@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpydjicf6po2r"]
+[gd_scene load_steps=22 format=3 uid="uid://bpydjicf6po2r"]
 
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="1_x20l2"]
 [ext_resource type="Script" path="res://Scenes/Enemies/charger.gd" id="1_x30gf"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="8_rfqwd"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="9_v5wrf"]
 [ext_resource type="Texture2D" uid="uid://bkx65tnouhdk1" path="res://Assets/Enemies/Dasher/dasher-Sheet.png" id="10_lyiii"]
+[ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="11_rd5b3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4r4ry"]
 size = Vector2(48, 64)
@@ -46,6 +47,23 @@ tracks/0/keys = {
 "values": [17, 18, 19, 20, 25, 26]
 }
 
+[sub_resource type="Animation" id="Animation_062fn"]
+resource_name = "idle"
+length = 0.45
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
 [sub_resource type="Animation" id="Animation_h2d5g"]
 resource_name = "prepare"
 length = 0.6
@@ -79,23 +97,6 @@ tracks/0/keys = {
 "values": [3, 4, 5, 6, 7, 8, 9, 10]
 }
 
-[sub_resource type="Animation" id="Animation_062fn"]
-resource_name = "idle"
-length = 0.45
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dryc3"]
 _data = {
 "RESET": SubResource("Animation_5wl0p"),
@@ -109,6 +110,9 @@ _data = {
 radius = 192.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjs17"]
+size = Vector2(48, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_874sw"]
 size = Vector2(48, 64)
 
 [node name="Charger" type="CharacterBody2D"]
@@ -185,7 +189,7 @@ collision_mask = 2
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+[node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_570vc")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("8_rfqwd")]
@@ -197,9 +201,16 @@ damage = 34
 shape = SubResource("RectangleShape2D_qjs17")
 disabled = true
 
-[node name="HurtboxComponent" parent="." instance=ExtResource("9_v5wrf")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("9_v5wrf")]
 collision_layer = 8
 collision_mask = 4
+_health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_874sw")
+
+[node name="HealthComponent" parent="." instance=ExtResource("11_rd5b3")]
+max_health = 100
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]

@@ -15,7 +15,7 @@ signal player_seen
 @onready var _wander_timer := $WanderTimer
 
 var _gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-var _speed := 200.0
+var _speed := 150.0
 var _direction: float
 
 

@@ -12,7 +12,7 @@ signal charging_finished
 @onready var _charge_timer := $ChargeTimer
 
 var _gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-var _speed := 800.0
+var _speed := 600.0
 var _direction: float
 
 
