@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://tia3bkq5wvwy"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/item.gd" id="1_tchrk"]
+[ext_resource type="Texture2D" uid="uid://c1qc4gq6wx4au" path="res://Assets/Items/Iron Sword.png" id="2_548ll"]
+
+[node name="Item" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_tchrk")
+
+[node name="Texture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("2_548ll")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://0pies4fs1a3r"]
+
+[ext_resource type="Texture2D" uid="uid://dshu2tlhrxfvx" path="res://Assets/Inventory/item_slot_default_background.png" id="1_2h3c1"]
+[ext_resource type="Script" path="res://Scenes/Inventory/slot.gd" id="2_fni07"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iutjt"]
+texture = ExtResource("1_2h3c1")
+
+[node name="Slot" type="Panel"]
+custom_minimum_size = Vector2(18, 18)
+theme_override_styles/panel = SubResource("StyleBoxTexture_iutjt")
+script = ExtResource("2_fni07")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -1,0 +1,101 @@
+[gd_scene load_steps=4 format=3 uid="uid://dirx0mbpqrvbo"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/inventory.gd" id="1_77ojv"]
+[ext_resource type="Texture2D" uid="uid://d0colsusx61n5" path="res://Assets/Inventory/default_inventory_background.png" id="1_m4uwu"]
+[ext_resource type="PackedScene" uid="uid://0pies4fs1a3r" path="res://Scenes/Inventory/slot.tscn" id="2_7dnsd"]
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_77ojv")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_m4uwu")
+
+[node name="Slots" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1185.0
+offset_top = -698.0
+offset_right = -1079.0
+offset_bottom = -614.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 5
+
+[node name="Slot" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot2" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot3" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot4" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot5" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot6" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot7" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot8" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot9" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot10" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot11" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot12" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot13" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot14" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot15" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot16" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot17" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot18" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot19" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Slot20" parent="Slots" instance=ExtResource("2_7dnsd")]
+layout_mode = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(126, 51)
+zoom = Vector2(4, 4)
