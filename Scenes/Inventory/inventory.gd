@@ -3,7 +3,7 @@ extends Control
 
 const SlotScene := preload("res://Scenes/Inventory/slot.tscn")
 
-@onready var inventory_slots := $Slots
+@onready var inventory_slots := $Background/Slots
 
 var holding_item: Item
 
@@ -23,16 +23,33 @@ func _on_slot_input_recieved(event: InputEvent, slot: Slot) -> void:
 		return
 	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
 		return
+	# holding an item
 	if holding_item != null:
+		# empty slot
 		if not slot.item:
 			slot.put_into_slot(holding_item)
 			holding_item = null
+		# slot already contains an item
 		else:
-			var temp_item := slot.item
-			slot.pick_from_slot()
-			temp_item.global_position = event.global_position
-			slot.put_into_slot(holding_item)
-			holding_item = temp_item
+			# different item, so swap
+			if holding_item.item_name != slot.item.item_name:
+				var temp_item := slot.item
+				slot.pick_from_slot()
+				temp_item.global_position = event.global_position
+				slot.put_into_slot(holding_item)
+				holding_item = temp_item
+			# same item, so try to merge
+			else:
+				var _stack_size := int(ItemData.item_data[slot.item.item_name]["StackSize"])
+				var _able_to_add := _stack_size - slot.item.item_quantity
+				if _able_to_add >= holding_item.item_quantity:
+					slot.item.increase_item_quantity(holding_item.item_quantity)
+					holding_item.queue_free()
+					holding_item = null
+				else:
+					slot.item.increase_item_quantity(_able_to_add)
+					holding_item.decrease_item_quantity(_able_to_add)
+	# not holding an item
 	elif slot.item:
 		holding_item = slot.item
 		slot.pick_from_slot()

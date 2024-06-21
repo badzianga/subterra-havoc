@@ -15,87 +15,78 @@ script = ExtResource("1_77ojv")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 160.0
+offset_top = 136.0
+offset_right = 988.0
+offset_bottom = 584.0
 texture = ExtResource("1_m4uwu")
 
-[node name="Slots" type="GridContainer" parent="."]
+[node name="Slots" type="GridContainer" parent="Background"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1185.0
-offset_top = -698.0
-offset_right = -1079.0
-offset_bottom = -614.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
+offset_left = 376.0
+offset_top = 88.0
+offset_right = 800.0
+offset_bottom = 424.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
 columns = 5
 
-[node name="Slot" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot2" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot2" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot3" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot3" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot4" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot4" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot5" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot5" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot6" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot6" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot7" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot7" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot8" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot8" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot9" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot9" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot10" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot10" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot11" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot11" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot12" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot12" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot13" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot13" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot14" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot14" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot15" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot15" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot16" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot16" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot17" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot17" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot18" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot18" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot19" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot19" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
 
-[node name="Slot20" parent="Slots" instance=ExtResource("2_7dnsd")]
+[node name="Slot20" parent="Background/Slots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(126, 51)
-zoom = Vector2(4, 4)

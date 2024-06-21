@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Subterra Havoc"
-run/main_scene="res://Scenes/Inventory/inventory.tscn"
+run/main_scene="res://Scenes/Maps/enemy_test_world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalVariables="*res://Singletons/global_variables.gd"
+ItemData="*res://Singletons/item_data.gd"
 
 [display]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://tia3bkq5wvwy"]
+[gd_scene load_steps=4 format=3 uid="uid://tia3bkq5wvwy"]
 
 [ext_resource type="Script" path="res://Scenes/Inventory/item.gd" id="1_tchrk"]
 [ext_resource type="Texture2D" uid="uid://c1qc4gq6wx4au" path="res://Assets/Items/Iron Sword.png" id="2_548ll"]
+[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="3_f077o"]
 
 [node name="Item" type="Control"]
 layout_mode = 3
@@ -10,9 +11,21 @@ mouse_filter = 2
 script = ExtResource("1_tchrk")
 
 [node name="Texture" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
 texture = ExtResource("2_548ll")
+
+[node name="Quantity" type="Label" parent="."]
+custom_minimum_size = Vector2(10, 12)
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("3_f077o")
+theme_override_font_sizes/font_size = 32
+text = "99"
+horizontal_alignment = 2

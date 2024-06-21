@@ -7,7 +7,7 @@
 texture = ExtResource("1_2h3c1")
 
 [node name="Slot" type="Panel"]
-custom_minimum_size = Vector2(18, 18)
+custom_minimum_size = Vector2(72, 72)
 theme_override_styles/panel = SubResource("StyleBoxTexture_iutjt")
 script = ExtResource("2_fni07")
 
