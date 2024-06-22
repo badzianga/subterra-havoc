@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=14 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://nweu6mwsu1jl" path="res://Assets/Player/player.png" id="2_4d1c8"]
 [ext_resource type="Script" path="res://Scenes/Components/health_component.gd" id="3_5p6vv"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="4_oiunc"]
+[ext_resource type="PackedScene" uid="uid://dirx0mbpqrvbo" path="res://Scenes/Inventory/inventory.tscn" id="5_6fdha"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o14or"]
 
@@ -143,6 +144,11 @@ show_percentage = false
 libraries = {
 "": SubResource("AnimationLibrary_l5ops")
 }
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="Inventory" parent="UserInterface" instance=ExtResource("5_6fdha")]
+visible = false
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

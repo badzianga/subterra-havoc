@@ -11,6 +11,7 @@ var _direction := 0.0
 @onready var health_bar := $HealthBar
 @onready var sprite := $Sprite
 @onready var animation_player := $AnimationPlayer
+@onready var inventory := $UserInterface/Inventory as Inventory
 
 
 func _ready() -> void:
@@ -19,8 +20,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_handle_movement(delta)
-	_handle_animations()
+	if not inventory.visible:
+		_handle_movement(delta)
+		_handle_animations()
+	
+	if Input.is_action_just_pressed("inventory"):
+		inventory.visible = not inventory.visible
 
 
 func _handle_movement(delta: float) -> void:
