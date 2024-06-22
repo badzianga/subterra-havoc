@@ -7,6 +7,7 @@ signal preparing_finished
 @export var _actor: CharacterBody2D
 @export var _animator: AnimationPlayer
 @export var _vision_cast: RayCast2D
+@export var _sprite: Sprite2D
 @export var _state_label: Label
 @export var _prepare_time: float
 
@@ -25,6 +26,8 @@ func _physics_process(delta: float) -> void:
 	if not _actor.is_on_floor():
 		_actor.velocity.y += _gravity * delta
 	_actor.move_and_slide()
+	
+	_sprite.flip_h = _actor.global_position.x < GlobalVariables.player.global_position.x
 	
 	if _vision_cast.is_colliding() or not _actor.player_in_detection_area:
 		_prepare_timer.stop()

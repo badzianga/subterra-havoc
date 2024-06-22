@@ -155,10 +155,11 @@ _state_label = NodePath("../../StateLabel")
 _wander_time_min = 3.0
 _wander_time_max = 5.0
 
-[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("5_xl4rn")]
+[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_sprite", "_state_label") instance=ExtResource("5_xl4rn")]
 _actor = NodePath("../..")
 _animator = NodePath("../../AnimationPlayer")
 _vision_cast = NodePath("../../VisionCast")
+_sprite = NodePath("../../Sprite")
 _state_label = NodePath("../../StateLabel")
 _prepare_time = 1.5
 
