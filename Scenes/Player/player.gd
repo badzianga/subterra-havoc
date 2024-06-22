@@ -1,14 +1,16 @@
 class_name Player
 extends CharacterBody2D
 
-
 const SPEED := 300.0
 const JUMP_VELOCITY := -400.0
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+var _direction := 0.0
 
 @onready var health_component := $HealthComponent as HealthComponent
 @onready var health_bar := $HealthBar
+@onready var sprite := $Sprite
+@onready var animation_player := $AnimationPlayer
 
 
 func _ready() -> void:
@@ -17,19 +19,44 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_handle_movement(delta)
+	_handle_animations()
+
+
+func _handle_movement(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	var direction := Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * SPEED
+	_direction = Input.get_axis("left", "right")
+	if _direction:
+		velocity.x = _direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
 	move_and_slide()
+
+
+func _handle_animations() -> void:
+	 # flips sprite according to walking direction
+	if _direction > 0:
+		sprite.flip_h = true
+	elif _direction < 0:
+		sprite.flip_h = false
+	
+	# animation for falling and jumping
+	if not is_on_floor():
+		if velocity.y > 0.0:
+			animation_player.play("fall")
+		else:
+			animation_player.play("jump")
+	# move and idle animations
+	elif _direction:
+		animation_player.play("run")
+	else:
+		animation_player.play("idle")
 
 
 func _on_health_component_health_changed() -> void:
