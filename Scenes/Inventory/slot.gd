@@ -19,18 +19,7 @@ func _ready() -> void:
 	default_style.texture = DefaultTexture
 	empty_style.texture = EmptyTexture
 	
-	if randi() % 2 == 0:
-		item = ItemClass.instantiate()
-		item.position += Vector2.ONE
-		add_child(item)
 	_refresh_style()
-
-
-func _refresh_style() -> void:
-	if item:
-		set("theme_override_styles/panel", default_style)
-	else:
-		set("theme_override_styles/panel", empty_style)
 
 
 func pick_from_slot() -> void:
@@ -48,6 +37,21 @@ func put_into_slot(new_item: Item) -> void:
 	inventory_node.remove_child(item)
 	add_child(item)
 	_refresh_style()
+
+
+func initialize_item(item_name: String, item_quantity: int) -> void:
+	if item == null:
+		item = ItemClass.instantiate()
+		add_child(item)
+	item.set_item(item_name, item_quantity)
+	_refresh_style()
+
+
+func _refresh_style() -> void:
+	if item:
+		set("theme_override_styles/panel", default_style)
+	else:
+		set("theme_override_styles/panel", empty_style)
 
 
 func _on_gui_input(event: InputEvent) -> void:

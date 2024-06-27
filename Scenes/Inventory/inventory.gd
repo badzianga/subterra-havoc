@@ -11,11 +11,19 @@ var holding_item: Item
 func _ready() -> void:
 	for slot: Panel in inventory_slots.get_children():
 		slot.input_recieved.connect(_on_slot_input_recieved)
+	initialize_inventory()
 
 
 func _input(_event: InputEvent) -> void:
 	if holding_item:
 		holding_item.global_position = get_global_mouse_position()
+
+
+func initialize_inventory() -> void:
+	var slots := inventory_slots.get_children()
+	for i: int in range(slots.size()):
+		if PlayerInventory.inventory.has(i):
+			slots[i].initialize_item(PlayerInventory.inventory[i][0], PlayerInventory.inventory[i][1])
 
 
 func _on_slot_input_recieved(event: InputEvent, slot: Slot) -> void:

@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://drry80pfgpn06"]
+
+[ext_resource type="Script" path="res://Scenes/Inventory/item_drop.gd" id="1_jxqgq"]
+[ext_resource type="Texture2D" uid="uid://b3y7ijxvwxwoq" path="res://Assets/Items/Slime Potion.png" id="1_w81ux"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjg3o"]
+size = Vector2(7, 11)
+
+[sub_resource type="Animation" id="Animation_pwygo"]
+resource_name = "float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_856ix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a7vi0"]
+_data = {
+"RESET": SubResource("Animation_856ix"),
+"float": SubResource("Animation_pwygo")
+}
+
+[node name="ItemDrop" type="CharacterBody2D"]
+collision_layer = 32
+script = ExtResource("1_jxqgq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_w81ux")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_xjg3o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a7vi0")
+}
+autoplay = "float"

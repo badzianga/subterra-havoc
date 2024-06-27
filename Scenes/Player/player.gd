@@ -8,10 +8,11 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _direction := 0.0
 
 @onready var health_component := $HealthComponent as HealthComponent
-@onready var health_bar := $HealthBar
+@onready var health_bar := $HealthBar  # TODO: move HealthBar to UserInterface
 @onready var sprite := $Sprite
 @onready var animation_player := $AnimationPlayer
 @onready var inventory := $UserInterface/Inventory as Inventory
+@onready var looting_component := $LootingComponent as LootingComponent
 
 
 func _ready() -> void:
@@ -25,7 +26,13 @@ func _physics_process(delta: float) -> void:
 		_handle_animations()
 	
 	if Input.is_action_just_pressed("inventory"):
+		inventory.initialize_inventory()
 		inventory.visible = not inventory.visible
+	
+	if Input.is_action_just_pressed("pickup"):
+		if looting_component.items_in_range.size() > 0:
+			var pickup_item: ItemDrop = looting_component.items_in_range.pop_back()
+			pickup_item.pick_up_item(self)
 
 
 func _handle_movement(delta: float) -> void:

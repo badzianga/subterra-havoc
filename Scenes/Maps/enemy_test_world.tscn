@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsyfptrrm3rhj"]
+[gd_scene load_steps=9 format=3 uid="uid://dsyfptrrm3rhj"]
 
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_odaif"]
 [ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="2_ruyi1"]
 [ext_resource type="PackedScene" uid="uid://bpydjicf6po2r" path="res://Scenes/Enemies/charger.tscn" id="3_abomd"]
+[ext_resource type="PackedScene" uid="uid://drry80pfgpn06" path="res://Scenes/Inventory/item_drop.tscn" id="4_x1x2g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itr6l"]
 size = Vector2(1357, 82)
@@ -66,3 +67,15 @@ position = Vector2(168, 616)
 
 [node name="Charger" parent="." instance=ExtResource("3_abomd")]
 position = Vector2(560, 592)
+
+[node name="ItemDrop" parent="." instance=ExtResource("4_x1x2g")]
+position = Vector2(336, 452)
+
+[node name="ItemDrop2" parent="." instance=ExtResource("4_x1x2g")]
+position = Vector2(409, 402)
+
+[node name="ItemDrop3" parent="." instance=ExtResource("4_x1x2g")]
+position = Vector2(276, 415)
+
+[node name="ItemDrop4" parent="." instance=ExtResource("4_x1x2g")]
+position = Vector2(226, 449)
