@@ -10,6 +10,7 @@ signal input_recieved(event: InputEvent, slot: Slot)
 var default_style: StyleBoxTexture
 var empty_style: StyleBoxTexture
 var item: Item
+var index: int
 
 
 func _ready() -> void:
