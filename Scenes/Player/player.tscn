@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=17 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://nweu6mwsu1jl" path="res://Assets/Player/player.png" id="2_4d1c8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="4_oiunc"]
 [ext_resource type="PackedScene" uid="uid://dirx0mbpqrvbo" path="res://Scenes/Inventory/inventory.tscn" id="5_6fdha"]
 [ext_resource type="PackedScene" uid="uid://bumii8318rtk3" path="res://Scenes/Components/looting_component.tscn" id="5_rh2dp"]
+[ext_resource type="PackedScene" uid="uid://cmgxtvhirbe2j" path="res://Scenes/Inventory/hotbar.tscn" id="7_1d22k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o14or"]
 
@@ -158,6 +159,12 @@ libraries = {
 
 [node name="Inventory" parent="UserInterface" instance=ExtResource("5_6fdha")]
 visible = false
+
+[node name="Hotbar" parent="UserInterface" instance=ExtResource("7_1d22k")]
+offset_left = 438.0
+offset_top = 624.0
+offset_right = 478.0
+offset_bottom = 664.0
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]
