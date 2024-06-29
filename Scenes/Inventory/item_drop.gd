@@ -1,8 +1,8 @@
 class_name ItemDrop
 extends CharacterBody2D
 
-const ACCELERATION := 460.0
-const MAX_SPEED := 225.0
+const ACCELERATION := 920.0
+const MAX_SPEED := 450.0
 
 var item_name: String
 var _player: Player
