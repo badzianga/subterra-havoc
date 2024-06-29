@@ -1,16 +1,20 @@
 extends Control
 
 @onready var slots := $Background/Slots.get_children()
+@onready var active_item_label := $Background/ActiveItemLabel
 
 
 func _ready() -> void:
+	PlayerInventory.active_item_updated.connect(_on_active_item_updated)
 	for i: int in range(slots.size()):
-		slots[i].connect_active_item_signal()  # TODO: maybe it can be called in _ready in slot.gd?
+		# TODO: maybe it can be called in _ready in slot.gd?
+		PlayerInventory.active_item_updated.connect(slots[i]._refresh_style)
 		slots[i].index = i
 		slots[i].slot_type = Slot.SlotType.HOTBAR
 		slots[i].input_recieved.connect(_on_slot_input_recieved)
 		slots[i]._refresh_style()
 	_initialize_inventory()
+	_update_active_item_label()
 
 
 func _initialize_inventory() -> void:
@@ -62,6 +66,14 @@ func _left_click_no_holding(slot: Slot) -> void:
 	PlayerInventory.holding_item.global_position = get_global_mouse_position()
 
 
+func _update_active_item_label() -> void:
+	var active_item: Item = slots[PlayerInventory.active_item_slot].item
+	if active_item != null:
+		active_item_label.text = active_item.item_name
+	else:
+		active_item_label.text = ""
+
+
 func _on_slot_input_recieved(event: InputEvent, slot: Slot) -> void:
 	if not event is InputEventMouseButton:
 		return
@@ -83,3 +95,8 @@ func _on_slot_input_recieved(event: InputEvent, slot: Slot) -> void:
 	# not holding an item
 	elif slot.item:
 		_left_click_no_holding(slot)
+	_update_active_item_label()
+
+
+func _on_active_item_updated() -> void:
+	_update_active_item_label()

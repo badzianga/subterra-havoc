@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmgxtvhirbe2j"]
+[gd_scene load_steps=5 format=3 uid="uid://cmgxtvhirbe2j"]
 
 [ext_resource type="Script" path="res://Scenes/Inventory/hotbar.gd" id="1_kp24m"]
 [ext_resource type="Texture2D" uid="uid://mi2gonesu4o5" path="res://Assets/Inventory/hotbar_background.png" id="2_6ub7v"]
 [ext_resource type="PackedScene" uid="uid://0pies4fs1a3r" path="res://Scenes/Inventory/slot.tscn" id="3_246jv"]
+[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="4_urthj"]
 
 [node name="Hotbar" type="Control"]
 layout_mode = 3
@@ -41,3 +42,15 @@ layout_mode = 2
 
 [node name="HotbarSlot5" parent="Background/Slots" instance=ExtResource("3_246jv")]
 layout_mode = 2
+
+[node name="ActiveItemLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -40.0
+offset_right = 190.0
+offset_bottom = -2.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_urthj")
+theme_override_font_sizes/font_size = 48
+text = "Sample text"

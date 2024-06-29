@@ -62,10 +62,6 @@ func initialize_item(item_name: String, item_quantity: int) -> void:
 	_refresh_style()
 
 
-func connect_active_item_signal() -> void:
-	PlayerInventory.active_item_updated.connect(_refresh_style)
-
-
 func _refresh_style() -> void:
 	if slot_type == SlotType.HOTBAR and index == PlayerInventory.active_item_slot:
 		set("theme_override_styles/panel", selected_style)
