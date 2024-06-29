@@ -9,8 +9,11 @@ const ItemClass := preload("res://Scenes/Inventory/item.tscn")
 signal input_recieved(event: InputEvent, slot: Slot)
 
 enum SlotType {
-	HOTBAR,
+	HOTBAR = 0,
 	INVENTORY,
+	SHIRT,
+	PANTS,
+	SHOES,
 }
 
 var default_style: StyleBoxTexture
@@ -47,7 +50,7 @@ func pick_from_slot() -> void:
 
 func put_into_slot(new_item: Item) -> void:
 	item = new_item
-	item.position = Vector2.ONE
+	item.position = Vector2(4.0, 4.0)
 	var user_interface: CanvasLayer = find_parent("UserInterface")
 	user_interface.remove_child(item)
 	add_child(item)
@@ -57,6 +60,7 @@ func put_into_slot(new_item: Item) -> void:
 func initialize_item(item_name: String, item_quantity: int) -> void:
 	if item == null:
 		item = ItemClass.instantiate()
+		item.position = Vector2(4.0, 4.0)
 		add_child(item)
 	item.set_item(item_name, item_quantity)
 	_refresh_style()

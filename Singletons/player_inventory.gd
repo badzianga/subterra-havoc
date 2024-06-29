@@ -7,12 +7,18 @@ const NUM_INVENTORY_SLOTS := 20
 const NUM_HOTBAR_SLOTS := 5
 
 var inventory := {
-	0: ["Iron Sword", 1]  # slot_index: [item_name, item_quantity]
+	0: ["Iron Sword", 1],  # slot_index: [item_name, item_quantity]
 }
 
 var hotbar := {
 	0: ["Iron Sword", 1],
-	1: ["Tree Branch", 69]
+	1: ["Tree Branch", 69],
+}
+
+var equips := {
+	0: ["Brown Shirt", 1],
+	1: ["Blue Jeans", 1],
+	2: ["Brown Boots", 1],
 }
 
 var active_item_slot := 0
@@ -22,7 +28,9 @@ var holding_item: Item
 
 
 func add_item(item_name: String, item_quantity: int) -> void:
-	for i: int in inventory.size():
+	# HACK: before there was a loop in range of inventory size. Changed it to dictionary keys
+	#for i: int in inventory.size():
+	for i: int in inventory:
 		if inventory[i][0] == item_name:
 			var _stack_size := int(ItemData.item_data[item_name]["StackSize"])
 			var _able_to_add: int = _stack_size - inventory[i][1]
@@ -46,25 +54,34 @@ func add_item(item_name: String, item_quantity: int) -> void:
 
 # TODO: is item argument necessary? slot.item should be the same
 # (only when this function is called after put_into_slot in inventory.gd) 
-func add_item_to_empty_slot(item: Item, slot: Slot, is_hotbar: bool = false) -> void:
-	if is_hotbar:
-		hotbar[slot.index] = [item.item_name, item.item_quantity]
-	else:
-		inventory[slot.index] = [item.item_name, item.item_quantity]
+func add_item_to_empty_slot(item: Item, slot: Slot) -> void:
+	match slot.slot_type:
+		Slot.SlotType.HOTBAR:
+			hotbar[slot.index] = [item.item_name, item.item_quantity]
+		Slot.SlotType.INVENTORY:
+			inventory[slot.index] = [item.item_name, item.item_quantity]
+		_:
+			equips[slot.index] = [item.item_name, item.item_quantity]
 
 
-func remove_item(slot: Slot, is_hotbar: bool = false) -> void:
-	if is_hotbar:
-		hotbar.erase(slot.index)
-	else:
-		inventory.erase(slot.index)
+func remove_item(slot: Slot) -> void:
+	match slot.slot_type:
+		Slot.SlotType.HOTBAR:
+			hotbar.erase(slot.index)
+		Slot.SlotType.INVENTORY:
+			inventory.erase(slot.index)
+		_:
+			equips.erase(slot.index)
 
 
-func add_item_quantity(slot: Slot, quantity: int, is_hotbar: bool = false) -> void:
-	if is_hotbar:
-		hotbar[slot.index][1] += quantity
-	else:
-		inventory[slot.index][1] += quantity
+func add_item_quantity(slot: Slot, quantity: int) -> void:
+	match slot.slot_type:
+		Slot.SlotType.HOTBAR:
+			hotbar[slot.index][1] += quantity
+		Slot.SlotType.INVENTORY:
+			inventory[slot.index][1] += quantity
+		_:
+			equips[slot.index][1] += quantity
 
 
 func active_item_scroll_up() -> void:

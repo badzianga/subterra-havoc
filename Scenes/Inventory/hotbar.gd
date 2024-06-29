@@ -30,14 +30,14 @@ func _initialize_inventory() -> void:
 # somewhere else, so both scripts will use them
 func _left_click_empty_slot(slot: Slot) -> void:
 	# TODO: why holding_item? I think this function should be called AFTER put_into_slot
-	PlayerInventory.add_item_to_empty_slot(PlayerInventory.holding_item, slot, true)
+	PlayerInventory.add_item_to_empty_slot(PlayerInventory.holding_item, slot)
 	slot.put_into_slot(PlayerInventory.holding_item)
 	PlayerInventory.holding_item = null
 
 
 func _left_click_different_item(event: InputEvent, slot: Slot) -> void:
-	PlayerInventory.remove_item(slot, true)
-	PlayerInventory.add_item_to_empty_slot(PlayerInventory.holding_item, slot, true)
+	PlayerInventory.remove_item(slot)
+	PlayerInventory.add_item_to_empty_slot(PlayerInventory.holding_item, slot)
 	var temp_item := slot.item
 	slot.pick_from_slot()
 	temp_item.global_position = event.global_position
@@ -49,12 +49,12 @@ func _left_click_same_item(slot: Slot) -> void:
 	var _stack_size := int(ItemData.item_data[slot.item.item_name]["StackSize"])
 	var _able_to_add := _stack_size - slot.item.item_quantity
 	if _able_to_add >= PlayerInventory.holding_item.item_quantity:
-		PlayerInventory.add_item_quantity(slot, PlayerInventory.holding_item.item_quantity, true)
+		PlayerInventory.add_item_quantity(slot, PlayerInventory.holding_item.item_quantity)
 		slot.item.increase_item_quantity(PlayerInventory.holding_item.item_quantity)
 		PlayerInventory.holding_item.queue_free()
 		PlayerInventory.holding_item = null
 	else:
-		PlayerInventory.add_item_quantity(slot, _able_to_add, true)
+		PlayerInventory.add_item_quantity(slot, _able_to_add)
 		slot.item.increase_item_quantity(_able_to_add)
 		PlayerInventory.holding_item.decrease_item_quantity(_able_to_add)
 
