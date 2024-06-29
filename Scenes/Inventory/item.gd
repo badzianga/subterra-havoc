@@ -5,16 +5,6 @@ var item_name: StringName
 var item_quantity: int
 
 
-#func _ready() -> void:
-	#var _rand_val = randi() % 3
-	#if _rand_val == 0:
-		#item_name = &"Iron Sword"
-	#elif _rand_val == 1:
-		#item_name = &"Tree Branch"
-	#else:
-		#item_name = &"Slime Potion"
-
-
 func increase_item_quantity(amount_to_add: int) -> void:
 	item_quantity += amount_to_add
 	$Quantity.text = str(item_quantity)
