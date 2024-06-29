@@ -29,6 +29,11 @@ func _physics_process(delta: float) -> void:
 		inventory.initialize_inventory()
 		inventory.visible = not inventory.visible
 	
+	if Input.is_action_pressed("scroll_up"):
+		PlayerInventory.active_item_scroll_up()
+	if Input.is_action_pressed("scroll_down"):
+		PlayerInventory.active_item_scroll_down()
+	
 	if Input.is_action_just_pressed("pickup"):
 		if looting_component.items_in_range.size() > 0:
 			var pickup_item: ItemDrop = looting_component.items_in_range.pop_back()

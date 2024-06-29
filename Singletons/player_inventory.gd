@@ -1,7 +1,10 @@
 extends Node
 
+signal active_item_updated
+
 # TODO: load this number from Inventory scene OR create these amount of slots in Inventory scene 
 const NUM_INVENTORY_SLOTS := 20
+const NUM_HOTBAR_SLOTS := 5
 
 var inventory := {
 	0: ["Iron Sword", 1]  # slot_index: [item_name, item_quantity]
@@ -12,6 +15,10 @@ var hotbar := {
 	1: ["Tree Branch", 69]
 }
 
+var active_item_slot := 0
+
+# moved from inventory.gd, so it can be accessed from both inventory and hotbar
+var holding_item: Item
 
 
 func add_item(item_name: String, item_quantity: int) -> void:
@@ -39,16 +46,35 @@ func add_item(item_name: String, item_quantity: int) -> void:
 
 # TODO: is item argument necessary? slot.item should be the same
 # (only when this function is called after put_into_slot in inventory.gd) 
-func add_item_to_empty_slot(item: Item, slot: Slot) -> void:
-	inventory[slot.index] = [item.item_name, item.item_quantity]
+func add_item_to_empty_slot(item: Item, slot: Slot, is_hotbar: bool = false) -> void:
+	if is_hotbar:
+		hotbar[slot.index] = [item.item_name, item.item_quantity]
+	else:
+		inventory[slot.index] = [item.item_name, item.item_quantity]
 
 
-func remove_item(slot: Slot) -> void:
-	inventory.erase(slot.index)
+func remove_item(slot: Slot, is_hotbar: bool = false) -> void:
+	if is_hotbar:
+		hotbar.erase(slot.index)
+	else:
+		inventory.erase(slot.index)
 
 
-func add_item_quantity(slot: Slot, quantity: int) -> void:
-	inventory[slot.index][1] += quantity
+func add_item_quantity(slot: Slot, quantity: int, is_hotbar: bool = false) -> void:
+	if is_hotbar:
+		hotbar[slot.index][1] += quantity
+	else:
+		inventory[slot.index][1] += quantity
+
+
+func active_item_scroll_up() -> void:
+	active_item_slot = posmod(active_item_slot - 1, NUM_HOTBAR_SLOTS)
+	active_item_updated.emit()
+
+
+func active_item_scroll_down() -> void:
+	active_item_slot = (active_item_slot + 1) % NUM_HOTBAR_SLOTS
+	active_item_updated.emit()
 
 
 func _update_slot_visual(slot_index: int, item_name: String, item_quantity: int) -> void:
