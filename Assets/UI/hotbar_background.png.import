@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doj3ewkhnw5h0"
-path="res://.godot/imported/ShoesOverlay.png-461337728825624a22e5a1678526500c.ctex"
+uid="uid://mi2gonesu4o5"
+path="res://.godot/imported/hotbar_background.png-053df090507bbde87a99a5e6a6174710.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inventory/ShoesOverlay.png"
-dest_files=["res://.godot/imported/ShoesOverlay.png-461337728825624a22e5a1678526500c.ctex"]
+source_file="res://Assets/UI/hotbar_background.png"
+dest_files=["res://.godot/imported/hotbar_background.png-053df090507bbde87a99a5e6a6174710.ctex"]
 
 [params]
 

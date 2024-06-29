@@ -1,9 +1,9 @@
 class_name Slot
 extends Panel
 
-const DefaultTexture := preload("res://Assets/Inventory/item_slot_default_background.png")
-const EmptyTexture := preload("res://Assets/Inventory/item_slot_empty_background.png")
-const SelectedTexture := preload("res://Assets/Inventory/item_slot_selected_background.png")
+const DefaultTexture := preload("res://Assets/UI/item_slot_default_background.png")
+const EmptyTexture := preload("res://Assets/UI/item_slot_empty_background.png")
+const SelectedTexture := preload("res://Assets/UI/item_slot_selected_background.png")
 const ItemClass := preload("res://Scenes/Inventory/item.tscn")
 
 signal input_recieved(event: InputEvent, slot: Slot)

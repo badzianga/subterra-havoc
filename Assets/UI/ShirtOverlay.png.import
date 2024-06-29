@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbgmoflldw1xx"
-path="res://.godot/imported/PantsOverlay.png-86e9f0259fbbd469db260568c4f6abb6.ctex"
+uid="uid://brvjvtyfw4dqw"
+path="res://.godot/imported/ShirtOverlay.png-fe69a232645455522a3e5e211a56f234.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inventory/PantsOverlay.png"
-dest_files=["res://.godot/imported/PantsOverlay.png-86e9f0259fbbd469db260568c4f6abb6.ctex"]
+source_file="res://Assets/UI/ShirtOverlay.png"
+dest_files=["res://.godot/imported/ShirtOverlay.png-fe69a232645455522a3e5e211a56f234.ctex"]
 
 [params]
 
