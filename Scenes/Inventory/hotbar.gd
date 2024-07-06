@@ -17,6 +17,23 @@ func _ready() -> void:
 	_update_active_item_label()
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("hotbar_slot_1"):
+		PlayerInventory.active_item_slot = 0
+		PlayerInventory.active_item_updated.emit()
+	elif event.is_action_pressed("hotbar_slot_2"):
+		PlayerInventory.active_item_slot = 1
+		PlayerInventory.active_item_updated.emit()
+	elif event.is_action_pressed("hotbar_slot_3"):
+		PlayerInventory.active_item_slot = 2
+		PlayerInventory.active_item_updated.emit()
+	elif event.is_action_pressed("hotbar_slot_4"):
+		PlayerInventory.active_item_slot = 3
+		PlayerInventory.active_item_updated.emit()
+	elif event.is_action_pressed("hotbar_slot_5"):
+		PlayerInventory.active_item_slot = 4
+		PlayerInventory.active_item_updated.emit()
+
 func _initialize_inventory() -> void:
 	for i: int in range(slots.size()):
 		# TODO: change hotbar to inventory later, and do some magic so the hotbar will be shortcut
