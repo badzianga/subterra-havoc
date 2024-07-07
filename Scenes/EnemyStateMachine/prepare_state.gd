@@ -1,19 +1,21 @@
+# Enemies' preparation state. When activated, waits for the timer's timeout to attack player.
+# This time window gives player time to kill enemy, run away or prepare for block.
+# State immediately emits signal when player leaves detection area.
+
 class_name PrepareState
 extends State
 
 signal player_lost
 signal preparing_finished
 
-@export var _actor: CharacterBody2D
+@export var _actor: Enemy
 @export var _animator: AnimationPlayer
-@export var _vision_cast: RayCast2D
-@export var _sprite: Sprite2D
+#@export var _sprite: Sprite2D
+#@export var _detection_area: Area2D
 @export var _state_label: Label
 @export var _prepare_time: float
 
 @onready var _prepare_timer := $PrepareTimer
-
-var _gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _ready() -> void:
@@ -23,13 +25,19 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _actor.is_on_floor():
-		_actor.velocity.y += _gravity * delta
+	_actor.apply_gravity(delta)
 	_actor.move_and_slide()
 	
-	_sprite.flip_h = _actor.global_position.x < GlobalVariables.player.global_position.x
+	# the commented logic below allows enemy to rotate to still see the player
 	
-	if _vision_cast.is_colliding() or not _actor.player_in_detection_area:
+	#_sprite.flip_h = (_actor.global_position.x < GlobalVariables.player.global_position.x)
+	## with flip, change sprite position because Max cannot draw centered images
+	## HACK: this little hack will probably cause problems with sprites with other sizes 
+	#_sprite.position.x = 8.0 - 16.0 * float(_actor.direction.x > 0.0)
+	## also flip player detection area
+	#_detection_area.rotation = float(_sprite.flip_h) * PI
+	
+	if not _actor.player_in_detection_area:
 		_prepare_timer.stop()
 		player_lost.emit()
 

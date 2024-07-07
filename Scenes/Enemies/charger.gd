@@ -7,15 +7,9 @@ extends Enemy
 @onready var charge_state := $EnemyStateMachine/ChargeState as ChargeState
 @onready var cooldown_state := $EnemyStateMachine/CooldownState as CooldownState
 
-@onready var vision_cast := $VisionCast
-
 
 func _ready() -> void:
 	_connect_states()
-
-
-func _physics_process(_delta: float) -> void:
-	vision_cast.look_at(GlobalVariables.player.global_position)
 
 
 func _connect_states() -> void:

@@ -106,8 +106,8 @@ _data = {
 "walk": SubResource("Animation_ov8cb")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_570vc"]
-radius = 192.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6y4jd"]
+size = Vector2(160, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjs17"]
 size = Vector2(48, 64)
@@ -138,28 +138,25 @@ shape = SubResource("RectangleShape2D_4r4ry")
 script = ExtResource("1_x20l2")
 _state = NodePath("IdleState")
 
-[node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("3_1spmh")]
+[node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_state_label") instance=ExtResource("3_1spmh")]
 _actor = NodePath("../..")
 _animator = NodePath("../../AnimationPlayer")
-_vision_cast = NodePath("../../VisionCast")
 _state_label = NodePath("../../StateLabel")
 _idle_time_min = 1.0
 _idle_time_max = 3.0
 
-[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_sprite", "_state_label") instance=ExtResource("4_t07wq")]
+[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_sprite", "_detection_area", "_state_label") instance=ExtResource("4_t07wq")]
 _actor = NodePath("../..")
 _animator = NodePath("../../AnimationPlayer")
-_vision_cast = NodePath("../../VisionCast")
 _sprite = NodePath("../../Sprite")
+_detection_area = NodePath("../../DetectionArea")
 _state_label = NodePath("../../StateLabel")
 _wander_time_min = 3.0
 _wander_time_max = 5.0
 
-[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_sprite", "_state_label") instance=ExtResource("5_xl4rn")]
+[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_state_label") instance=ExtResource("5_xl4rn")]
 _actor = NodePath("../..")
 _animator = NodePath("../../AnimationPlayer")
-_vision_cast = NodePath("../../VisionCast")
-_sprite = NodePath("../../Sprite")
 _state_label = NodePath("../../StateLabel")
 _prepare_time = 1.5
 
@@ -170,10 +167,9 @@ _hitbox_collision_shape = NodePath("../../HitboxComponent/CollisionShape")
 _state_label = NodePath("../../StateLabel")
 _charge_time = 0.6
 
-[node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_vision_cast", "_state_label") instance=ExtResource("7_edxgu")]
+[node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_state_label") instance=ExtResource("7_edxgu")]
 _actor = NodePath("../..")
 _animator = NodePath("../../AnimationPlayer")
-_vision_cast = NodePath("../../VisionCast")
 _state_label = NodePath("../../StateLabel")
 _cooldown_time = 0.5
 
@@ -182,16 +178,13 @@ libraries = {
 "": SubResource("AnimationLibrary_dryc3")
 }
 
-[node name="VisionCast" type="RayCast2D" parent="."]
-target_position = Vector2(192, 0)
-collision_mask = 2
-
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource("CircleShape2D_570vc")
+position = Vector2(-80, 0)
+shape = SubResource("RectangleShape2D_6y4jd")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("8_rfqwd")]
 collision_layer = 16

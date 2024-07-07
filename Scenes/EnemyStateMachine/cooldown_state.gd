@@ -1,18 +1,18 @@
+# Enemy's cooldown state. When activated, waits a litle bit after previous state.
+# Emits two types of signals - when cooldown is finished with or without player in detection area.
+
 class_name CooldownState
 extends State
 
-signal cooldown_finished
-signal player_seen
+signal cooldown_finished  # emitted after cooldown without player in detection area
+signal player_seen  # emitted when player is seen after cooldown
 
 @export var _actor: Enemy
 @export var _animator: AnimationPlayer
-@export var _vision_cast: RayCast2D
 @export var _state_label: Label
 @export var _cooldown_time: float
 
 @onready var _cooldown_timer := $CooldownTimer
-
-var _gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _ready() -> void:
@@ -22,8 +22,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _actor.is_on_floor():
-		_actor.velocity.y += _gravity * delta
+	_actor.apply_gravity(delta)
 	_actor.move_and_slide()
 
 
@@ -39,7 +38,7 @@ func exit_state() -> void:
 
 
 func _on_cooldown_timer_timeout() -> void:
-	if not _vision_cast.is_colliding() and _actor.player_in_detection_area:
+	if _actor.player_in_detection_area:
 		player_seen.emit()
 	else:
 		cooldown_finished.emit()

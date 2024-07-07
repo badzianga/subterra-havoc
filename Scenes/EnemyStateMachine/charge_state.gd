@@ -1,3 +1,6 @@
+# Typical attack state for chargers/dashers. Activates hitbox and moves faster.
+# Emits signal when charge time runs out or actor collides with wall.
+
 class_name ChargeState
 extends State
 
@@ -8,12 +11,9 @@ signal charging_finished
 @export var _hitbox_collision_shape: CollisionShape2D
 @export var _state_label: Label
 @export var _charge_time: float
+@export var _charging_speed := 600.0
 
 @onready var _charge_timer := $ChargeTimer
-
-var _gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-var _speed := 600.0
-var _direction: float
 
 
 func _ready() -> void:
@@ -23,8 +23,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _actor.is_on_floor():
-		_actor.velocity.y += _gravity * delta
+	_actor.apply_gravity(delta)
+	# stop charging when collision with wall occurs
 	if _actor.is_on_wall():
 		_charge_timer.stop()
 		charging_finished.emit()
@@ -37,13 +37,13 @@ func enter_state() -> void:
 	_state_label.text = "State: charge"
 	_charge_timer.start()
 	
-	_hitbox_collision_shape.set_deferred("disabled", false)
+	_hitbox_collision_shape.set_deferred("enabled", false)
 	
 	if GlobalVariables.player.global_position.x >= _actor.global_position.x:
-		_direction = 1.0
+		_actor.direction.x = 1.0
 	else:
-		_direction = -1.0
-	_actor.velocity.x = _direction * _speed
+		_actor.direction.x = -1.0
+	_actor.velocity.x = _actor.direction.x * _charging_speed
 
 
 func exit_state() -> void:
