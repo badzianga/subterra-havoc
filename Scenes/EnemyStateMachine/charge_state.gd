@@ -37,7 +37,7 @@ func enter_state() -> void:
 	_state_label.text = "State: charge"
 	_charge_timer.start()
 	
-	_hitbox_collision_shape.set_deferred("enabled", false)
+	_hitbox_collision_shape.set_deferred("disabled", false)
 	
 	if GlobalVariables.player.global_position.x >= _actor.global_position.x:
 		_actor.direction.x = 1.0
