@@ -170,5 +170,15 @@ offset_top = 624.0
 offset_right = 478.0
 offset_bottom = 664.0
 
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="DashingTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]
+[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="DashingTimer" to="." method="_on_dashing_timer_timeout"]

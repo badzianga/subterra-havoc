@@ -4,9 +4,13 @@ extends CharacterBody2D
 const SPEED := 300.0
 const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
+const DASH_MULTIPLIER := 2.5
 
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _direction := Vector2.ZERO
+
+var _can_dash := true
+var _is_dashing := false
 
 @onready var _health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
@@ -14,6 +18,9 @@ var _direction := Vector2.ZERO
 @onready var _animation_player := $AnimationPlayer
 @onready var inventory := $UserInterface/Inventory as Inventory
 @onready var _looting_component := $LootingComponent as LootingComponent
+@onready var _dash_cooldown := $DashCooldown
+@onready var _dashing_timer := $DashingTimer
+@onready var _hurtbox_collider := $HurtboxComponent/CollisionShape
 
 
 func _ready() -> void:
@@ -44,7 +51,7 @@ func _physics_process(delta: float) -> void:
 
 func _handle_movement(delta: float) -> void:
 	# apply gravity
-	if not is_on_floor():
+	if not is_on_floor() and not _is_dashing:
 		velocity.y += _gravity * delta
 
 	# jump
@@ -54,13 +61,23 @@ func _handle_movement(delta: float) -> void:
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0.0:
 			velocity.y *= CUT_JUMP_HEIGHT
+	
+	# start dashing
+	if Input.is_action_just_pressed("dash") and _can_dash and _dash_cooldown.is_stopped():
+		_can_dash = false
+		_is_dashing = true
+		_hurtbox_collider.set_deferred("disabled", true)
+		_dashing_timer.start()
 
 	# move left/right
 	_direction.x = Input.get_axis("left", "right")
 	if _direction.x:
-		velocity.x = _direction.x * SPEED
+		if _is_dashing:
+			velocity.x = _direction.x * DASH_MULTIPLIER * SPEED
+		else:
+			velocity.x = _direction.x * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 	
 	move_and_slide()
 
@@ -92,3 +109,13 @@ func _on_health_component_health_changed() -> void:
 
 func _on_health_component_health_depleted() -> void:
 	set_physics_process(false)
+
+
+func _on_dash_cooldown_timeout() -> void:
+	_can_dash = true
+
+
+func _on_dashing_timer_timeout() -> void:
+	_hurtbox_collider.set_deferred("disabled", false)
+	_is_dashing = false
+	_dash_cooldown.start()
