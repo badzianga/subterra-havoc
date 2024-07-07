@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 const SPEED := 300.0
 const JUMP_VELOCITY := -400.0
+const CUT_JUMP_HEIGHT := 0.4
 
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _direction := Vector2.ZERO
@@ -11,7 +12,7 @@ var _direction := Vector2.ZERO
 @onready var _health_bar := $UserInterface/HealthBar
 @onready var _sprite := $Sprite
 @onready var _animation_player := $AnimationPlayer
-@onready var _inventory := $UserInterface/Inventory as Inventory
+@onready var inventory := $UserInterface/Inventory as Inventory
 @onready var _looting_component := $LootingComponent as LootingComponent
 
 
@@ -22,13 +23,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _inventory.visible:
+	if not inventory.visible:
 		_handle_movement(delta)
 		_handle_animations()
 	
 	if Input.is_action_just_pressed("inventory"):
-		_inventory.initialize_inventory()
-		_inventory.visible = not _inventory.visible
+		inventory.initialize_inventory()
+		inventory.visible = not inventory.visible
 	
 	if Input.is_action_pressed("scroll_up"):
 		PlayerInventory.active_item_scroll_up()
@@ -42,15 +43,19 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_movement(delta: float) -> void:
+	# apply gravity
 	if not is_on_floor():
 		velocity.y += _gravity * delta
 
-	if Input.is_action_just_pressed("jump") and velocity.y < 0.0:
-		velocity.y = JUMP_VELOCITY * 0.25
-
+	# jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	# variable jump height
+	if Input.is_action_just_released("jump"):
+		if velocity.y < 0.0:
+			velocity.y *= CUT_JUMP_HEIGHT
 
+	# move left/right
 	_direction.x = Input.get_axis("left", "right")
 	if _direction.x:
 		velocity.x = _direction.x * SPEED
