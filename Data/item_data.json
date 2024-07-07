@@ -3,7 +3,7 @@
 	"ItemCategory": "Resource",
 	"StackSize": 99,
 	"Description": "A sturdy tree branch that can be used for crafting.",
-	"FileName": "Tree Branch.png",
+	"FileName": "Tree Branch.png"
   },
   "Slime Potion": {
 	"ItemCategory": "Consumable",
@@ -11,7 +11,7 @@
 	"AddEnergy": 32,
 	"StackSize": 99,
 	"Description": "It smells like medicine.",
-	"FileName": "Slime Potion.png",
+	"FileName": "Slime Potion.png"
   },
   "Iron Sword": {
 	"ItemCategory": "Sword",
@@ -19,24 +19,24 @@
 	"ItemSpeed": 0.75, 
 	"StackSize": 1,
 	"Description": "Quite a rusty sword, but should be able to get the job done.",
-	"FileName": "Iron Sword.png",
+	"FileName": "Iron Sword.png"
   },
   "Brown Shirt": {
 	"ItemCategory": "Shirt",
 	"StackSize": 1,
 	"Description": "A brown shirt.",
-	"FileName": "Brown Shirt.png",
+	"FileName": "Brown Shirt.png"
   },
   "Blue Jeans": {
 	"ItemCategory": "Pants",
 	"StackSize": 1,
 	"Description": "Blue jeans.",
-	"FileName": "Blue Jeans.png",
+	"FileName": "Blue Jeans.png"
   },
   "Brown Boots": {
 	"ItemCategory": "Shoes",
 	"StackSize": 1,
 	"Description": "Some dirty boots.",
-	"FileName": "Brown Boots.png",
+	"FileName": "Brown Boots.png"
   }
 }
