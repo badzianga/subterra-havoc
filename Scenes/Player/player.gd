@@ -8,7 +8,7 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _direction := 0.0
 
 @onready var health_component := $HealthComponent as HealthComponent
-@onready var health_bar := $HealthBar  # TODO: move HealthBar to UserInterface
+@onready var health_bar := $UserInterface/HealthBar
 @onready var sprite := $Sprite
 @onready var animation_player := $AnimationPlayer
 @onready var inventory := $UserInterface/Inventory as Inventory
@@ -44,6 +44,9 @@ func _handle_movement(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
+	if Input.is_action_just_pressed("jump") and velocity.y < 0.0:
+		velocity.y = JUMP_VELOCITY * 0.25
+
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
@@ -78,6 +81,7 @@ func _handle_animations() -> void:
 
 func _on_health_component_health_changed() -> void:
 	health_bar.value = health_component.health
+	# TODO: animate reducing hp instead of removing it immediately
 
 
 func _on_health_component_health_depleted() -> void:

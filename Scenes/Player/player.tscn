@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=18 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://nweu6mwsu1jl" path="res://Assets/Player/player.png" id="2_4d1c8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="4_oiunc"]
 [ext_resource type="PackedScene" uid="uid://dirx0mbpqrvbo" path="res://Scenes/Inventory/inventory.tscn" id="5_6fdha"]
 [ext_resource type="PackedScene" uid="uid://bumii8318rtk3" path="res://Scenes/Components/looting_component.tscn" id="5_rh2dp"]
+[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="6_uued4"]
 [ext_resource type="PackedScene" uid="uid://cmgxtvhirbe2j" path="res://Scenes/Inventory/hotbar.tscn" id="7_1d22k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o14or"]
@@ -141,21 +142,24 @@ shape = SubResource("CapsuleShape2D_0f3w5")
 [node name="CollisionShape" type="CollisionShape2D" parent="LootingComponent"]
 shape = SubResource("CircleShape2D_ugyqu")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-modulate = Color(0, 1, 0, 1)
-offset_left = -24.0
-offset_top = -32.0
-offset_right = 24.0
-offset_bottom = -24.0
-value = 100.0
-show_percentage = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_l5ops")
 }
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="UserInterface"]
+modulate = Color(0, 1, 0, 1)
+offset_left = 24.0
+offset_top = 648.0
+offset_right = 424.0
+offset_bottom = 680.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_uued4")
+theme_override_font_sizes/font_size = 32
+value = 100.0
 
 [node name="Inventory" parent="UserInterface" instance=ExtResource("5_6fdha")]
 visible = false
