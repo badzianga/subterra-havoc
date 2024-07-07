@@ -4,30 +4,31 @@ extends CharacterBody2D
 const SPEED := 300.0
 const JUMP_VELOCITY := -400.0
 
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _direction := Vector2.ZERO
 
-@onready var health_component := $HealthComponent as HealthComponent
-@onready var health_bar := $UserInterface/HealthBar
-@onready var sprite := $Sprite
-@onready var animation_player := $AnimationPlayer
-@onready var inventory := $UserInterface/Inventory as Inventory
-@onready var looting_component := $LootingComponent as LootingComponent
+@onready var _health_component := $HealthComponent as HealthComponent
+@onready var _health_bar := $UserInterface/HealthBar
+@onready var _sprite := $Sprite
+@onready var _animation_player := $AnimationPlayer
+@onready var _inventory := $UserInterface/Inventory as Inventory
+@onready var _looting_component := $LootingComponent as LootingComponent
 
 
 func _ready() -> void:
 	GlobalVariables.player = self
-	health_bar.max_value = health_component.max_health
+	_health_bar.max_value = _health_component.max_health
+	_health_bar.value = _health_component.health
 
 
 func _physics_process(delta: float) -> void:
-	if not inventory.visible:
+	if not _inventory.visible:
 		_handle_movement(delta)
 		_handle_animations()
 	
 	if Input.is_action_just_pressed("inventory"):
-		inventory.initialize_inventory()
-		inventory.visible = not inventory.visible
+		_inventory.initialize_inventory()
+		_inventory.visible = not _inventory.visible
 	
 	if Input.is_action_pressed("scroll_up"):
 		PlayerInventory.active_item_scroll_up()
@@ -35,14 +36,14 @@ func _physics_process(delta: float) -> void:
 		PlayerInventory.active_item_scroll_down()
 	
 	if Input.is_action_just_pressed("pickup"):
-		if looting_component.items_in_range.size() > 0:
-			var pickup_item: ItemDrop = looting_component.items_in_range.pop_back()
-			pickup_item.pick_up_item(self)
+		if _looting_component.items_in_range.size() > 0:
+			var _pickup_item: ItemDrop = _looting_component.items_in_range.pop_back()
+			_pickup_item.pick_up_item(self)
 
 
 func _handle_movement(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += _gravity * delta
 
 	if Input.is_action_just_pressed("jump") and velocity.y < 0.0:
 		velocity.y = JUMP_VELOCITY * 0.25
@@ -62,25 +63,25 @@ func _handle_movement(delta: float) -> void:
 func _handle_animations() -> void:
 	 # flips sprite according to walking direction
 	if _direction.x > 0.0:
-		sprite.flip_h = true
+		_sprite.flip_h = true
 	elif _direction.x < 0.0:
-		sprite.flip_h = false
+		_sprite.flip_h = false
 	
 	# animation for falling and jumping
 	if not is_on_floor():
 		if velocity.y > 0.0:
-			animation_player.play("fall")
+			_animation_player.play("fall")
 		else:
-			animation_player.play("jump")
+			_animation_player.play("jump")
 	# move and idle animations
 	elif _direction:
-		animation_player.play("run")
+		_animation_player.play("run")
 	else:
-		animation_player.play("idle")
+		_animation_player.play("idle")
 
 
 func _on_health_component_health_changed() -> void:
-	health_bar.value = health_component.health
+	_health_bar.value = _health_component.health
 	# TODO: animate reducing hp instead of removing it immediately
 
 
