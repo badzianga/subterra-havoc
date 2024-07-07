@@ -4,8 +4,8 @@ extends CharacterBody2D
 const SPEED := 300.0
 const JUMP_VELOCITY := -400.0
 
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-var _direction := 0.0
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var _direction := Vector2.ZERO
 
 @onready var health_component := $HealthComponent as HealthComponent
 @onready var health_bar := $UserInterface/HealthBar
@@ -50,9 +50,9 @@ func _handle_movement(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	_direction = Input.get_axis("left", "right")
-	if _direction:
-		velocity.x = _direction * SPEED
+	_direction.x = Input.get_axis("left", "right")
+	if _direction.x:
+		velocity.x = _direction.x * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
@@ -61,9 +61,9 @@ func _handle_movement(delta: float) -> void:
 
 func _handle_animations() -> void:
 	 # flips sprite according to walking direction
-	if _direction > 0:
+	if _direction.x > 0.0:
 		sprite.flip_h = true
-	elif _direction < 0:
+	elif _direction.x < 0.0:
 		sprite.flip_h = false
 	
 	# animation for falling and jumping
