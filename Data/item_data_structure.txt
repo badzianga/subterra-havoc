@@ -1,0 +1,14 @@
+PLANNED STRUCTURE OF ITEM DATA:
+
+{
+	UniqueItemID (int): {
+		"Name": string,
+		"Category": string (preferably enum later),
+		"StackSize": int,
+		"Description": string,
+		"FileName": string,
+	}
+}
+
+Additional fields should be added to special items, such as damage, cooldown, added health, etc.
+Each item will probably contain two file paths - to the icon and to the item in the world.
