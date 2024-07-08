@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch44tqlq03w56"]
+
+[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="1_bwo0n"]
+[ext_resource type="Script" path="res://Scenes/UI/damage_indicator.gd" id="1_oflvo"]
+
+[node name="DamageIndicator" type="Label"]
+custom_minimum_size = Vector2(36, 16)
+offset_left = -21.0
+offset_top = -8.0
+offset_right = 21.0
+offset_bottom = 8.0
+pivot_offset = Vector2(21, 8)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("1_bwo0n")
+theme_override_font_sizes/font_size = 16
+text = "100"
+horizontal_alignment = 1
+script = ExtResource("1_oflvo")

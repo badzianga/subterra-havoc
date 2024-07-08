@@ -125,6 +125,7 @@ shape = SubResource("CapsuleShape2D_o14or")
 zoom = Vector2(2.5, 2.5)
 
 [node name="HealthComponent" type="Node2D" parent="."]
+position = Vector2(0, -15)
 script = ExtResource("3_5p6vv")
 max_health = 100
 

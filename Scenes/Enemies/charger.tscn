@@ -204,6 +204,7 @@ _health_component = NodePath("../HealthComponent")
 shape = SubResource("RectangleShape2D_874sw")
 
 [node name="HealthComponent" parent="." instance=ExtResource("11_rd5b3")]
+position = Vector2(0, -32)
 max_health = 100
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
