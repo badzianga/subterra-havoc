@@ -21,6 +21,8 @@ var _is_dashing := false
 @onready var _dash_cooldown := $DashCooldown
 @onready var _dashing_timer := $DashingTimer
 @onready var _hurtbox_collider := $HurtboxComponent/CollisionShape
+@onready var _immunity_frames_timer := $ImmunityFramesTimer
+@onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
 
 
 func _ready() -> void:
@@ -104,6 +106,8 @@ func _handle_animations() -> void:
 
 func _on_health_component_health_changed() -> void:
 	_health_bar.value = _health_component.health
+	_immunity_frames_timer.start()
+	_blinking_animation.play("blinking")
 	# TODO: animate reducing hp instead of removing it immediately
 
 
@@ -116,6 +120,14 @@ func _on_dash_cooldown_timeout() -> void:
 
 
 func _on_dashing_timer_timeout() -> void:
-	_hurtbox_collider.set_deferred("disabled", false)
+	# enable collider only when immunity frames aren't active
+	# (so invincibility won't be shortened by dash)
+	if _immunity_frames_timer.is_stopped():
+		_hurtbox_collider.set_deferred("disabled", false)
 	_is_dashing = false
 	_dash_cooldown.start()
+
+
+func _on_immunity_frames_timer_timeout() -> void:
+	_hurtbox_collider.set_deferred("disabled", false)
+	_blinking_animation.stop()
