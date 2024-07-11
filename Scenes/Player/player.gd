@@ -11,6 +11,7 @@ var _direction := Vector2.ZERO
 
 var _can_dash := true
 var _is_dashing := false
+var _dash_direction: Vector2
 
 @onready var _health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
@@ -64,21 +65,20 @@ func _handle_movement(delta: float) -> void:
 		if velocity.y < 0.0:
 			velocity.y *= CUT_JUMP_HEIGHT
 	
-	# start dashing
-	if Input.is_action_just_pressed("dash") and _can_dash and _dash_cooldown.is_stopped():
-		_can_dash = false
-		_is_dashing = true
-		_hurtbox_collider.set_deferred("disabled", true)
-		_dashing_timer.start()
-
-	# move left/right
 	_direction.x = Input.get_axis("left", "right")
-	if _direction.x:
-		if _is_dashing:
-			velocity.x = _direction.x * DASH_MULTIPLIER * SPEED
-		else:
-			velocity.x = _direction.x * SPEED
+	
+	_check_dashing()
+	
+	# dash to the same direction even if player releases left/right 
+	if _is_dashing:
+		velocity.x = _dash_direction.x * DASH_MULTIPLIER * SPEED
+	# normal movement 
+	elif _direction.x:
+		velocity.x = _direction.x * SPEED
+	# 
 	else:
+		# TODO: multiplying SPEED by fraction gives slowing down instead of immediate stopping
+		# do that if we implement accelerating
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 	
 	move_and_slide()
@@ -102,6 +102,19 @@ func _handle_animations() -> void:
 		_animation_player.play("run")
 	else:
 		_animation_player.play("idle")
+
+
+func _check_dashing() -> void:
+	if not Input.is_action_just_pressed("dash"):
+		return
+	if _direction.x == 0.0:
+		return
+	if _can_dash and _dash_cooldown.is_stopped():
+		_can_dash = false
+		_is_dashing = true
+		_dash_direction = _direction
+		_hurtbox_collider.set_deferred("disabled", true)
+		_dashing_timer.start()
 
 
 func _on_health_component_health_changed() -> void:
