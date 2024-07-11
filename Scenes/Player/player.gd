@@ -6,7 +6,7 @@ const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
 const DASH_MULTIPLIER := 2.5
 
-var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var _gravity := ProjectSettings.get_setting("physics/2d/default_gravity") as float
 var _direction := Vector2.ZERO
 
 var _can_dash := true
@@ -75,7 +75,7 @@ func _handle_movement(delta: float) -> void:
 	# normal movement 
 	elif _direction.x:
 		velocity.x = _direction.x * SPEED
-	# 
+	# slowing down
 	else:
 		# TODO: multiplying SPEED by fraction gives slowing down instead of immediate stopping
 		# do that if we implement accelerating
@@ -115,6 +115,8 @@ func _check_dashing() -> void:
 		_dash_direction = _direction
 		_hurtbox_collider.set_deferred("disabled", true)
 		_dashing_timer.start()
+		# dashing while jumping makes player jump higher, multiplying velocity.y reduces this height
+		velocity.y *= 0.3
 
 
 func _on_health_component_health_changed() -> void:
