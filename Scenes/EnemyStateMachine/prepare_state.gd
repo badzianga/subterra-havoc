@@ -31,10 +31,10 @@ func _physics_process(delta: float) -> void:
 	# the commented logic below allows enemy to rotate to still see the player
 	
 	#_sprite.flip_h = (_actor.global_position.x < GlobalVariables.player.global_position.x)
-	## with flip, change sprite position because Max cannot draw centered images
-	## HACK: this little hack will probably cause problems with sprites with other sizes 
+	# with flip, change sprite position because Max cannot draw centered images
+	# HACK: this little hack will probably cause problems with sprites with other sizes 
 	#_sprite.position.x = 8.0 - 16.0 * float(_actor.direction.x > 0.0)
-	## also flip player detection area
+	# also flip player detection area
 	#_detection_area.rotation = float(_sprite.flip_h) * PI
 	
 	if not _actor.player_in_detection_area:
