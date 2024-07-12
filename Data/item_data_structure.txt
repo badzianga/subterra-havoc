@@ -1,7 +1,7 @@
 PLANNED STRUCTURE OF ITEM DATA:
 
 {
-	UniqueItemID (int): {
+	UniqueItemID: {
 		"Name": string,
 		"Category": string (preferably enum later),
 		"StackSize": int,
