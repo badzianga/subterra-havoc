@@ -20,6 +20,8 @@ func _ready() -> void:
 
 
 # Switches active hotbar slot with keys 1-5.
+# TODO: it's called with every keyboard input event - event when moving.
+# Is it possible to do something about it?
 func _unhandled_key_input(event: InputEvent) -> void:
 	for i: int in range(5):
 		var event_name := "hotbar_slot_" + str(i + 1)
@@ -51,7 +53,7 @@ func _left_click_empty_slot(slot: Slot) -> void:
 
 
 # Swaps held item with item in clicked slot.
-func _left_click_different_item(event: InputEvent, slot: Slot) -> void:
+func _left_click_different_item(event: InputEventMouseButton, slot: Slot) -> void:
 	# swap items in dictionary
 	PlayerInventory.remove_item_from_slot(slot)
 	PlayerInventory.add_item_to_empty_slot(PlayerInventory.held_item, slot)
@@ -101,9 +103,7 @@ func _update_active_item_label() -> void:
 
 
 # Recieves input signal from the slots and decides, which action took place.
-func _on_slot_input_received(event: InputEvent, slot: Slot) -> void:
-	if not event is InputEventMouseButton:
-		return
+func _on_slot_input_received(event: InputEventMouseButton, slot: Slot) -> void:
 	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
 		return
 	# holding an item

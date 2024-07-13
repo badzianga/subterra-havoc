@@ -3,7 +3,7 @@
 class_name Slot
 extends Panel
 
-signal input_received(event: InputEvent, slot: Slot)
+signal input_received(event: InputEventMouseButton, slot: Slot)
 
 enum SlotType {
 	HOTBAR = 0,
@@ -70,4 +70,7 @@ func _refresh_style() -> void:
 # Emits signal containing provided input event to slot and the slot itself, so inventory knows which
 # slot got input signal.
 func _on_gui_input(event: InputEvent) -> void:
+	# TODO: move this check from here when using ctrl/shift will be implemented
+	if not event is InputEventMouseButton:
+		return
 	input_received.emit(event, self)

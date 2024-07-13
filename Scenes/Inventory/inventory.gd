@@ -38,14 +38,15 @@ func _ready() -> void:
 		_e_slots[i].input_received.connect(_on_slot_input_received)
 		_e_slots[i].index = i
 		_e_slots[i].slot_type = (Slot.SlotType.SHIRT + i)
+		_e_slots[i]._refresh_style()
 	_initialize_equips()
 
 
 # Updates held_item's global position with recieved input.
-# Flaws? - it's called with every input event of every type - also key presses.
-func _input(_event: InputEvent) -> void:
-	# TODO: check if this check really does something
+func _input(event: InputEvent) -> void:
 	if not visible:
+		return
+	if not event is InputEventMouseMotion:
 		return
 	if PlayerInventory.held_item != null:
 		PlayerInventory.held_item.global_position = get_global_mouse_position()
@@ -84,7 +85,7 @@ func _left_click_empty_slot(slot: Slot) -> void:
 
 
 # Swaps held item with item in clicked slot.
-func _left_click_different_item(event: InputEvent, slot: Slot) -> void:
+func _left_click_different_item(event: InputEventMouseButton, slot: Slot) -> void:
 	if not _able_to_put_into_slot(slot):
 		return
 	# swap items in dictionary
@@ -144,9 +145,7 @@ func _able_to_put_into_slot(slot: Slot) -> bool:
 
 
 # Recieves input signal from the slots and decides, which action took place.
-func _on_slot_input_received(event: InputEvent, slot: Slot) -> void:
-	if not event is InputEventMouseButton:
-		return
+func _on_slot_input_received(event: InputEventMouseButton, slot: Slot) -> void:
 	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
 		return
 	# holding an item
