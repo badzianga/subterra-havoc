@@ -7,12 +7,13 @@ extends Sprite2D
 
 func attack() -> void:
 	_animation_player.play("attack")
-	await _animation_player.animation_finished
 
 
+# Called by animation player.
 func _enable_collider() -> void:
 	_hitbox_collider.set_deferred("disabled", false)
 
 
+# Called by animation player.
 func _disable_collider() -> void:
 	_hitbox_collider.set_deferred("disabled", true)
