@@ -16,7 +16,9 @@ var inventory := {
 	0: ["oreGold", 15],  # slot_index: [item_id, item_quantity]
 	1: ["oreGold", 3],
 }
-var hotbar := {}
+var hotbar := {
+	0: ["spearBronze", 1],
+}
 var equips := {}
 
 var active_item_slot := 0

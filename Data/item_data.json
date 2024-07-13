@@ -1,4 +1,11 @@
 {
+	"spearBronze": {
+		"Name": "Bronze spear",
+		"Category": "Melee",
+		"StackSize": 1,
+		"Description": "Your first melee weapon.",
+		"FileName": "spear_01.png"
+	},
 	"oreGold": {
 		"Name": "Gold ore",
 		"Category": "Resource",
