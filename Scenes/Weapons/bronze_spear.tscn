@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://by8o3iauyoe17"]
 
 [ext_resource type="Texture2D" uid="uid://56cpc1j7rp0t" path="res://Assets/Items/spear_01.png" id="1_a6pmy"]
-[ext_resource type="Script" path="res://Scenes/Weapons/bronze_spear.gd" id="1_uxbcc"]
+[ext_resource type="Script" path="res://Scenes/Weapons/melee_weapon.gd" id="1_uxbcc"]
 [ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="3_2ix11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qh5hp"]
@@ -100,7 +100,6 @@ damage = 40
 [node name="CollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(1.17628e-07, 1.18086e-07)
 rotation = 0.785398
-scale = Vector2(1, 1)
 skew = 0.349066
 shape = SubResource("RectangleShape2D_qh5hp")
 disabled = true

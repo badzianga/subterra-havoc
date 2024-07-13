@@ -14,7 +14,7 @@ script = ExtResource("1_kp24m")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 404.0
+offset_right = 166.0
 offset_bottom = 80.0
 texture = ExtResource("2_6ub7v")
 
@@ -22,7 +22,7 @@ texture = ExtResource("2_6ub7v")
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
-offset_right = 402.0
+offset_right = 158.0
 offset_bottom = 76.0
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
@@ -32,15 +32,6 @@ columns = 8
 layout_mode = 2
 
 [node name="HotbarSlot2" parent="Background/Slots" instance=ExtResource("3_246jv")]
-layout_mode = 2
-
-[node name="HotbarSlot3" parent="Background/Slots" instance=ExtResource("3_246jv")]
-layout_mode = 2
-
-[node name="HotbarSlot4" parent="Background/Slots" instance=ExtResource("3_246jv")]
-layout_mode = 2
-
-[node name="HotbarSlot5" parent="Background/Slots" instance=ExtResource("3_246jv")]
 layout_mode = 2
 
 [node name="ActiveItemLabel" type="Label" parent="Background"]

@@ -23,12 +23,12 @@ func _ready() -> void:
 # TODO: it's called with every keyboard input event - event when moving.
 # Is it possible to do something about it?
 func _unhandled_key_input(event: InputEvent) -> void:
-	for i: int in range(5):
-		var event_name := "hotbar_slot_" + str(i + 1)
-		if event.is_action_pressed(event_name):
-			PlayerInventory.active_item_slot = i
-			PlayerInventory.active_item_updated.emit()
-			return
+	if event.is_action_pressed("hotbar_slot_1"):
+		PlayerInventory.active_item_slot = 0
+		PlayerInventory.active_item_updated.emit()
+	elif event.is_action_pressed("hotbar_slot_2"):
+		PlayerInventory.active_item_slot = 1
+		PlayerInventory.active_item_updated.emit()
 
 
 # Initializes all inventory slots - calling intialize_item for every slot containing an item.

@@ -10,7 +10,7 @@ signal active_item_updated
 
 # TODO: load there numbers from inventory scenes OR create these amount of slots in scenes 
 const NUM_INVENTORY_SLOTS := 20
-const NUM_HOTBAR_SLOTS := 5
+const NUM_HOTBAR_SLOTS := 2
 
 var inventory := {
 	0: ["oreGold", 15],  # slot_index: [item_id, item_quantity]

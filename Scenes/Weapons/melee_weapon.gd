@@ -1,3 +1,4 @@
+class_name MeleeWeapon
 extends Sprite2D
 
 @onready var _animation_player := $AnimationPlayer
