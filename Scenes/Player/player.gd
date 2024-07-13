@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pickup"):
 		if _looting_component.items_in_range.size() > 0:
 			var _pickup_item: ItemDrop = _looting_component.items_in_range.pop_back()
-			_pickup_item.pick_up_item(self)
+			_pickup_item.pick_up_item()
 
 
 func _handle_movement(delta: float) -> void:

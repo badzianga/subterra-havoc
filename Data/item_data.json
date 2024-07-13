@@ -1,12 +1,12 @@
 {
-	"0": {
+	"oreGold": {
 		"Name": "Gold ore",
 		"Category": "Resource",
-		"StackSize": 64,
+		"StackSize": 16,
 		"Description": "Raw gold ore.",
 		"FileName": "gold_ore.png"
 	},
-	"1": {
+	"ingotGold": {
 		"Name": "Gold ingot",
 		"Category": "Resource",
 		"StackSize": 16,

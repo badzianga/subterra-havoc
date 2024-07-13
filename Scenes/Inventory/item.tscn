@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://tia3bkq5wvwy"]
 
 [ext_resource type="Script" path="res://Scenes/Inventory/item.gd" id="1_tchrk"]
-[ext_resource type="Texture2D" uid="uid://c1qc4gq6wx4au" path="res://Assets/Items/Iron Sword.png" id="2_548ll"]
+[ext_resource type="Texture2D" uid="uid://c45igy4cipdrv" path="res://Assets/Items/gold_ore.png" id="2_334ph"]
 [ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="3_f077o"]
 
 [node name="Item" type="Control"]
@@ -16,7 +16,8 @@ layout_mode = 0
 offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
-texture = ExtResource("2_548ll")
+texture = ExtResource("2_334ph")
+expand_mode = 3
 
 [node name="Quantity" type="Label" parent="."]
 custom_minimum_size = Vector2(10, 12)

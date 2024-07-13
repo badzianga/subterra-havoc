@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://drry80pfgpn06"]
 
 [ext_resource type="Script" path="res://Scenes/Inventory/item_drop.gd" id="1_jxqgq"]
-[ext_resource type="Texture2D" uid="uid://b3y7ijxvwxwoq" path="res://Assets/Items/Slime Potion.png" id="1_w81ux"]
+[ext_resource type="Texture2D" uid="uid://c45igy4cipdrv" path="res://Assets/Items/gold_ore.png" id="2_psq70"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xjg3o"]
-size = Vector2(7, 11)
+size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_856ix"]
 length = 0.001
@@ -48,10 +48,9 @@ collision_layer = 32
 script = ExtResource("1_jxqgq")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_w81ux")
+texture = ExtResource("2_psq70")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_xjg3o")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
