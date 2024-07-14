@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bpydjicf6po2r"]
+[gd_scene load_steps=28 format=3 uid="uid://bpydjicf6po2r"]
 
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="1_x20l2"]
 [ext_resource type="Script" path="res://Scenes/Enemies/charger.gd" id="1_x30gf"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="9_v5wrf"]
 [ext_resource type="Texture2D" uid="uid://bkx65tnouhdk1" path="res://Assets/Enemies/Dasher/dasher-Sheet.png" id="10_lyiii"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="11_rd5b3"]
+[ext_resource type="PackedScene" uid="uid://bmidoyk8srmpb" path="res://Scenes/Components/item_drop_component.tscn" id="12_puufr"]
+[ext_resource type="Script" path="res://Resources/ItemDropInfo/item_drop_info.gd" id="13_x48qs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4r4ry"]
 size = Vector2(48, 64)
@@ -115,6 +117,26 @@ size = Vector2(48, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_874sw"]
 size = Vector2(48, 64)
 
+[sub_resource type="Resource" id="Resource_bfvfo"]
+script = ExtResource("13_x48qs")
+drop_id = "oreGold"
+drop_chance = 1.0
+
+[sub_resource type="Resource" id="Resource_jntxu"]
+script = ExtResource("13_x48qs")
+drop_id = "oreGold"
+drop_chance = 0.8
+
+[sub_resource type="Resource" id="Resource_dwrbp"]
+script = ExtResource("13_x48qs")
+drop_id = "oreGold"
+drop_chance = 0.4
+
+[sub_resource type="Resource" id="Resource_hte05"]
+script = ExtResource("13_x48qs")
+drop_id = "ingotGold"
+drop_chance = 1.0
+
 [node name="Charger" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_x30gf")
@@ -206,6 +228,10 @@ shape = SubResource("RectangleShape2D_874sw")
 [node name="HealthComponent" parent="." instance=ExtResource("11_rd5b3")]
 position = Vector2(0, -32)
 max_health = 100
+
+[node name="ItemDropComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("12_puufr")]
+_health_component = NodePath("../HealthComponent")
+_drops = Array[ExtResource("13_x48qs")]([SubResource("Resource_bfvfo"), SubResource("Resource_jntxu"), SubResource("Resource_dwrbp"), SubResource("Resource_hte05")])
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]

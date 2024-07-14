@@ -1,5 +1,4 @@
 # World item class, which can be picked up by the player.
-# TODO: add initializer, which will set item id, sprite and initial position
 # TODO: maybe add item quantity variable?
 
 class_name ItemDrop
@@ -9,7 +8,7 @@ const ACCELERATION := 920.0
 const MAX_SPEED := 450.0
 const COLLECT_RADIUS := 4.0
 
-var _item_id: String = "oreGold"  # temporary id
+var _item_id := "oreGold"  # temporary id
 var _being_picked_up := false
 
 
@@ -30,6 +29,13 @@ func _physics_process(delta: float) -> void:
 			PlayerInventory.collect_item(_item_id, 1)
 			queue_free()
 	move_and_slide()
+
+
+# Sets item id and texture. Called by item_drop_component.
+func initialize_item(item_id: String) -> void:
+	_item_id = item_id
+	var _file_name := ItemData.item_data[_item_id]["FileName"] as String
+	$Sprite.texture = load("res://Assets/Items/" + _file_name)
 
 
 # Sets _being_picked_up variable to true, so Called by player.
