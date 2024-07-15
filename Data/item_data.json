@@ -6,17 +6,31 @@
 		"Description": "Your first melee weapon.",
 		"FileName": "spear_01.png"
 	},
+	"bowWooden": {
+		"Name": "Wooden bow",
+		"Category": "Ranged",
+		"StackSize": 1,
+		"Description": "Your first ranged weapon.",
+		"FileName": "bow_01.png"
+	},
+	"arrowWooden": {
+		"Name": "Wooden arrow",
+		"Category": "Ammo",
+		"StackSize": 99,
+		"Description": "Your first ammo for bows.",
+		"FileName": "arrow.png"
+	},
 	"oreGold": {
 		"Name": "Gold ore",
 		"Category": "Resource",
-		"StackSize": 16,
+		"StackSize": 99,
 		"Description": "Raw gold ore.",
 		"FileName": "gold_ore.png"
 	},
 	"ingotGold": {
 		"Name": "Gold ingot",
 		"Category": "Resource",
-		"StackSize": 16,
+		"StackSize": 99,
 		"Description": "Refined gold formed into ingot. Quite heavy.",
 		"FileName": "gold_ingot.png"
 	}
