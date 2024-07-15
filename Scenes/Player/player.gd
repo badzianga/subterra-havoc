@@ -128,10 +128,11 @@ func _handle_animations() -> void:
 
 
 func _handle_weapon() -> void:
-	var _angle := PI + _weapon_marker.global_position.direction_to(get_global_mouse_position()).angle()
+	var _attack_direction := _weapon_marker.global_position.direction_to(get_global_mouse_position())
+	var _angle := PI + _attack_direction.angle()
 	_weapon_marker.rotation = _angle
-	if Input.is_action_just_pressed("attack"):
-		_weapon.attack()
+	if Input.is_action_just_pressed("attack") and _weapon.can_attack():
+		_weapon.attack(_attack_direction)
 
 
 func _check_dashing() -> void:

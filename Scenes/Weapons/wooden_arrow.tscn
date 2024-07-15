@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccoou3670lp1w"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/wooden_arrow.gd" id="1_db4c0"]
+[ext_resource type="Texture2D" uid="uid://wgc0xppcb7bq" path="res://Assets/Items/arrow.png" id="2_03sfh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yk30w"]
+size = Vector2(20, 4)
+
+[node name="WoodenArrow" type="Area2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_db4c0")
+damage = 40
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yk30w")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = -0.785398
+texture = ExtResource("2_03sfh")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
