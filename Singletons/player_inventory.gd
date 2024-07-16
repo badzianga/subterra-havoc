@@ -14,7 +14,8 @@ const NUM_HOTBAR_SLOTS := 2
 
 var inventory := {
 	0: ["oreGold", 15],  # slot_index: [item_id, item_quantity]
-	1: ["arrowWooden", 10],
+	1: ["bowWooden", 1],
+	2: ["arrowWooden", 10],
 }
 var hotbar := {
 	0: ["spearBronze", 1],

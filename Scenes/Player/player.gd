@@ -32,8 +32,7 @@ var _previous_velocity: Vector2
 @onready var _immunity_frames_timer := $ImmunityFramesTimer
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
 #@onready var _camera := $Camera
-@onready var _weapon_marker := $WeaponMarker as Marker2D
-@onready var _weapon: Sprite2D = $WeaponMarker/Node.get_child(0)
+@onready var _weapon_controller := $WeaponMarker/WeaponController as WeaponController
 
 
 func _ready() -> void:
@@ -46,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	if not inventory.visible:
 		_handle_movement(delta)
 		_handle_animations()
-		_handle_weapon()
+		_weapon_controller.handle_weapon()
 	
 	if Input.is_action_just_pressed("inventory"):
 		inventory.initialize_inventory()
@@ -125,14 +124,6 @@ func _handle_animations() -> void:
 		_animation_player.play("run")
 	else:
 		_animation_player.play("idle")
-
-
-func _handle_weapon() -> void:
-	var _attack_direction := _weapon_marker.global_position.direction_to(get_global_mouse_position())
-	var _angle := PI + _attack_direction.angle()
-	_weapon_marker.rotation = _angle
-	if Input.is_action_just_pressed("attack") and _weapon.can_attack():
-		_weapon.attack(_attack_direction)
 
 
 func _check_dashing() -> void:

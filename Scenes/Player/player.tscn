@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/user_interface.gd" id="6_a8bik"]
 [ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="6_uued4"]
 [ext_resource type="PackedScene" uid="uid://cmgxtvhirbe2j" path="res://Scenes/Inventory/hotbar.tscn" id="7_1d22k"]
-[ext_resource type="PackedScene" uid="uid://b44jy1vnrq1bd" path="res://Scenes/Weapons/wooden_bow.tscn" id="10_4bl27"]
+[ext_resource type="PackedScene" uid="uid://daw6umia1ock3" path="res://Scenes/Components/weapon_controller.tscn" id="10_n2uf8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o14or"]
 
@@ -233,10 +233,9 @@ libraries = {
 [node name="WeaponMarker" type="Marker2D" parent="."]
 position = Vector2(0, 5)
 
-[node name="Node" type="Node2D" parent="WeaponMarker"]
-position = Vector2(-6, 0)
-
-[node name="Bow" parent="WeaponMarker/Node" instance=ExtResource("10_4bl27")]
+[node name="WeaponController" parent="WeaponMarker" node_paths=PackedStringArray("_weapon_marker") instance=ExtResource("10_n2uf8")]
+position = Vector2(-8, 0)
+_weapon_marker = NodePath("..")
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

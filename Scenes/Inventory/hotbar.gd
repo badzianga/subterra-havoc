@@ -87,7 +87,7 @@ func _left_click_same_item(slot: Slot) -> void:
 
 # Takes item from clicked slot and puts it to the hand.
 func _left_click_no_holding(slot: Slot) -> void:
-	#PlayerInventory.remove_item_from_slot(slot)  ## TODO: why is it commented?
+	PlayerInventory.remove_item_from_slot(slot)  ## TODO: why was it commented?
 	PlayerInventory.held_item = slot.item
 	slot.pick_item_from_slot()
 	PlayerInventory.held_item.global_position = get_global_mouse_position()

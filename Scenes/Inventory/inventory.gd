@@ -4,6 +4,9 @@
 # OR completely change hotbar logic and usage.
 # TODO: for sure move click functions to PlayerInventory singleton - chests will work the same.
 # TODO: do something with using private function _refresh_style() from slot
+# FIXME: leaving inventory while holding item makes it still visible on mouse, however moving it
+# is not possible. With leaving inventory, tem should be put in first possible slot or original
+#slot. If it is impossible, item should be put on ground as ItemDrop object with increased quantity. 
 
 class_name Inventory
 extends Control
