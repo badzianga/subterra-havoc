@@ -24,6 +24,8 @@ signal player_seen
 func _ready() -> void:
 	super._ready()
 	assert(_wander_time_min > 0 and _wander_time_min <= _wander_time_max)
+	if _actor.has_signal("collided_with_edge"):
+		_actor.collided_with_edge.connect(_on_collided_with_edge)
 
 
 func _physics_process(delta: float) -> void:
@@ -73,3 +75,13 @@ func exit_state() -> void:
 
 func _on_wander_timer_timeout() -> void:
 	wandering_finished.emit()
+
+
+func _on_collided_with_edge() -> void:
+	if _wander_timer.is_stopped():
+		return
+	_actor.direction.x *= -1.0
+	_actor.velocity.x = _actor.direction.x * _wandering_speed
+	_sprite.flip_h = (_actor.direction.x > 0.0)
+	_sprite.position.x = 8.0 - 16.0 * float(_actor.direction.x > 0.0)
+	_detection_area.rotation = float(_sprite.flip_h) * PI

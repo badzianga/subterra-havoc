@@ -1,5 +1,7 @@
 extends Enemy
 
+signal collided_with_edge
+
 @onready var _esm := $EnemyStateMachine as EnemyStateMachine
 @onready var _idle_state := $EnemyStateMachine/IdleState as IdleState
 @onready var _wander_state := $EnemyStateMachine/WanderState as WanderState
@@ -7,12 +9,20 @@ extends Enemy
 @onready var _charge_state := $EnemyStateMachine/ChargeState as ChargeState
 @onready var _cooldown_state := $EnemyStateMachine/CooldownState as CooldownState
 @onready var _health_component := $HealthComponent as HealthComponent
+@onready var _left_edge_ray_cast := $LeftEdgeRayCast
+@onready var _right_edge_ray_cast := $RightEdgeRayCast
 
 
 func _ready() -> void:
 	_connect_states()
 	
 	_health_component.health_depleted.connect(_on_health_depleted)
+
+
+func _physics_process(_delta: float) -> void:
+	if is_on_floor():
+		if not _left_edge_ray_cast.is_colliding() or not _right_edge_ray_cast.is_colliding():
+			collided_with_edge.emit()
 
 
 func _connect_states() -> void:

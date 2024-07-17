@@ -233,5 +233,13 @@ max_health = 100
 _health_component = NodePath("../HealthComponent")
 _drops = Array[ExtResource("13_x48qs")]([SubResource("Resource_bfvfo"), SubResource("Resource_jntxu"), SubResource("Resource_dwrbp"), SubResource("Resource_hte05")])
 
+[node name="LeftEdgeRayCast" type="RayCast2D" parent="."]
+position = Vector2(-16, 32)
+target_position = Vector2(0, 8)
+
+[node name="RightEdgeRayCast" type="RayCast2D" parent="."]
+position = Vector2(16, 32)
+target_position = Vector2(0, 8)
+
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsyfptrrm3rhj"]
+[gd_scene load_steps=11 format=3 uid="uid://dsyfptrrm3rhj"]
 
 [ext_resource type="Script" path="res://Scenes/Maps/world.gd" id="1_dcood"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_odaif"]
@@ -17,6 +17,9 @@ size = Vector2(1298, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1t04"]
 size = Vector2(72, 818)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_04c5l"]
+size = Vector2(514, 66)
 
 [node name="EnemyTestWorld" type="Node2D"]
 script = ExtResource("1_dcood")
@@ -48,6 +51,11 @@ position = Vector2(667, 728.25)
 scale = Vector2(11.2891, 1.00391)
 texture = ExtResource("1_odaif")
 
+[node name="Platform" type="Sprite2D" parent="Borders"]
+position = Vector2(808.5, 643)
+scale = Vector2(4.00781, 0.546875)
+texture = ExtResource("1_odaif")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
 position = Vector2(668.5, 31)
 shape = SubResource("RectangleShape2D_itr6l")
@@ -64,11 +72,15 @@ shape = SubResource("RectangleShape2D_d2bbs")
 position = Vector2(1236, 391)
 shape = SubResource("RectangleShape2D_q1t04")
 
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Borders"]
+position = Vector2(807.5, 642)
+shape = SubResource("RectangleShape2D_04c5l")
+
 [node name="Player" parent="." instance=ExtResource("2_ruyi1")]
 position = Vector2(168, 616)
 
 [node name="Charger" parent="." instance=ExtResource("3_abomd")]
-position = Vector2(560, 592)
+position = Vector2(992, 528)
 
 [node name="ItemDrop" parent="." instance=ExtResource("4_x1x2g")]
 position = Vector2(336, 452)
