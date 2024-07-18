@@ -47,14 +47,7 @@ func _physics_process(delta: float) -> void:
 		_handle_animations()
 		_weapon_controller.handle_weapon()
 	
-	if Input.is_action_just_pressed("inventory"):
-		inventory.initialize_inventory()
-		inventory.visible = not inventory.visible
-	
-	if Input.is_action_pressed("scroll_up"):
-		PlayerInventory.active_item_scroll_up()
-	if Input.is_action_pressed("scroll_down"):
-		PlayerInventory.active_item_scroll_down()
+	_handle_inventory_inputs()
 	
 	if Input.is_action_just_pressed("pickup"):
 		if _looting_component.items_in_range.size() > 0:
@@ -124,6 +117,17 @@ func _handle_animations() -> void:
 		_animation_player.play("run")
 	else:
 		_animation_player.play("idle")
+
+
+func _handle_inventory_inputs() -> void:
+	if Input.is_action_just_pressed("inventory"):
+		inventory.initialize_inventory()
+		inventory.visible = not inventory.visible
+	
+	if Input.is_action_pressed("scroll_up"):
+		PlayerInventory.active_item_scroll_up()
+	if Input.is_action_pressed("scroll_down"):
+		PlayerInventory.active_item_scroll_down()
 
 
 func _check_dashing() -> void:
