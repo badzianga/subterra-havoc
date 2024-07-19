@@ -16,7 +16,9 @@ func _ready() -> void:
 func handle_weapon() -> void:
 	if _weapon == null:
 		return
-	var _attack_direction := global_position.direction_to(get_global_mouse_position())
+	var _attack_direction := _weapon_marker.global_position.direction_to(
+			get_global_mouse_position())
+	# TODO: don't add PI here when Max start drawing sprites facing right
 	var _angle := PI + _attack_direction.angle()
 	_weapon_marker.rotation = _angle
 	if Input.is_action_just_pressed("attack") and _weapon.can_attack():
