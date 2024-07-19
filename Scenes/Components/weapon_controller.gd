@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 func handle_weapon() -> void:
-	if _weapon == null:
+	if _weapon == null or not _weapon.can_attack():
 		return
 	var _attack_direction := _weapon_marker.global_position.direction_to(
 			get_global_mouse_position())
