@@ -14,10 +14,6 @@ var _can_dash := true
 var _is_dashing := false
 var _dash_direction: Vector2
 
-#var _random_strength := 4.0
-#var _shake_fade := 12.0
-#var _rng := RandomNumberGenerator.new()
-#var _shake_strength := 0.0
 var _previous_velocity: Vector2
 
 @onready var _health_component := $HealthComponent as HealthComponent
@@ -31,7 +27,6 @@ var _previous_velocity: Vector2
 @onready var _hurtbox_collider := $HurtboxComponent/CollisionShape
 @onready var _immunity_frames_timer := $ImmunityFramesTimer
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
-#@onready var _camera := $Camera
 @onready var _weapon_controller := $WeaponMarker/WeaponController as WeaponController
 
 
@@ -92,11 +87,6 @@ func _handle_movement(delta: float) -> void:
 	
 	# also used in air resistance
 	_previous_velocity.x = velocity.x
-	
-	# camera shake when dashing
-	#if _shake_strength > 0.0:
-		#_shake_strength = lerpf(_shake_strength, 0, _shake_fade * delta)
-		#_camera.offset = _random_offset()
 
 
 func _handle_animations() -> void:
@@ -143,18 +133,6 @@ func _check_dashing() -> void:
 		_dashing_timer.start()
 		# dashing while jumping makes player jump higher, multiplying velocity.y reduces this height
 		velocity.y *= 0.3
-		#_apply_shake()
-
-
-#func _apply_shake() -> void:
-	#_shake_strength = _random_strength
-#
-#
-#func _random_offset() -> Vector2:
-	#return Vector2(
-		#_rng.randf_range(-_shake_strength, _shake_strength),
-		#_rng.randf_range(-_shake_strength, _shake_strength)
-	#)
 
 
 func _on_health_component_health_changed() -> void:
