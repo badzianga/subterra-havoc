@@ -106,6 +106,9 @@ func _update_active_item_label() -> void:
 func _on_slot_input_received(event: InputEventMouseButton, slot: Slot) -> void:
 	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
 		return
+	# disable picking items from hotbar when inventory is closed
+	if not GlobalVariables.inventory_node.visible:
+		return
 	# holding an item
 	if PlayerInventory.held_item != null:
 		# empty slot
