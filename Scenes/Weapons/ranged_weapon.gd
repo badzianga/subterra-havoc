@@ -23,6 +23,6 @@ func can_attack() -> bool:
 func _shoot(direction: Vector2) -> void:
 	var arrow := ArrowScene.instantiate() as Projectile
 	arrow.global_position = global_position
-	arrow.rotation = direction.angle()
+	arrow.rotation = PI + direction.angle()
 	arrow.direction = direction
 	GlobalVariables.world_node.call_deferred("add_child", arrow)
