@@ -4,9 +4,8 @@
 # OR completely change hotbar logic and usage.
 # TODO: for sure move click functions to PlayerInventory singleton - chests will work the same.
 # TODO: do something with using private function _refresh_style() from slot
-# FIXME: leaving inventory while holding item makes it still visible on mouse, however moving it
-# is not possible. With leaving inventory, tem should be put in first possible slot or original
-#slot. If it is impossible, item should be put on ground as ItemDrop object with increased quantity. 
+# FIXME: holding item when leaving full inventory will cause the same problem, as safely_close()
+# tries to fix. Put item in world as ItemDrop or try to put it into hotbar.
 
 class_name Inventory
 extends Control
@@ -64,6 +63,21 @@ func initialize_inventory() -> void:
 	for i: int in range(_slots.size()):
 		if PlayerInventory.inventory.has(i):
 			_slots[i].initialize_item(PlayerInventory.inventory[i][0], PlayerInventory.inventory[i][1])
+
+# Puts held item into first possible slot in inventory if user leaves inventory while holding item. 
+func safely_close() -> void:
+	# user doesn't hold item, so inventory can be closed normally
+	if PlayerInventory.held_item == null:
+		return
+	# put held item into first possible slot
+	var _slots := inventory_slots.get_children()
+	for i: int in range(_slots.size()):
+		if not PlayerInventory.inventory.has(i):
+			var _slot: Slot = _slots[i]
+			PlayerInventory.add_item_to_empty_slot(PlayerInventory.held_item, _slot)
+			_slot.put_item_into_slot(PlayerInventory.held_item)
+			PlayerInventory.held_item = null
+			return
 
 
 # Initializes all equipment slots - calling intialize_item for every equipment slot containing an

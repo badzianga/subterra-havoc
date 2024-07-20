@@ -111,8 +111,14 @@ func _handle_animations() -> void:
 
 func _handle_inventory_inputs() -> void:
 	if Input.is_action_just_pressed("inventory"):
-		inventory.initialize_inventory()
 		inventory.visible = not inventory.visible
+		# initialize inventory only when opening it
+		if inventory.visible:
+			inventory.initialize_inventory()
+		# check if user tries to leave inventory while holding item
+		else:
+			inventory.safely_close()
+		
 	
 	if Input.is_action_pressed("scroll_up"):
 		PlayerInventory.active_item_scroll_up()
