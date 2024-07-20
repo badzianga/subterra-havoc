@@ -52,6 +52,7 @@ scale = Vector2(11.2891, 1.00391)
 texture = ExtResource("1_odaif")
 
 [node name="Platform" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
 position = Vector2(808.5, 643)
 scale = Vector2(4.00781, 0.546875)
 texture = ExtResource("1_odaif")

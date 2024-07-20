@@ -1,3 +1,7 @@
+# FIXME: when enemy finished dashing on the edge of the platform, so, only one of its raycasts
+# touches ground, it changes direction every frame. To fix, making separate if statements for
+# raycasts should probably be a good solution
+
 extends Enemy
 
 signal collided_with_edge
