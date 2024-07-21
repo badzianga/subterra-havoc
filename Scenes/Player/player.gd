@@ -6,15 +6,20 @@ const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
 const DASH_MULTIPLIER := 2.5
 const AIR_RESISTANCE := 10.0
+const HALF_PI := PI / 2.0
 
-var _gravity := ProjectSettings.get_setting("physics/2d/default_gravity") as float
-var _direction := Vector2.ZERO
+var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
+var _gravity_direction := Vector2.DOWN
+var _current_rotation := 0
+var _direction := 0.0
+# HACK: movement, jumping and gravity works with this, at the end of the frame this vector
+# is rotated so it corresponds to current camera rotation
+var _velocity: Vector2  
 
 var _can_dash := true
 var _is_dashing := false
-var _dash_direction: Vector2
-
-var _previous_velocity: Vector2
+var _dash_direction := 0.0
+var _previous_velocity: Vector2  # used by air ressistance
 
 @onready var _health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
@@ -36,6 +41,23 @@ func _ready() -> void:
 	_health_bar.value = _health_component.health
 
 
+# temporary
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("rotate_left"):
+		var _tween := create_tween()
+		_tween.tween_property(self, "rotation_degrees", rotation_degrees + 90.0, 0.05)
+		_gravity_direction = _gravity_direction.rotated(HALF_PI)
+		_current_rotation -= 1
+		up_direction = _gravity_direction.rotated(PI)
+	elif event.is_action_pressed("rotate_right"):
+		var _tween := create_tween()
+		_tween.tween_property(self, "rotation_degrees", rotation_degrees - 90.0, 0.05)
+		_gravity_direction = _gravity_direction.rotated(-HALF_PI)
+		_current_rotation += 1
+		up_direction = _gravity_direction.rotated(-PI)
+		
+
+
 func _physics_process(delta: float) -> void:
 	if not inventory.visible:
 		_handle_movement(delta)
@@ -51,54 +73,58 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_movement(delta: float) -> void:
+	_velocity = velocity.rotated(_current_rotation * HALF_PI)
+	
 	# apply gravity
 	if not is_on_floor() and not _is_dashing:
-		velocity.y += _gravity * delta
+		_velocity.y += _gravity_value * delta
 
 	# jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		_velocity.y = JUMP_VELOCITY
 	# variable jump height
 	if Input.is_action_just_released("jump"):
-		if velocity.y < 0.0:
-			velocity.y *= CUT_JUMP_HEIGHT
+		if _velocity.y < 0.0:
+			_velocity.y *= CUT_JUMP_HEIGHT
 	
-	_direction.x = Input.get_axis("left", "right")
+	_direction = Input.get_axis("left", "right")
 	
 	_check_dashing()
 	
 	# dash to the same direction even if player releases left/right 
 	if _is_dashing:
-		velocity.x = _dash_direction.x * DASH_MULTIPLIER * SPEED
+		_velocity.x = _dash_direction * DASH_MULTIPLIER * SPEED
 	# normal movement 
-	elif _direction.x:
-		velocity.x = _direction.x * SPEED
+	elif _direction:
+		_velocity.x = _direction * SPEED
 	# slowing down
 	else:
 		# TODO: multiplying SPEED by fraction gives slowing down instead of immediate stopping
 		# do that if we implement accelerating
-		velocity.x = move_toward(velocity.x, 0.0, SPEED)
+		_velocity.x = move_toward(_velocity.x, 0.0, SPEED)
 	
 	 #air resistance
 	if not is_on_floor() and not _is_dashing:
-		velocity.x = lerp(_previous_velocity.x, velocity.x, AIR_RESISTANCE * delta)
+		_velocity.x = lerp(_previous_velocity.x, _velocity.x, AIR_RESISTANCE * delta)
 	
+	velocity = _velocity.rotated(_current_rotation * -HALF_PI)
 	move_and_slide()
 	
 	# also used in air resistance
-	_previous_velocity.x = velocity.x
+	_velocity = velocity.rotated(_current_rotation * HALF_PI)
+	_previous_velocity.x = _velocity.x
 
 
 func _handle_animations() -> void:
 	 # flips sprite according to walking direction
-	if _direction.x > 0.0:
+	if _direction > 0.0:
 		_sprite.flip_h = true
-	elif _direction.x < 0.0:
+	elif _direction < 0.0:
 		_sprite.flip_h = false
 	
 	# animation for falling and jumping
 	if not is_on_floor():
-		if velocity.y > 0.0:
+		if _velocity.y > 0.0:
 			_animation_player.play("fall")
 		else:
 			_animation_player.play("jump")
@@ -129,7 +155,7 @@ func _handle_inventory_inputs() -> void:
 func _check_dashing() -> void:
 	if not Input.is_action_just_pressed("dash"):
 		return
-	if _direction.x == 0.0:
+	if _direction == 0.0:
 		return
 	if _can_dash and _dash_cooldown.is_stopped():
 		_can_dash = false
