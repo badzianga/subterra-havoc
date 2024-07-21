@@ -9,7 +9,6 @@ const AIR_RESISTANCE := 10.0
 const HALF_PI := PI / 2.0
 
 var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
-var _gravity_direction := Vector2.DOWN
 var _current_rotation := 0
 var _direction := 0.0
 # HACK: movement, jumping and gravity works with this, at the end of the frame this vector
@@ -46,16 +45,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("rotate_left"):
 		var _tween := create_tween()
 		_tween.tween_property(self, "rotation_degrees", rotation_degrees + 90.0, 0.05)
-		_gravity_direction = _gravity_direction.rotated(HALF_PI)
 		_current_rotation -= 1
-		up_direction = _gravity_direction.rotated(PI)
+		up_direction = Vector2.UP.rotated(-HALF_PI * _current_rotation)
 	elif event.is_action_pressed("rotate_right"):
 		var _tween := create_tween()
 		_tween.tween_property(self, "rotation_degrees", rotation_degrees - 90.0, 0.05)
-		_gravity_direction = _gravity_direction.rotated(-HALF_PI)
 		_current_rotation += 1
-		up_direction = _gravity_direction.rotated(-PI)
-		
+		up_direction = Vector2.UP.rotated(-HALF_PI * _current_rotation)
 
 
 func _physics_process(delta: float) -> void:
