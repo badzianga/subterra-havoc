@@ -13,13 +13,16 @@ func _ready() -> void:
 	_on_active_item_updated()
 
 
-func handle_weapon() -> void:
+func handle_weapon(player_rotation: float) -> void:
 	if _weapon == null or not _weapon.can_attack():
 		return
 	var _attack_direction := _weapon_marker.global_position.direction_to(
 			get_global_mouse_position())
 	# TODO: don't add PI here when Max start drawing sprites facing right
-	var _angle := PI + _attack_direction.angle()
+	# attack direciton is proper, so with gravity change projectiles flies correctly;
+	# however, because the player is rotated (with gravity change), rotation of weapon also has
+	# added player's rotation, so it must be subtracted
+	var _angle := PI + _attack_direction.angle() - player_rotation
 	_weapon_marker.rotation = _angle
 	if Input.is_action_just_pressed("attack") and _weapon.can_attack():
 		_weapon.attack(_attack_direction)

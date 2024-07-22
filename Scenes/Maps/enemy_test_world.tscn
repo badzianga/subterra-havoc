@@ -77,6 +77,16 @@ shape = SubResource("RectangleShape2D_q1t04")
 position = Vector2(807.5, 642)
 shape = SubResource("RectangleShape2D_04c5l")
 
+[node name="Platform2" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-87.9999, 496)
+scale = Vector2(4.00781, 0.546875)
+texture = ExtResource("1_odaif")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Borders"]
+position = Vector2(-88, 496)
+shape = SubResource("RectangleShape2D_04c5l")
+
 [node name="Player" parent="." instance=ExtResource("2_ruyi1")]
 position = Vector2(168, 616)
 

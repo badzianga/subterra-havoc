@@ -13,7 +13,7 @@ var _current_rotation := 0
 var _direction := 0.0
 # HACK: movement, jumping and gravity works with this, at the end of the frame this vector
 # is rotated so it corresponds to current camera rotation
-var _velocity: Vector2  
+var _velocity: Vector2
 
 var _can_dash := true
 var _is_dashing := false
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	if not inventory.visible:
 		_handle_movement(delta)
 		_handle_animations()
-		_weapon_controller.handle_weapon()
+		_weapon_controller.handle_weapon(rotation)
 	
 	_handle_inventory_inputs()
 	
