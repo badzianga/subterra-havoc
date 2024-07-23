@@ -6,10 +6,9 @@ const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
 const DASH_MULTIPLIER := 2.5
 const AIR_RESISTANCE := 10.0
-const HALF_PI := PI / 2.0
 
 var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
-var _current_rotation := 0
+var _current_rotation := 0.0
 var _direction := 0.0
 # HACK: movement, jumping and gravity works with this, at the end of the frame this vector
 # is rotated so it corresponds to current camera rotation
@@ -45,15 +44,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("rotate_left"):
 		var _tween := create_tween()
 		_tween.tween_property(self, "rotation_degrees", rotation_degrees + 90.0, 0.05)
-		_current_rotation -= 1
-		# TODO: maybe _current_rotation can be unused and instead of it use player.rotation?
-		# nope, because in this exact frame player's rotation is still old
-		up_direction = Vector2.UP.rotated(-HALF_PI * _current_rotation)
+		_current_rotation -= PI / 2
+		up_direction = Vector2.UP.rotated(-_current_rotation)
 	elif event.is_action_pressed("rotate_right"):
 		var _tween := create_tween()
 		_tween.tween_property(self, "rotation_degrees", rotation_degrees - 90.0, 0.05)
-		_current_rotation += 1
-		up_direction = Vector2.UP.rotated(-HALF_PI * _current_rotation)
+		_current_rotation += PI / 2
+		up_direction = Vector2.UP.rotated(-_current_rotation)
 
 
 func _physics_process(delta: float) -> void:
@@ -71,7 +68,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_movement(delta: float) -> void:
-	_velocity = velocity.rotated(_current_rotation * HALF_PI)
+	_velocity = velocity.rotated(_current_rotation)
 	
 	# apply gravity
 	if not is_on_floor() and not _is_dashing:
@@ -105,11 +102,11 @@ func _handle_movement(delta: float) -> void:
 	if not is_on_floor() and not _is_dashing:
 		_velocity.x = lerp(_previous_velocity.x, _velocity.x, AIR_RESISTANCE * delta)
 	
-	velocity = _velocity.rotated(_current_rotation * -HALF_PI)
+	velocity = _velocity.rotated(-_current_rotation)
 	move_and_slide()
 	
 	# also used in air resistance
-	_velocity = velocity.rotated(_current_rotation * HALF_PI)
+	_velocity = velocity.rotated(_current_rotation)
 	_previous_velocity.x = _velocity.x
 
 
