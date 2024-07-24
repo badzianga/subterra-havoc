@@ -46,12 +46,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		_tween.tween_property(self, "rotation_degrees", rotation_degrees + 90.0, 0.05)
 		_current_rotation -= PI / 2
 		up_direction = Vector2.UP.rotated(-_current_rotation)
+		# TODO: GDD says that speed should be conserved, so test if this makes game better
 		velocity = Vector2.ZERO  # prevents velocity.x from changing into gravity
 	elif event.is_action_pressed("rotate_right"):
 		var _tween := create_tween()
 		_tween.tween_property(self, "rotation_degrees", rotation_degrees - 90.0, 0.05)
 		_current_rotation += PI / 2
 		up_direction = Vector2.UP.rotated(-_current_rotation)
+		# TODO: GDD says that speed should be conserved, so test if this makes game better
 		velocity = Vector2.ZERO  # prevents velocity.x from changing into gravity
 
 

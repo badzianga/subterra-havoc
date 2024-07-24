@@ -24,4 +24,4 @@ func _on_health_depleted() -> void:
 			_item_drop.initialize_item(drop_info.drop_id)
 			_item_drop.global_position = global_position
 			_item_drop.global_position.x += randf_range(-8.0, 8.0)
-			GlobalVariables.world_node.call_deferred("add_child", _item_drop)
+			GlobalVariables.map_node.call_deferred("add_child", _item_drop)

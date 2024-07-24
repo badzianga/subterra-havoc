@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://f7042i0eexg4"]
+
+[ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_sdhfr"]
+
+[node name="Village" type="Node2D"]
+script = ExtResource("1_sdhfr")
+_map_type = 0

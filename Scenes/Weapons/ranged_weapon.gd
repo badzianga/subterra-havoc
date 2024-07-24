@@ -25,4 +25,4 @@ func _shoot(direction: Vector2) -> void:
 	arrow.global_position = global_position
 	arrow.rotation = PI + direction.angle()
 	arrow.direction = direction
-	GlobalVariables.world_node.call_deferred("add_child", arrow)
+	GlobalVariables.map_node.call_deferred("add_child", arrow)

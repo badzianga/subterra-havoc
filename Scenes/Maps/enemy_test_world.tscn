@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dsyfptrrm3rhj"]
 
-[ext_resource type="Script" path="res://Scenes/Maps/world.gd" id="1_dcood"]
+[ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_dcood"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_odaif"]
 [ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="2_ruyi1"]
 [ext_resource type="PackedScene" uid="uid://bpydjicf6po2r" path="res://Scenes/Enemies/charger.tscn" id="3_abomd"]
@@ -23,6 +23,7 @@ size = Vector2(514, 66)
 
 [node name="EnemyTestWorld" type="Node2D"]
 script = ExtResource("1_dcood")
+_map_type = 1
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_mask = 0
