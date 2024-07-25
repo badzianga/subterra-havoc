@@ -167,10 +167,13 @@ func _check_dashing() -> void:
 
 
 func _on_health_component_health_changed() -> void:
-	_health_bar.value = _health_component.health
+	var _tween := create_tween()
+	_tween.tween_property(_health_bar, "value", _health_component.health, 0.8)
+	_tween.set_trans(Tween.TRANS_LINEAR)
+	#_health_bar.value = _health_component.health
 	_immunity_frames_timer.start()
+	# TODO: try to use tween here instead of animation player
 	_blinking_animation.play("blinking")
-	# TODO: animate reducing hp instead of removing it immediately
 
 
 func _on_health_component_health_depleted() -> void:
