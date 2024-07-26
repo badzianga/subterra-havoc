@@ -1,7 +1,112 @@
-[gd_scene load_steps=2 format=3 uid="uid://f7042i0eexg4"]
+[gd_scene load_steps=11 format=3 uid="uid://f7042i0eexg4"]
 
 [ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_sdhfr"]
+[ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="2_50d0f"]
+[ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="3_lf1sa"]
+[ext_resource type="PackedScene" uid="uid://dwk1l6dil61gl" path="res://Scenes/MapSwitching/portal.tscn" id="4_a3snu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixnvb"]
+size = Vector2(1357, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5coiy"]
+size = Vector2(74, 770)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypwim"]
+size = Vector2(1298, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lwaqm"]
+size = Vector2(72, 818)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gso5"]
+size = Vector2(514, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3sym"]
+size = Vector2(128, 88)
 
 [node name="Village" type="Node2D"]
 script = ExtResource("1_sdhfr")
-_map_type = 0
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Left" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(32, 360.5)
+scale = Vector2(0.5, 5.63281)
+texture = ExtResource("2_50d0f")
+
+[node name="Right" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1240, 329.5)
+scale = Vector2(0.625, 6.14844)
+texture = ExtResource("2_50d0f")
+
+[node name="Top" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(646, 15.75)
+scale = Vector2(10.7891, 0.878906)
+texture = ExtResource("2_50d0f")
+
+[node name="Bottom" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(667, 728.25)
+scale = Vector2(11.2891, 1.00391)
+texture = ExtResource("2_50d0f")
+
+[node name="Platform" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(1099, 520)
+scale = Vector2(4.00781, 0.546875)
+texture = ExtResource("2_50d0f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2(668.5, 31)
+shape = SubResource("RectangleShape2D_ixnvb")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders"]
+position = Vector2(27, 375)
+shape = SubResource("RectangleShape2D_5coiy")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Borders"]
+position = Vector2(631, 720)
+shape = SubResource("RectangleShape2D_ypwim")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Borders"]
+position = Vector2(1236, 391)
+shape = SubResource("RectangleShape2D_lwaqm")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Borders"]
+position = Vector2(1098, 519)
+shape = SubResource("RectangleShape2D_1gso5")
+
+[node name="Platform2" type="Sprite2D" parent="Borders"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(202.5, 373)
+scale = Vector2(4.00781, 0.546875)
+texture = ExtResource("2_50d0f")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Borders"]
+position = Vector2(202.5, 373)
+shape = SubResource("RectangleShape2D_1gso5")
+
+[node name="Player" parent="." instance=ExtResource("3_lf1sa")]
+position = Vector2(301, 288)
+
+[node name="Portal" parent="." instance=ExtResource("4_a3snu")]
+position = Vector2(1184, 448)
+_next_map_path = "res://Scenes/Maps/enemy_test_world.tscn"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
+shape = SubResource("RectangleShape2D_w3sym")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "MAP NAME AND TYPE"
+horizontal_alignment = 1
+vertical_alignment = 1

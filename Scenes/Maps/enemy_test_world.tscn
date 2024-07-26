@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dsyfptrrm3rhj"]
+[gd_scene load_steps=13 format=3 uid="uid://dsyfptrrm3rhj"]
 
 [ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_dcood"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_odaif"]
 [ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="2_ruyi1"]
 [ext_resource type="PackedScene" uid="uid://bpydjicf6po2r" path="res://Scenes/Enemies/charger.tscn" id="3_abomd"]
 [ext_resource type="PackedScene" uid="uid://drry80pfgpn06" path="res://Scenes/Inventory/item_drop.tscn" id="4_x1x2g"]
+[ext_resource type="PackedScene" uid="uid://dwk1l6dil61gl" path="res://Scenes/MapSwitching/portal.tscn" id="6_6o6bf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itr6l"]
 size = Vector2(1357, 82)
@@ -20,6 +21,9 @@ size = Vector2(72, 818)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_04c5l"]
 size = Vector2(514, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gy7pm"]
+size = Vector2(60, 60)
 
 [node name="EnemyTestWorld" type="Node2D"]
 script = ExtResource("1_dcood")
@@ -105,3 +109,22 @@ position = Vector2(276, 415)
 
 [node name="ItemDrop4" parent="." instance=ExtResource("4_x1x2g")]
 position = Vector2(226, 449)
+
+[node name="Portal" parent="." instance=ExtResource("6_6o6bf")]
+position = Vector2(1168, 632)
+_next_map_path = "res://Scenes/Maps/camp.tscn"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
+shape = SubResource("RectangleShape2D_gy7pm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "MAP NAME AND TYPE"
+horizontal_alignment = 1
+vertical_alignment = 1
