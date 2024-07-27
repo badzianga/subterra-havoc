@@ -24,6 +24,7 @@ buses/default_bus_layout="res://Resources/AudioBus/bus_layout.tres"
 GlobalVariables="*res://Singletons/global_variables.gd"
 ItemData="*res://Singletons/item_data.gd"
 PlayerInventory="*res://Singletons/player_inventory.gd"
+MapSwitch="*res://Singletons/map_switch.gd"
 
 [debug]
 

@@ -12,6 +12,4 @@ func _ready() -> void:
 
 
 func _on_area_entered(_area: Area2D) -> void:
-	# TODO: this is bad; changing scene should be handled by singleton
-	var _next_map_scene := load(_next_map_path) as PackedScene
-	get_tree().call_deferred("change_scene_to_packed", _next_map_scene)
+	MapSwitch.call_deferred("change_map", _next_map_path)

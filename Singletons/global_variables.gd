@@ -6,7 +6,6 @@ var inventory_node: Inventory
 var map_node: Map
 
 
-# currently unused
 func clear_all() -> void:
 	player = null
 	user_interface_node = null
