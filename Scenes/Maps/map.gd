@@ -7,7 +7,7 @@ enum MapType {
 	CAMP,
 }
 
-@export var _map_type: MapType  # currently unused
+@export var map_type: MapType
 
 
 func _ready() -> void:
@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 	# TEMPORARY FOR DEBUG PURPOSES
 	var _label: Label = $CanvasLayer/DebugLabel
-	_label.text = "Name: " + name + ", type: " + MapType.keys()[_map_type]
+	_label.text = "Name: " + name + ", type: " + MapType.keys()[map_type]
 	await get_tree().create_timer(3.0).timeout
 	var _tween := create_tween()
 	_tween.tween_property(_label, "modulate", Color(255, 255, 255, 0), 1.0)

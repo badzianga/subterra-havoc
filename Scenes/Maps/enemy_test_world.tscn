@@ -27,7 +27,7 @@ size = Vector2(60, 60)
 
 [node name="EnemyTestWorld" type="Node2D"]
 script = ExtResource("1_dcood")
-_map_type = 1
+map_type = 1
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_mask = 0

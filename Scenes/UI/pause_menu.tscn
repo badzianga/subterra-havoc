@@ -58,7 +58,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
-disabled = true
 text = "Return to lobby"
 
 [node name="SettingsButton" type="Button" parent="Buttons"]
@@ -80,4 +79,5 @@ text = "Exit
 "
 
 [connection signal="pressed" from="Buttons/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Buttons/LobbyButton" to="." method="_on_lobby_button_pressed"]
 [connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_exit_button_pressed"]

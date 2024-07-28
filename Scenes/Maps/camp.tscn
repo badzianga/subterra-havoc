@@ -22,7 +22,7 @@ size = Vector2(60, 60)
 
 [node name="Camp" type="Node2D"]
 script = ExtResource("1_hup1u")
-_map_type = 2
+map_type = 2
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_mask = 0
