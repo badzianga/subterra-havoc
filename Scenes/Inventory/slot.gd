@@ -15,9 +15,10 @@ enum SlotType {
 	SHOES,
 }
 
-const DefaultTexture := preload("res://Assets/UI/item_slot_default_background.png")
-const EmptyTexture := preload("res://Assets/UI/item_slot_empty_background.png")
-const SelectedTexture := preload("res://Assets/UI/item_slot_selected_background.png")
+const DefaultTexture := preload("res://Assets/UI/Inventory/slot.png")
+const EmptyTexture := preload("res://Assets/UI/Inventory/slot_empty.png")
+const EquipTexture := preload("res://Assets/UI/Inventory/slot_special.png")
+const SelectedTexture := preload("res://Assets/UI/Inventory/slot_active.png")
 const ItemClass := preload("res://Scenes/Inventory/item.tscn")
 
 @export var _offset_in_slot := Vector2(4.0, 4.0)
@@ -60,6 +61,8 @@ func _refresh_style() -> void:
 	var style := StyleBoxTexture.new()
 	if slot_type == SlotType.HOTBAR and index == PlayerInventory.active_item_slot:
 		style.texture = SelectedTexture
+	elif slot_type == SlotType.SHIRT or slot_type == SlotType.PANTS or slot_type == SlotType.SHOES:
+		style.texture = EquipTexture
 	elif item:
 		style.texture = DefaultTexture
 	else:

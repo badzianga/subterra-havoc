@@ -17,7 +17,7 @@ var _velocity: Vector2
 var _can_dash := true
 var _is_dashing := false
 var _dash_direction := 0.0
-var _previous_velocity: Vector2  # used by air ressistance
+var _previous_velocity: Vector2  # used by air resistance
 
 @onready var _health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar

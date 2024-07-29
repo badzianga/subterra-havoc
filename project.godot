@@ -25,6 +25,7 @@ GlobalVariables="*res://Singletons/global_variables.gd"
 ItemData="*res://Singletons/item_data.gd"
 PlayerInventory="*res://Singletons/player_inventory.gd"
 MapSwitch="*res://Singletons/map_switch.gd"
+SaveSystem="*res://Singletons/save_system.gd"
 
 [debug]
 
