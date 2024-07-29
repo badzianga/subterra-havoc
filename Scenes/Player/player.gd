@@ -117,9 +117,9 @@ func _handle_movement(delta: float) -> void:
 func _handle_animations() -> void:
 	 # flips sprite according to walking direction
 	if _direction > 0.0:
-		_sprite.flip_h = true
-	elif _direction < 0.0:
 		_sprite.flip_h = false
+	elif _direction < 0.0:
+		_sprite.flip_h = true
 	
 	# animation for falling and jumping
 	if not is_on_floor():
