@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=27 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://bjnggd18u06k1" path="res://Assets/Player/player2.png" id="2_b8wov"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dirx0mbpqrvbo" path="res://Scenes/Inventory/inventory.tscn" id="5_6fdha"]
 [ext_resource type="PackedScene" uid="uid://bumii8318rtk3" path="res://Scenes/Components/looting_component.tscn" id="5_rh2dp"]
 [ext_resource type="Script" path="res://Scenes/Player/user_interface.gd" id="6_a8bik"]
-[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="6_uued4"]
 [ext_resource type="PackedScene" uid="uid://cmgxtvhirbe2j" path="res://Scenes/Inventory/hotbar.tscn" id="7_1d22k"]
+[ext_resource type="Texture2D" uid="uid://b24w8gko4mt76" path="res://Assets/UI/HealthBar/healthbar_front.png" id="7_mrl6i"]
+[ext_resource type="Texture2D" uid="uid://3ak8ag2h67wm" path="res://Assets/UI/HealthBar/healthbar_back.png" id="8_8565v"]
 [ext_resource type="PackedScene" uid="uid://bdrftkqhl8x3h" path="res://Scenes/UI/pause_menu.tscn" id="10_ifudr"]
 [ext_resource type="PackedScene" uid="uid://daw6umia1ock3" path="res://Scenes/Components/weapon_controller.tscn" id="10_n2uf8"]
 
@@ -234,17 +235,16 @@ libraries = {
 [node name="UserInterface" type="CanvasLayer" parent="."]
 script = ExtResource("6_a8bik")
 
-[node name="HealthBar" type="ProgressBar" parent="UserInterface"]
-modulate = Color(0, 1, 0, 1)
-offset_left = 24.0
-offset_top = 648.0
-offset_right = 424.0
-offset_bottom = 680.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("6_uued4")
-theme_override_font_sizes/font_size = 32
-value = 100.0
+[node name="HealthBar" type="TextureProgressBar" parent="UserInterface"]
+offset_left = 64.0
+offset_top = 640.0
+offset_right = 144.0
+offset_bottom = 652.0
+scale = Vector2(4, 4)
+value = 50.0
+texture_over = ExtResource("7_mrl6i")
+texture_progress = ExtResource("8_8565v")
+texture_progress_offset = Vector2(8, 1)
 
 [node name="Inventory" parent="UserInterface" instance=ExtResource("5_6fdha")]
 visible = false
