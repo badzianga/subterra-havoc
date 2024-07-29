@@ -23,10 +23,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -414.0
-offset_top = -224.0
-offset_right = 290.0
-offset_bottom = 96.0
+offset_left = -398.0
+offset_top = -188.0
+offset_right = 398.0
+offset_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_t0f14")
@@ -38,10 +38,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -288.0
-offset_top = -96.0
-offset_right = 316.0
-offset_bottom = 98.0
+offset_left = -322.0
+offset_top = -108.0
+offset_right = 254.0
+offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 0
@@ -122,12 +122,12 @@ layout_mode = 2
 
 [node name="EquipSlots" type="GridContainer" parent="Background"]
 layout_mode = 0
-offset_left = 577.0
-offset_top = 64.0
-offset_right = 641.0
-offset_bottom = 264.0
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
+offset_left = 651.0
+offset_top = 80.0
+offset_right = 723.0
+offset_bottom = 304.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 
 [node name="ShirtSlot" parent="Background/EquipSlots" instance=ExtResource("2_7dnsd")]
 layout_mode = 2
@@ -135,8 +135,10 @@ layout_mode = 2
 [node name="Overlay" type="TextureRect" parent="Background/EquipSlots/ShirtSlot"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
 texture = ExtResource("4_spamj")
 
 [node name="PantsSlot" parent="Background/EquipSlots" instance=ExtResource("2_7dnsd")]
@@ -145,8 +147,10 @@ layout_mode = 2
 [node name="Overlay" type="TextureRect" parent="Background/EquipSlots/PantsSlot"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
 texture = ExtResource("5_tf6ht")
 
 [node name="ShoesSlot" parent="Background/EquipSlots" instance=ExtResource("2_7dnsd")]
@@ -155,6 +159,8 @@ layout_mode = 2
 [node name="Overlay" type="TextureRect" parent="Background/EquipSlots/ShoesSlot"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
 texture = ExtResource("6_rxsl8")
