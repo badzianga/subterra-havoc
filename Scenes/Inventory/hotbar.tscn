@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmgxtvhirbe2j"]
 
 [ext_resource type="Script" path="res://Scenes/Inventory/hotbar.gd" id="1_kp24m"]
-[ext_resource type="Texture2D" uid="uid://mi2gonesu4o5" path="res://Assets/UI/hotbar_background.png" id="2_6ub7v"]
+[ext_resource type="Texture2D" uid="uid://dhukctm5nlurt" path="res://Assets/UI/Inventory/hotbar_bg.png" id="2_gupx6"]
 [ext_resource type="PackedScene" uid="uid://0pies4fs1a3r" path="res://Scenes/Inventory/slot.tscn" id="3_246jv"]
 [ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="4_urthj"]
 
@@ -14,24 +14,30 @@ script = ExtResource("1_kp24m")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 166.0
+offset_right = 296.0
 offset_bottom = 80.0
-texture = ExtResource("2_6ub7v")
+texture = ExtResource("2_gupx6")
 
 [node name="Slots" type="GridContainer" parent="Background"]
 layout_mode = 0
-offset_left = 6.0
+offset_left = 4.0
 offset_top = 4.0
-offset_right = 158.0
+offset_right = 316.0
 offset_bottom = 76.0
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 8
 
 [node name="HotbarSlot1" parent="Background/Slots" instance=ExtResource("3_246jv")]
 layout_mode = 2
 
 [node name="HotbarSlot2" parent="Background/Slots" instance=ExtResource("3_246jv")]
+layout_mode = 2
+
+[node name="HotbarSlot3" parent="Background/Slots" instance=ExtResource("3_246jv")]
+layout_mode = 2
+
+[node name="HotbarSlot4" parent="Background/Slots" instance=ExtResource("3_246jv")]
 layout_mode = 2
 
 [node name="ActiveItemLabel" type="Label" parent="Background"]

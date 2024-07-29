@@ -9,8 +9,8 @@ extends Node
 signal active_item_updated
 
 # TODO: load there numbers from inventory scenes OR create these amount of slots in scenes 
-const NUM_INVENTORY_SLOTS := 20
-const NUM_HOTBAR_SLOTS := 2
+const NUM_INVENTORY_SLOTS := 24
+const NUM_HOTBAR_SLOTS := 4
 
 var inventory := {
 	0: ["oreGold", 15],  # slot_index: [item_id, item_quantity]

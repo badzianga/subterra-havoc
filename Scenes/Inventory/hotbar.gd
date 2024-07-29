@@ -19,17 +19,15 @@ func _ready() -> void:
 	_update_active_item_label()
 
 
-# Switches active hotbar slot with keys 1-5.
+# Switches active hotbar slot with keys 1-4.
 # TODO: it's called with every keyboard input event - event when moving.
 # Is it possible to do something about it?
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("hotbar_slot_1"):
-		PlayerInventory.active_item_slot = 0
-		PlayerInventory.active_item_updated.emit()
-	elif event.is_action_pressed("hotbar_slot_2"):
-		PlayerInventory.active_item_slot = 1
-		PlayerInventory.active_item_updated.emit()
-
+	for i in range(4):
+		if event.is_action_pressed("hotbar_slot_" + str(i + 1)):
+			PlayerInventory.active_item_slot = i
+			PlayerInventory.active_item_updated.emit()
+			break
 
 # Initializes all inventory slots - calling intialize_item for every slot containing an item.
 # With that all slots have proper style and set item.
