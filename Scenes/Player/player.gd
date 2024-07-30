@@ -32,6 +32,8 @@ var _previous_velocity: Vector2  # used by air resistance
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
 @onready var _weapon_controller := $WeaponMarker/WeaponController as WeaponController
 
+var is_attacking := false
+
 
 func _ready() -> void:
 	GlobalVariables.player = self
@@ -61,7 +63,8 @@ func _physics_process(delta: float) -> void:
 	if not inventory.visible:
 		_handle_movement(delta)
 		_handle_animations()
-		_weapon_controller.handle_weapon(rotation)
+		_handle_attacking()
+		#_weapon_controller.handle_weapon(rotation)
 	
 	_handle_inventory_inputs()
 	
@@ -122,6 +125,8 @@ func _handle_animations() -> void:
 		_sprite.flip_h = true
 	
 	# animation for falling and jumping
+	if is_attacking:
+		return
 	if not is_on_floor():
 		if _velocity.y > 0.0:
 			_animation_player.play("fall")
@@ -132,6 +137,17 @@ func _handle_animations() -> void:
 		_animation_player.play("run")
 	else:
 		_animation_player.play("idle")
+
+
+func _handle_attacking() -> void:
+	if Input.is_action_just_pressed("attack") and not is_attacking:
+		is_attacking = true
+		if randf() < 0.5:
+			_animation_player.play("attack1")
+		else:
+			_animation_player.play("attack2")
+		await _animation_player.animation_finished
+		is_attacking = false
 
 
 func _handle_inventory_inputs() -> void:

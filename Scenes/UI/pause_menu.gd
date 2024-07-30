@@ -6,10 +6,6 @@ extends Panel
 const VILLAGE_SCENE_PATH := "res://Scenes/Maps/village.tscn"
 
 
-func _ready() -> void:
-	visible = false
-
-
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("escape"):
 		get_tree().paused = not get_tree().paused
