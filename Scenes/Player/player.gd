@@ -60,9 +60,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("hotbar_slot_1"):
-		SaveSystem.save_game()
-	
 	if not inventory.visible:
 		_handle_movement(delta)
 		_handle_animations()
