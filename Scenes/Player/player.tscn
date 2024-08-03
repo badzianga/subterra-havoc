@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=28 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://bjnggd18u06k1" path="res://Assets/Player/player2.png" id="2_b8wov"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://b24w8gko4mt76" path="res://Assets/UI/HealthBar/healthbar_front.png" id="7_mrl6i"]
 [ext_resource type="Texture2D" uid="uid://3ak8ag2h67wm" path="res://Assets/UI/HealthBar/healthbar_back.png" id="8_8565v"]
 [ext_resource type="PackedScene" uid="uid://bdrftkqhl8x3h" path="res://Scenes/UI/pause_menu.tscn" id="10_ifudr"]
-[ext_resource type="PackedScene" uid="uid://daw6umia1ock3" path="res://Scenes/Components/weapon_controller.tscn" id="10_n2uf8"]
 [ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="13_p1k1h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o14or"]
@@ -306,15 +305,6 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_okd8l")
 }
-
-[node name="WeaponMarker" type="Marker2D" parent="."]
-visible = false
-position = Vector2(0, 5)
-
-[node name="WeaponController" parent="WeaponMarker" node_paths=PackedStringArray("_weapon_marker") instance=ExtResource("10_n2uf8")]
-visible = false
-position = Vector2(-8, 0)
-_weapon_marker = NodePath("..")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("13_p1k1h")]
 collision_layer = 4

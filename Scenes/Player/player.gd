@@ -30,7 +30,6 @@ var _previous_velocity: Vector2  # used by air resistance
 @onready var _hurtbox_collider := $HurtboxComponent/CollisionShape
 @onready var _immunity_frames_timer := $ImmunityFramesTimer
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
-@onready var _weapon_controller := $WeaponMarker/WeaponController as WeaponController
 
 var is_attacking := false
 
@@ -64,7 +63,6 @@ func _physics_process(delta: float) -> void:
 		_handle_movement(delta)
 		_handle_animations()
 		_handle_attacking()
-		#_weapon_controller.handle_weapon(rotation)
 	
 	_handle_inventory_inputs()
 	

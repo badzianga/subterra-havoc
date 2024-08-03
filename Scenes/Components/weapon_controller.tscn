@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://daw6umia1ock3"]
-
-[ext_resource type="Script" path="res://Scenes/Components/weapon_controller.gd" id="1_tif7x"]
-
-[node name="WeaponController" type="Node2D"]
-script = ExtResource("1_tif7x")
