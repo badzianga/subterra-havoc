@@ -1,3 +1,6 @@
+# Base class for all enemies.
+# Contains variables and methods common for most of the enemies.
+
 class_name Enemy
 extends CharacterBody2D
 
@@ -7,7 +10,8 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction := Vector2.ZERO
 
 
-# Checks if Enemy is on the floor; if not, then applies gravity loaded from project settings
+# Checks if Enemy is on the floor; if not, then applies gravity loaded from
+# project settings.
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta

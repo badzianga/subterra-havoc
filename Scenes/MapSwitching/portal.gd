@@ -1,5 +1,8 @@
+# Portal class used for switching maps by creating areas which colliding with
+# will trigger map change.
+
 # FIXME: player body is not on World layer, so checking PlayerHurtbox
-# however, dashing temporarily disables hurtbox, so it will cause bugs later
+# however, dashing and damage temporarily disables hurtbox, so it will cause bugs later
 
 class_name Portal
 extends Area2D

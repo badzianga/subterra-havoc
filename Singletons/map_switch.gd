@@ -1,7 +1,10 @@
+# Singleton used for switching maps. Should be called mostly by portal script.
+
 extends Node
 
 
-# IMPORTANT! this function must be called deferred! Map change should occur only during frame's end.
+# IMPORTANT! this function must be called deferred! Map change should occur only
+# during frame's end.
 func change_map(map_path: String) -> void:
 	var _next_map_scene := load(map_path) as PackedScene
 	
@@ -11,4 +14,4 @@ func change_map(map_path: String) -> void:
 	
 	var error := get_tree().change_scene_to_packed(_next_map_scene)
 	if error != OK:
-		push_error("Couldn't change map to: ", map_path)
+		print("Couldn't change map to: ", map_path)

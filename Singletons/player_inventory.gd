@@ -1,6 +1,6 @@
-# Singleton used for handling inventory dictionaries (proper items, not visual representation).
-# It also has some variables used by inventories - e.g. held_item, so items can be moved between
-# inventories.
+# Singleton used for handling inventory dictionaries (proper items, not visual
+# representation). It also has some variables used by inventories - e.g.
+# held_item, so items can be moved between inventories.
 #
 # TODO: I'm not pretty sure if scrolling should be here - maybe it will be better in hotbar script
 

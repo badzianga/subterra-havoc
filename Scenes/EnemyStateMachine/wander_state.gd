@@ -1,5 +1,5 @@
-# Enemies' wandering state. When activated, moves actor on map while checking collisions until sees
-# the player or until randomized time runs out.
+# Enemies' wandering state. When activated, moves actor on map while checking
+# collisions until sees the player or until randomized time runs out.
 #
 # TODO: add checking platform ends with RayCasts
 

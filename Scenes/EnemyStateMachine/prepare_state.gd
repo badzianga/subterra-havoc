@@ -1,6 +1,7 @@
-# Enemies' preparation state. When activated, waits for the timer's timeout to attack player.
-# This time window gives player time to kill enemy, run away or prepare for block.
-# State immediately emits signal when player leaves detection area.
+# Enemies' preparation state. When activated, waits for the timer's timeout to
+# attack player.
+# This time window gives player time to kill enemy, run away or prepare for
+# block. State immediately emits signal when player leaves detection area.
 
 class_name PrepareState
 extends State

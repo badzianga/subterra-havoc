@@ -1,3 +1,5 @@
+# Singleton for containing all item data in dictionary loaded from json file.
+
 extends Node
 
 var item_data: Dictionary

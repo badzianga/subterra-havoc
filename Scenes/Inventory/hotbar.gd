@@ -1,4 +1,5 @@
-# Player's hotbar which handles all inventory inputs - e.g. moving, swapping items.
+# Player's hotbar which handles all inventory inputs - e.g. moving, swapping
+# items.
 
 extends Control
 
@@ -29,8 +30,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			PlayerInventory.active_item_updated.emit()
 			break
 
-# Initializes all inventory slots - calling intialize_item for every slot containing an item.
-# With that all slots have proper style and set item.
+# Initializes all inventory slots - calling intialize_item for every slot
+# containing an item. With that all slots have proper style and set item.
 # TODO: is it really necessary to update every slot?
 # TODO: _ready() also iterates over all slots, is it possible to not iterate again?
 func _initialize_inventory() -> void:
@@ -64,8 +65,9 @@ func _left_click_different_item(event: InputEventMouseButton, slot: Slot) -> voi
 	PlayerInventory.held_item = _temp_item
 
 
-# Adds the same held item to the clicked slot. If held item's quantity is bigger than slot's
-# capacity, the slot is filled to the max, and difference is still held in hand.
+# Adds the same held item to the clicked slot. If held item's quantity is bigger
+# than slot's capacity, the slot is filled to the max, and difference is still
+# held in hand.
 func _left_click_same_item(slot: Slot) -> void:
 	var _stack_size := int(ItemData.item_data[slot.item.id]["StackSize"])
 	var _able_to_add := _stack_size - slot.item.quantity

@@ -1,3 +1,5 @@
+# Map class used for all maps - village, camps and levels.
+
 class_name Map
 extends Node2D
 
@@ -13,7 +15,8 @@ enum MapType {
 func _ready() -> void:
 	GlobalVariables.map_node = self
 	
-	# TODO: current problem is, loading save file will trigger saving again, which is redundant 
+	# TODO: current problem with this is, loading save file will trigger saving again,
+	# which is redundant 
 	if map_type == MapType.CAMP:
 		SaveSystem.save_game()
 	

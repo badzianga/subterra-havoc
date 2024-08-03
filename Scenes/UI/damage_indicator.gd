@@ -1,5 +1,6 @@
 # Label that indicates applied damage. Used by HealthComponent.
-# When ready, it starts a short animation that moves itself by 16 pixels to up, then deletes itself.
+# When ready, it starts a short animation that moves itself by 16 pixels to up,
+# then deletes itself.
 
 extends Label
 

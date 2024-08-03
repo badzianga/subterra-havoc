@@ -29,5 +29,4 @@ func _on_lobby_button_pressed() -> void:
 
 
 func _on_exit_button_pressed() -> void:
-	# TODO: save current progress
 	get_tree().quit()

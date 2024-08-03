@@ -1,4 +1,4 @@
-# Resource used in ItemDropComponent's array to set drop chances of cerain items.
+# Resource used in ItemDropComponent's array to set drop chances of items.
 
 class_name ItemDropInfo
 extends Resource

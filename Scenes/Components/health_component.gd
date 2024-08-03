@@ -1,12 +1,13 @@
 # Component used by all entities that have health points.
 #
-# Note that for proper working it needs some sort of collision checking to apply damage, so it is
-# used as HurtboxComponent's export variable.
+# Note that for proper working it needs some sort of collision checking to apply
+# damage, so it is used as HurtboxComponent's export variable.
 #
-# After applying damage, it spawns damage indicator in its global_position, so make sure to posiiton
-# it in the entity scene.
+# After applying damage, it spawns damage indicator in its global_position, so
+# make sure to posiiton it in the entity scene.
 #
-# Hurt effect or death should be implemented in entity's script using available signals.
+# Hurt effect or death should be implemented in entity's script using available
+# signals.
 #
 # max_health and health are public variables, so they can be used externally.
 # However, external modification of these variables won't emit signals.

@@ -1,4 +1,5 @@
-# Player's inventory class which handles all inventory inputs - e.g. moving, swapping items.
+# Player's inventory class which handles all inventory inputs - e.g. moving,
+# swapping items.
 # TODO: maybe make equipment slots the same as normal slots?
 # TODO: move all click functions to PlayerInventory singleton because they're also used by Hotbar
 # OR completely change hotbar logic and usage.
@@ -16,9 +17,9 @@ const SlotScene := preload("res://Scenes/Inventory/slot.tscn")
 @onready var _equip_slots := $Background/EquipSlots
 
 
-# Sets basic info about Inventory slots - indexes and slot_types. Also connects Slots' input signals
-# with _on_slot_input_received(). After that, it calls initializers for slots, so they will have
-# contained item and proper style.
+# Sets basic info about Inventory slots - indexes and slot_types. Also connects
+# Slots' input signals with _on_slot_input_received(). After that, it calls
+# initializers for slots, so they will have contained item and proper style.
 func _ready() -> void:
 	GlobalVariables.inventory_node = self
 	# inventory slots
@@ -54,8 +55,8 @@ func _input(event: InputEvent) -> void:
 		PlayerInventory.held_item.global_position = get_global_mouse_position()
 
 
-# Initializes all inventory slots - calling intialize_item for every slot containing an item.
-# With that all slots have proper style and set item.
+# Initializes all inventory slots - calling intialize_item for every slot
+# containing an item. With that all slots have proper style and set item.
 # TODO: is it really necessary to update every slot?
 # TODO: _ready() also iterates over all slots, is it possible to not iterate again?
 func initialize_inventory() -> void:
@@ -64,7 +65,8 @@ func initialize_inventory() -> void:
 		if PlayerInventory.inventory.has(i):
 			_slots[i].initialize_item(PlayerInventory.inventory[i][0], PlayerInventory.inventory[i][1])
 
-# Puts held item into first possible slot in inventory if user leaves inventory while holding item. 
+# Puts held item into first possible slot in inventory if user leaves inventory
+# while holding item. 
 func safely_close() -> void:
 	# user doesn't hold item, so inventory can be closed normally
 	if PlayerInventory.held_item == null:
@@ -80,10 +82,11 @@ func safely_close() -> void:
 			return
 
 
-# Initializes all equipment slots - calling intialize_item for every equipment slot containing an
-# item. With that all equipment slots have proper style and set item.
-# It is a private function because equipment slots contains cannot be changed when collecting items,
-# so it doesn't need to be called.
+# Initializes all equipment slots - calling intialize_item for every equipment
+# slot containing an item. With that all equipment slots have proper style and
+# set item.
+# It is a private function because equipment slots contains cannot be changed
+# when collecting items, so it doesn't need to be called.
 func _initialize_equips() -> void:
 	var _slots := _equip_slots.get_children()
 	for i: int in range(_slots.size()):
@@ -91,7 +94,8 @@ func _initialize_equips() -> void:
 			_slots[i].initialize_item(PlayerInventory.equips[i][0], PlayerInventory.equips[i][1])
 
 
-# Adds held item to the empty slot. If user tried to put item to invalid slot, ignores call.
+# Adds held item to the empty slot. If user tried to put item to invalid slot,
+# ignores call.
 func _left_click_empty_slot(slot: Slot) -> void:
 	if not _able_to_put_into_slot(slot):
 		return
@@ -117,8 +121,9 @@ func _left_click_different_item(event: InputEventMouseButton, slot: Slot) -> voi
 	PlayerInventory.held_item = _temp_item
 
 
-# Adds the same held item to the clicked slot. If held item's quantity is bigger than slot's
-# capacity, the slot is filled to the max, and difference is still held in hand.
+# Adds the same held item to the clicked slot. If held item's quantity is bigger
+# than slot's capacity, the slot is filled to the max, and difference is still
+# held in hand.
 func _left_click_same_item(slot: Slot) -> void:
 	if not _able_to_put_into_slot(slot):
 		return
@@ -146,8 +151,8 @@ func _left_click_no_holding(slot: Slot) -> void:
 	PlayerInventory.held_item.global_position = get_global_mouse_position()
 
 
-# Checks if player can put item into slot - if he holds an item and if he's trying to put item
-# into the slot of the correct category.
+# Checks if player can put item into slot - if he holds an item and if he's
+# trying to put item into the slot of the correct category.
 func _able_to_put_into_slot(slot: Slot) -> bool:
 	if PlayerInventory.held_item == null:
 		return true

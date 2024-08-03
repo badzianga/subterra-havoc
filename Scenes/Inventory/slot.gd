@@ -28,7 +28,8 @@ var index: int  # initialized in inventories' scripts
 var slot_type: SlotType
 
 
-# Creates item of passed ID and quantity in current slot and updates slot's style.
+# Creates item of passed ID and quantity in current slot and updates slot's
+# style.
 func initialize_item(item_id: String, item_quantity: int) -> void:
 	if item == null:
 		item = ItemClass.instantiate()  # TODO: check if Item.new() is possible
@@ -38,7 +39,8 @@ func initialize_item(item_id: String, item_quantity: int) -> void:
 	_refresh_style()
 
 
-# "Picks" item from current slot - adding item to UserInterface and changing slot's style.
+# "Picks" item from current slot - adding item to UserInterface and changing
+# slot's style.
 func pick_item_from_slot() -> void:
 	remove_child(item)
 	GlobalVariables.user_interface_node.add_child(item)
@@ -46,8 +48,8 @@ func pick_item_from_slot() -> void:
 	_refresh_style()
 
 
-# "Puts" item to the current slot - adding it to the slot, removing it from UserInterface and
-# changing slot's style.
+# "Puts" item to the current slot - adding it to the slot, removing it from
+# UserInterface and changing slot's style.
 func put_item_into_slot(new_item: Item) -> void:
 	item = new_item
 	item.position = Vector2(4.0, 4.0)
@@ -56,7 +58,8 @@ func put_item_into_slot(new_item: Item) -> void:
 	_refresh_style()
 
 
-# Sets panel style depending of the slot content and current active slot (if hotbar).
+# Sets panel style depending of the slot content and current active slot (only
+# for hotbar).
 func _refresh_style() -> void:
 	var style := StyleBoxTexture.new()
 	if slot_type == SlotType.HOTBAR and index == PlayerInventory.active_item_slot:
@@ -70,8 +73,8 @@ func _refresh_style() -> void:
 	set("theme_override_styles/panel", style)
 
 
-# Emits signal containing provided input event to slot and the slot itself, so inventory knows which
-# slot got input signal.
+# Emits signal containing provided input event to slot and the slot itself, so
+# inventory knows which slot got input signal.
 func _on_gui_input(event: InputEvent) -> void:
 	# TODO: move this check from here when using ctrl/shift will be implemented
 	if not event is InputEventMouseButton:

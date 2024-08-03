@@ -1,3 +1,5 @@
+# Singleton used for saving and loading data to/from save files.
+
 extends Node
 
 const INVENTORY_SAVE_FILE_PATH := "user://inventory.save"

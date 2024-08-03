@@ -1,5 +1,6 @@
 # Enemy's cooldown state. When activated, waits a litle bit after previous state.
-# Emits two types of signals - when cooldown is finished with or without player in detection area.
+# Emits two types of signals - when cooldown is finished with or without player
+# in detection area.
 
 class_name CooldownState
 extends State
