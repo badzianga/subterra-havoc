@@ -103,7 +103,7 @@ func _handle_movement(delta: float) -> void:
 		# do that if we implement accelerating
 		_velocity.x = move_toward(_velocity.x, 0.0, SPEED)
 	
-	 #air resistance
+	 # air resistance
 	if not is_on_floor() and not _is_dashing:
 		_velocity.x = lerp(_previous_velocity.x, _velocity.x, AIR_RESISTANCE * delta)
 	

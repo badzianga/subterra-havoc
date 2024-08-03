@@ -13,6 +13,10 @@ enum MapType {
 func _ready() -> void:
 	GlobalVariables.map_node = self
 	
+	# TODO: current problem is, loading save file will trigger saving again, which is redundant 
+	if map_type == MapType.CAMP:
+		SaveSystem.save_game()
+	
 	# TEMPORARY FOR DEBUG PURPOSES
 	var _label: Label = $CanvasLayer/DebugLabel
 	_label.text = "Name: " + name + ", type: " + MapType.keys()[map_type]
