@@ -315,6 +315,7 @@ damage = 40
 position = Vector2(14, 10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d63ka")
+disabled = true
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]
