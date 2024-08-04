@@ -4,16 +4,14 @@
 		"Category": "Melee",
 		"StackSize": 1,
 		"Description": "Your first melee weapon.",
-		"FileName": "spear_01.png",
-		"Node": "bronze_spear.tscn"
+		"FileName": "spear_01.png"
 	},
 	"bowWooden": {
 		"Name": "Wooden bow",
 		"Category": "Ranged",
 		"StackSize": 1,
 		"Description": "Your first ranged weapon.",
-		"FileName": "bow_01.png",
-		"Node": "wooden_bow.tscn"
+		"FileName": "bow_01.png"
 	},
 	"arrowWooden": {
 		"Name": "Wooden arrow",
