@@ -44,4 +44,4 @@ func _spawn_damage_indicator(damage: int) -> void:
 	var _indicator := DamageIndicatorScene.instantiate()
 	_indicator.text = str(damage)
 	_indicator.global_position += global_position
-	get_tree().root.add_child(_indicator)
+	GlobalVariables.map_node.add_child(_indicator)

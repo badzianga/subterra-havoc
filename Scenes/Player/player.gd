@@ -30,6 +30,7 @@ var _previous_velocity: Vector2  # used by air resistance
 @onready var _hurtbox_collider := $HurtboxComponent/CollisionShape
 @onready var _immunity_frames_timer := $ImmunityFramesTimer
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
+@onready var _hitbox_component := $HitboxComponent as HitboxComponent
 
 var is_attacking := false
 
@@ -119,8 +120,11 @@ func _handle_animations() -> void:
 	 # flips sprite according to walking direction
 	if _direction > 0.0:
 		_sprite.flip_h = false
+		# TODO: rotating hitbox every frame is not the best option for performance
+		_hitbox_component.rotation = 0
 	elif _direction < 0.0:
 		_sprite.flip_h = true
+		_hitbox_component.rotation = PI
 	
 	# animation for falling and jumping
 	if is_attacking:
