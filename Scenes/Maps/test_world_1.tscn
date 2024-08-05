@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dsyfptrrm3rhj"]
+[gd_scene load_steps=13 format=3 uid="uid://cscxmqn53bwo3"]
 
 [ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_dcood"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_odaif"]
@@ -25,7 +25,7 @@ size = Vector2(514, 66)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gy7pm"]
 size = Vector2(60, 60)
 
-[node name="EnemyTestWorld" type="Node2D"]
+[node name="TestWorld1" type="Node2D"]
 script = ExtResource("1_dcood")
 map_type = 1
 
@@ -112,7 +112,7 @@ position = Vector2(226, 449)
 
 [node name="Portal" parent="." instance=ExtResource("6_6o6bf")]
 position = Vector2(1168, 632)
-_next_map_path = "res://Scenes/Maps/camp.tscn"
+_next_map_path = "res://Scenes/Maps/camp_1.tscn"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
 shape = SubResource("RectangleShape2D_gy7pm")

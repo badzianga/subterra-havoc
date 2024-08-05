@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://sywa1323f1kr"]
+[gd_scene load_steps=10 format=3 uid="uid://l67nad470vwb"]
 
-[ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_hup1u"]
-[ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="2_7dcwf"]
-[ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="3_50vxp"]
-[ext_resource type="PackedScene" uid="uid://dwk1l6dil61gl" path="res://Scenes/MapSwitching/portal.tscn" id="4_cp8dl"]
+[ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_crwj3"]
+[ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="2_dmv7o"]
+[ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="3_thrfr"]
+[ext_resource type="PackedScene" uid="uid://dwk1l6dil61gl" path="res://Scenes/MapSwitching/portal.tscn" id="4_kyrny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha6dj"]
 size = Vector2(1357, 82)
@@ -20,8 +20,8 @@ size = Vector2(72, 818)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ikjqq"]
 size = Vector2(60, 60)
 
-[node name="Camp" type="Node2D"]
-script = ExtResource("1_hup1u")
+[node name="Camp1" type="Node2D"]
+script = ExtResource("1_crwj3")
 map_type = 2
 
 [node name="Borders" type="StaticBody2D" parent="."]
@@ -31,25 +31,25 @@ collision_mask = 0
 modulate = Color(0, 0, 0, 1)
 position = Vector2(32, 360.5)
 scale = Vector2(0.5, 5.63281)
-texture = ExtResource("2_7dcwf")
+texture = ExtResource("2_dmv7o")
 
 [node name="Right" type="Sprite2D" parent="Borders"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(1240, 329.5)
 scale = Vector2(0.625, 6.14844)
-texture = ExtResource("2_7dcwf")
+texture = ExtResource("2_dmv7o")
 
 [node name="Top" type="Sprite2D" parent="Borders"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(646, 15.75)
 scale = Vector2(10.7891, 0.878906)
-texture = ExtResource("2_7dcwf")
+texture = ExtResource("2_dmv7o")
 
 [node name="Bottom" type="Sprite2D" parent="Borders"]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(667, 728.25)
 scale = Vector2(11.2891, 1.00391)
-texture = ExtResource("2_7dcwf")
+texture = ExtResource("2_dmv7o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
 position = Vector2(668.5, 31)
@@ -67,12 +67,12 @@ shape = SubResource("RectangleShape2D_iro0n")
 position = Vector2(1236, 391)
 shape = SubResource("RectangleShape2D_lenpi")
 
-[node name="Player" parent="." instance=ExtResource("3_50vxp")]
+[node name="Player" parent="." instance=ExtResource("3_thrfr")]
 position = Vector2(111, 632)
 
-[node name="Portal" parent="." instance=ExtResource("4_cp8dl")]
+[node name="Portal" parent="." instance=ExtResource("4_kyrny")]
 position = Vector2(1174, 638)
-_next_map_path = "res://Scenes/Maps/enemy_test_world.tscn"
+_next_map_path = "res://Scenes/Maps/test_world_2.tscn"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
 shape = SubResource("RectangleShape2D_ikjqq")

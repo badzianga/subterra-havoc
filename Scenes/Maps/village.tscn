@@ -95,7 +95,7 @@ position = Vector2(301, 288)
 
 [node name="Portal" parent="." instance=ExtResource("4_a3snu")]
 position = Vector2(1184, 448)
-_next_map_path = "res://Scenes/Maps/enemy_test_world.tscn"
+_next_map_path = "res://Scenes/Maps/test_world_1.tscn"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
 shape = SubResource("RectangleShape2D_w3sym")
