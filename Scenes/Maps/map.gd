@@ -15,10 +15,16 @@ enum MapType {
 func _ready() -> void:
 	GlobalVariables.map_node = self
 	
-	# TODO: current problem with this is, loading save file will trigger saving again,
-	# which is redundant 
-	if map_type == MapType.CAMP:
+	if map_type == MapType.CAMP and not SaveSystem.just_loaded:
 		SaveSystem.save_game()
+	 
+	if SaveSystem.just_loaded:
+		SaveSystem.just_loaded = false
+		assert(
+			SaveSystem.loaded_data.is_empty(),
+			"Something went wrong - buffered loaded data is not empty, 
+			make sure to load everything"
+		)
 	
 	# TEMPORARY FOR DEBUG PURPOSES
 	var _label: Label = $CanvasLayer/DebugLabel

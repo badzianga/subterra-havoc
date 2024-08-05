@@ -21,6 +21,7 @@ const SlotScene := preload("res://Scenes/Inventory/slot.tscn")
 # Slots' input signals with _on_slot_input_received(). After that, it calls
 # initializers for slots, so they will have contained item and proper style.
 func _ready() -> void:
+	print(PlayerInventory.inventory)
 	GlobalVariables.inventory_node = self
 	# inventory slots
 	var _slots := inventory_slots.get_children()

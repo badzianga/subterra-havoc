@@ -19,7 +19,7 @@ var _is_dashing := false
 var _dash_direction := 0.0
 var _previous_velocity: Vector2  # used by air resistance
 
-@onready var _health_component := $HealthComponent as HealthComponent
+@onready var health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
 @onready var _sprite := $Sprite
 @onready var _animation_player := $AnimationPlayer
@@ -37,8 +37,15 @@ var is_attacking := false
 
 func _ready() -> void:
 	GlobalVariables.player = self
-	_health_bar.max_value = _health_component.max_health
-	_health_bar.value = _health_component.health
+	
+	if not SaveSystem.loaded_data.is_empty():
+		health_component.max_health = SaveSystem.loaded_data["PlayerMaxHealth"]
+		health_component.health = SaveSystem.loaded_data["PlayerHealth"]
+		SaveSystem.loaded_data.erase("PlayerMaxHealth")
+		SaveSystem.loaded_data.erase("PlayerHealth")
+	
+	_health_bar.max_value = health_component.max_health
+	_health_bar.value = health_component.health
 
 
 # temporary
@@ -186,9 +193,9 @@ func _check_dashing() -> void:
 
 func _on_health_component_health_changed() -> void:
 	var _tween := create_tween()
-	_tween.tween_property(_health_bar, "value", _health_component.health, 0.8)
+	_tween.tween_property(_health_bar, "value", health_component.health, 0.8)
 	_tween.set_trans(Tween.TRANS_LINEAR)
-	#_health_bar.value = _health_component.health
+	#_health_bar.value = health_component.health
 	_immunity_frames_timer.start()
 	# TODO: try to use tween here instead of animation player
 	_blinking_animation.play("blinking")
