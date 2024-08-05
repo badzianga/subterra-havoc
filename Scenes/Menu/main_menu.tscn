@@ -54,6 +54,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_tjhhx")
+theme_override_font_sizes/font_size = 32
 text = "Start game"
 
 [node name="SettingsButton" type="Button" parent="Panel/Buttons"]
@@ -61,7 +65,10 @@ custom_minimum_size = Vector2(200, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
-mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_tjhhx")
+theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Settings"
 
@@ -71,6 +78,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_tjhhx")
+theme_override_font_sizes/font_size = 32
 text = "Exit
 "
 

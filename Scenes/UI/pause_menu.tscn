@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdrftkqhl8x3h"]
+[gd_scene load_steps=4 format=3 uid="uid://bdrftkqhl8x3h"]
 
 [ext_resource type="Script" path="res://Scenes/UI/pause_menu.gd" id="1_yq74d"]
+[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="2_l8boa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncba8"]
 bg_color = Color(0.27451, 0.27451, 0.27451, 1)
@@ -49,6 +50,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_l8boa")
+theme_override_font_sizes/font_size = 32
 text = "Resume
 "
 
@@ -58,6 +63,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_l8boa")
+theme_override_font_sizes/font_size = 32
 text = "Return to lobby"
 
 [node name="SettingsButton" type="Button" parent="Buttons"]
@@ -66,6 +75,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_l8boa")
+theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Settings"
 
@@ -75,6 +88,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 mouse_default_cursor_shape = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_l8boa")
+theme_override_font_sizes/font_size = 32
 text = "Exit
 "
 
