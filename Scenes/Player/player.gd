@@ -202,7 +202,13 @@ func _on_health_component_health_changed() -> void:
 
 
 func _on_health_component_health_depleted() -> void:
-	set_physics_process(false)
+	SaveSystem.delete_run_save()
+	# TODO: better would be calling special method, I don't want to hold scene
+	# path in player's script
+	# TODO: inventory is not cleared - there should be another method which
+	# will clear other global variables than nodes. Also, there should be a some
+	# sort of death screen 
+	MapSwitch.call_deferred("change_map", "res://Scenes/Maps/village.tscn")
 
 
 func _on_dash_cooldown_timeout() -> void:

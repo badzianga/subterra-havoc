@@ -22,6 +22,10 @@ func load_game() -> void:
 	just_loaded = true
 
 
+func delete_run_save() -> void:
+	DirAccess.remove_absolute(RUN_STATE_SAVE_FILE_PATH)
+
+
 func _save_run_state_data() -> void:
 	var save_dict := {
 		"Inventory": PlayerInventory.inventory,
