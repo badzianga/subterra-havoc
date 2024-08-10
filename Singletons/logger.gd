@@ -7,6 +7,8 @@ enum LogLevel {
 	ERROR,
 }
 
+var log_level := LogLevel.DEBUG
+
 
 func debug(message: String) -> void:
 	_log(LogLevel.DEBUG, message, "gray")
@@ -25,6 +27,8 @@ func error(message: String) -> void:
 
 
 func _log(level: LogLevel, message: String, color: String) -> void:
+	if log_level > level:
+		return
 	var time_str := _get_time_string()
 	var level_name := LogLevel.keys()[level] as String
 	print_rich("[color=%s][%s] [%s] %s[/color]" % [color, time_str, level_name, message])
