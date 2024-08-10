@@ -32,4 +32,4 @@ func _log(level: LogLevel, message: String, color: String) -> void:
 
 func _get_time_string() -> String:
 	var ms := int(fposmod(Time.get_unix_time_from_system(), 1.0) * 1000.0)
-	return Time.get_time_string_from_system() + '.' + str(ms)
+	return "%s.%d" % [Time.get_time_string_from_system(), ms]
