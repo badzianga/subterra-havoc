@@ -1,3 +1,6 @@
+# TODO: player health is not saved between scenes - switching scenes makes new
+# player object with default health
+
 class_name Player
 extends CharacterBody2D
 
