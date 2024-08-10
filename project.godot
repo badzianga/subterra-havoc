@@ -26,6 +26,7 @@ ItemData="*res://Singletons/item_data.gd"
 PlayerInventory="*res://Singletons/player_inventory.gd"
 MapSwitch="*res://Singletons/map_switch.gd"
 SaveSystem="*res://Singletons/save_system.gd"
+Logger="*res://Singletons/logger.gd"
 
 [debug]
 
