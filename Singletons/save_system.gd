@@ -61,12 +61,12 @@ func _load_run_state_data() -> void:
 	# So, because json stores int keys as strings and I'm too lazy to look for
 	# all occurences of slot id as int, I did this terribleness, so old code
 	# will still work and performance shouldn't drop 
-	for key in save_dict["Inventory"]:
-		PlayerInventory.inventory[int(key)] = save_dict["Inventory"][key]
-	for key: String in save_dict["Hotbar"]:
-		PlayerInventory.hotbar[int(key)] = save_dict["Hotbar"][key]
-	for key: String in save_dict["Equips"]:
-		PlayerInventory.equips[int(key)] = save_dict["Equips"][key]
+	for index: String in save_dict["Inventory"]:
+		PlayerInventory.inventory[int(index)] = save_dict["Inventory"][index]
+	for index: String in save_dict["Hotbar"]:
+		PlayerInventory.hotbar[int(index)] = save_dict["Hotbar"][index]
+	for index: String in save_dict["Equips"]:
+		PlayerInventory.equips[int(index)] = save_dict["Equips"][index]
 	
 	loaded_data["PlayerHealth"] = save_dict["PlayerHealth"]
 	loaded_data["PlayerMaxHealth"] = save_dict["PlayerMaxHealth"]
