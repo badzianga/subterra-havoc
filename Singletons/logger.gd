@@ -9,25 +9,25 @@ enum LogLevel {
 
 
 func debug(message: String) -> void:
-	_log(LogLevel.DEBUG, message)
+	_log(LogLevel.DEBUG, message, "gray")
 
 
 func info(message: String) -> void:
-	_log(LogLevel.INFO, message)
+	_log(LogLevel.INFO, message, "white")
 
 
 func warning(message: String) -> void:
-	_log(LogLevel.WARNING, message)
+	_log(LogLevel.WARNING, message, "yellow")
 
 
 func error(message: String) -> void:
-	_log(LogLevel.ERROR, message)
+	_log(LogLevel.ERROR, message, "red")
 
 
-func _log(level: LogLevel, message: String) -> void:
+func _log(level: LogLevel, message: String, color: String) -> void:
 	var time_str := _get_time_string()
 	var level_name := LogLevel.keys()[level] as String
-	print("[%s] [%s] %s" % [time_str, level_name, message])
+	print_rich("[color=%s][%s] [%s] %s[/color]" % [color, time_str, level_name, message])
 
 
 func _get_time_string() -> String:
