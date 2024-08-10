@@ -24,6 +24,7 @@ func load_game() -> void:
 
 func delete_run_save() -> void:
 	DirAccess.remove_absolute(RUN_STATE_SAVE_FILE_PATH)
+	Logger.info("Run save file deleted")
 
 
 func _save_run_state_data() -> void:
@@ -40,12 +41,12 @@ func _save_run_state_data() -> void:
 	var json_string := JSON.stringify(save_dict)
 	save_file.store_line(json_string)
 	save_file.close()
-	print("Game saved!")
+	Logger.info("Game saved")
 
 
 func _load_run_state_data() -> void:
 	if not FileAccess.file_exists(RUN_STATE_SAVE_FILE_PATH):
-		print("Save file doesn't exist - skipping loading...")
+		Logger.info("Save file doesn't exist - skipped loading")
 		return
 	var save_file := FileAccess.open(RUN_STATE_SAVE_FILE_PATH, FileAccess.READ)
 	var json_string := save_file.get_line()
@@ -71,4 +72,4 @@ func _load_run_state_data() -> void:
 	loaded_data["PlayerHealth"] = save_dict["PlayerHealth"]
 	loaded_data["PlayerMaxHealth"] = save_dict["PlayerMaxHealth"]
 	loaded_data["CurrentMapPath"] = save_dict["CurrentMapPath"]
-	print("Game loaded!")
+	Logger.info("Game loaded")
