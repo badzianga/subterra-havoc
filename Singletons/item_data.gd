@@ -2,11 +2,14 @@
 
 extends Node
 
+const ITEM_DATA_FILE_PATH := &"res://Data/item_data.json"
+
 var item_data: Dictionary
 
 
 func _ready() -> void:
-	item_data = _load_data(&"res://Data/item_data.json")
+	item_data = _load_data(ITEM_DATA_FILE_PATH)
+	Logger.debug("Loaded item data dictionary from file (%d items)" % item_data.size())
 
 
 func _load_data(file_path: StringName) -> Dictionary:

@@ -13,7 +13,14 @@ enum LogLevel {
 
 const COLORS: Array[String] = ["gray", "white", "yellow", "red"]
 
+# Logging level (e.g. debug - show all, error - show only errors).
 var log_level := LogLevel.DEBUG
+
+var _level_strings := LogLevel.keys()
+
+
+func _ready() -> void:
+	debug("Logger enabled with logging level: %s" % _level_strings[log_level])
 
 
 # Displays lowest severity message for debugging purposes.
@@ -42,11 +49,11 @@ func _log(level: LogLevel, message: String) -> void:
 	if log_level > level:
 		return
 	var time_str := _get_time_string()
-	var level_name := LogLevel.keys()[level] as String
+	var level_name := _level_strings[level] as String
 	print_rich("[color=%s][%s] [%s] %s[/color]" % [COLORS[level], time_str, level_name, message])
 
 
 # Returns time string with milliseconds.
 func _get_time_string() -> String:
 	var ms := int(fposmod(Time.get_unix_time_from_system(), 1.0) * 1000.0)
-	return "%s.%d" % [Time.get_time_string_from_system(), ms]
+	return "%s.%03d" % [Time.get_time_string_from_system(), ms]
