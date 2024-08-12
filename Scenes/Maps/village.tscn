@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://f7042i0eexg4"]
+[gd_scene load_steps=11 format=3 uid="uid://f7042i0eexg4"]
 
 [ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_sdhfr"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="2_50d0f"]
 [ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="3_lf1sa"]
 [ext_resource type="PackedScene" uid="uid://dwk1l6dil61gl" path="res://Scenes/MapSwitching/portal.tscn" id="4_a3snu"]
-[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="5_5nucl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ixnvb"]
 size = Vector2(1357, 82)
@@ -99,18 +98,3 @@ _next_map_path = "res://Scenes/Maps/test_world_1.tscn"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
 shape = SubResource("RectangleShape2D_w3sym")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="DebugLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 45.0
-grow_horizontal = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("5_5nucl")
-theme_override_font_sizes/font_size = 64
-text = "MAP NAME AND TYPE"
-horizontal_alignment = 1
-vertical_alignment = 1

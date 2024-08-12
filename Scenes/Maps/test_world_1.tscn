@@ -116,15 +116,3 @@ _next_map_path = "res://Scenes/Maps/camp_1.tscn"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Portal"]
 shape = SubResource("RectangleShape2D_gy7pm")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="DebugLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 45.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 32
-text = "MAP NAME AND TYPE"
-horizontal_alignment = 1
-vertical_alignment = 1
