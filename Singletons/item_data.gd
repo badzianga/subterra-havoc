@@ -8,6 +8,7 @@ var item_data: Dictionary
 
 
 func _ready() -> void:
+	Logger.debug("Loading items from file...")
 	item_data = _load_data(ITEM_DATA_FILE_PATH)
 	Logger.debug("Loaded item data dictionary from file (%d items)" % item_data.size())
 

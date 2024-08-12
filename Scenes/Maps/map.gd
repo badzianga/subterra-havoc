@@ -17,7 +17,7 @@ func _ready() -> void:
 	
 	if map_type == MapType.CAMP and not SaveSystem.just_loaded:
 		SaveSystem.save_game()
-	 
+	
 	if SaveSystem.just_loaded:
 		SaveSystem.just_loaded = false
 		assert(
