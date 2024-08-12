@@ -2,6 +2,10 @@
 
 extends Node
 
+# TODO: maybe I can create village PackedScene variable. In (almost) every game it's going to be
+# used anyway, so it can be loaded OR I can hold here path to village so it doesn't need to be hold
+# in other scripts 
+
 
 # IMPORTANT! this function must be called deferred! Map change should occur only
 # during frame's end.

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6u4t64ojj3y1"]
+[gd_scene load_steps=11 format=3 uid="uid://c6u4t64ojj3y1"]
 
 [ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_htw7m"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="2_ragyy"]
 [ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="3_6olup"]
 [ext_resource type="PackedScene" uid="uid://dwk1l6dil61gl" path="res://Scenes/MapSwitching/portal.tscn" id="4_k4ckt"]
+[ext_resource type="PackedScene" uid="uid://cj2wffskj3cau" path="res://Scenes/Iteractable/return_sign.tscn" id="5_idsvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha6dj"]
 size = Vector2(1357, 82)
@@ -66,6 +67,9 @@ shape = SubResource("RectangleShape2D_iro0n")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Borders"]
 position = Vector2(1236, 391)
 shape = SubResource("RectangleShape2D_lenpi")
+
+[node name="ReturnSign" parent="." instance=ExtResource("5_idsvn")]
+position = Vector2(976, 632)
 
 [node name="Player" parent="." instance=ExtResource("3_6olup")]
 position = Vector2(111, 632)

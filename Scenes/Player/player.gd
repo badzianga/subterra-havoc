@@ -34,6 +34,7 @@ var _previous_velocity: Vector2  # used by air resistance
 @onready var _immunity_frames_timer := $ImmunityFramesTimer
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
 @onready var _hitbox_component := $HitboxComponent as HitboxComponent
+@onready var _interaction_component := $InteractionComponent as InteractionComponent
 
 var is_attacking := false
 
@@ -78,9 +79,12 @@ func _physics_process(delta: float) -> void:
 	_handle_inventory_inputs()
 	
 	if Input.is_action_just_pressed("pickup"):
+		# first check if can pick item; if not, then check if can interact with object
 		if _looting_component.items_in_range.size() > 0:
 			var _pickup_item: ItemDrop = _looting_component.items_in_range.pop_back()
 			_pickup_item.pick_up_item()
+		elif _interaction_component.interactable != null:
+			_interaction_component.interactable.interact()
 
 
 func _handle_movement(delta: float) -> void:

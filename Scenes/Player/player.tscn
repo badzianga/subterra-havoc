@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=30 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://bjnggd18u06k1" path="res://Assets/Player/player2.png" id="2_b8wov"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://3ak8ag2h67wm" path="res://Assets/UI/HealthBar/healthbar_back.png" id="8_8565v"]
 [ext_resource type="PackedScene" uid="uid://bdrftkqhl8x3h" path="res://Scenes/UI/pause_menu.tscn" id="10_ifudr"]
 [ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="13_p1k1h"]
+[ext_resource type="PackedScene" uid="uid://cysqdhuhwy7cb" path="res://Scenes/Components/interaction_component.tscn" id="13_v0s26"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o14or"]
 
@@ -216,6 +217,9 @@ _data = {
 radius = 6.0
 height = 44.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ieoua"]
+radius = 32.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_cpb11")
@@ -281,6 +285,7 @@ texture_progress_offset = Vector2(8, 1)
 visible = false
 
 [node name="Hotbar" parent="UserInterface" instance=ExtResource("7_1d22k")]
+visible = false
 offset_left = 438.0
 offset_top = 624.0
 offset_right = 478.0
@@ -307,6 +312,7 @@ libraries = {
 }
 
 [node name="HitboxComponent" parent="." instance=ExtResource("13_p1k1h")]
+visible = false
 position = Vector2(0, 10)
 collision_layer = 4
 collision_mask = 8
@@ -317,6 +323,11 @@ position = Vector2(14, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d63ka")
 disabled = true
+
+[node name="InteractionComponent" parent="." instance=ExtResource("13_v0s26")]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="InteractionComponent"]
+shape = SubResource("CircleShape2D_ieoua")
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]

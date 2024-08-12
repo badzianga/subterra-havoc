@@ -18,6 +18,8 @@ func _ready() -> void:
 		_slots[i]._refresh_style()
 	_initialize_inventory()
 	_update_active_item_label()
+	
+	visible = true  # I don't want to see hotbar in editor so I hid it
 
 
 # Switches active hotbar slot with keys 1-4.
