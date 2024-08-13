@@ -20,7 +20,8 @@ var _level_strings := LogLevel.keys()
 
 
 func _ready() -> void:
-	debug("Logger enabled with logging level: %s" % _level_strings[log_level])
+	info("Loading took %.3fs" % (Time.get_ticks_msec() / 1000.0))
+	info("Logger enabled with logging level: %s" % _level_strings[log_level])
 
 
 # Displays lowest severity message for debugging purposes.
