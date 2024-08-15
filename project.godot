@@ -142,6 +142,10 @@ DEBUG_delete_save={
 2d_physics/layer_6="Loot"
 2d_physics/layer_7="Interactable"
 
+[physics]
+
+common/physics_interpolation=true
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
