@@ -1,5 +1,5 @@
 # Base class for all states used by Enemy State Machine.
-# Used only forinheritance.
+# Used only for inheritance.
 
 class_name State
 extends Node
@@ -13,10 +13,12 @@ signal state_finished  # emitted by derived classes
 func _ready() -> void:
 	set_physics_process(false)
 
+
 # Enables physics processing. Should be called in enter_state() methods of
 # derived classes.
 func _enter_state() -> void:
 	set_physics_process(true)
+
 
 # Disables physics processing. Should be called in exit_state() methods of
 # derived classes.

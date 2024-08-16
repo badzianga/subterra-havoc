@@ -56,6 +56,10 @@ func _ready() -> void:
 
 
 # temporary
+# FIXME: setting Engine.time_scale to 0.1 and triggering rotate in oposite direction while still
+# rotating halts previous rotation on weird angle and rotates this weird angle by 90 degrees, so
+# final rotation is wrong.
+# This might be fixed in with doing auto rotation, however tests are required.
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("rotate_left"):
 		var _tween := create_tween()
