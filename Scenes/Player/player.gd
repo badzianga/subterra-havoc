@@ -1,5 +1,8 @@
 # TODO: player health is not saved between scenes - switching scenes makes new
 # player object with default health
+# FIXME: physics interpolation makes camera rotation very fast, possible solutions:
+# - change camera rotation smoothing from 8 to 4 (check speed on Max's PC)
+# - use own rotation smoothing (tests needed)
 
 class_name Player
 extends CharacterBody2D
@@ -158,10 +161,7 @@ func _handle_animations() -> void:
 func _handle_attacking() -> void:
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
-		if randf() < 0.5:
-			_animation_player.play("attack1")
-		else:
-			_animation_player.play("attack2")
+		_animation_player.play("dagger_" + str(randi_range(1, 3)))
 		await _animation_player.animation_finished
 		is_attacking = false
 
