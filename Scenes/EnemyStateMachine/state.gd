@@ -4,6 +4,7 @@
 class_name State
 extends Node
 
+@warning_ignore("unused_signal")
 signal state_finished  # emitted by derived classes
 
 
