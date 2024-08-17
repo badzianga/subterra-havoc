@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://xxblkft74jip"]
+[gd_scene load_steps=35 format=3 uid="uid://xxblkft74jip"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cpb11"]
 [ext_resource type="Texture2D" uid="uid://bjnggd18u06k1" path="res://Assets/Player/player2.png" id="2_b8wov"]
@@ -207,12 +207,31 @@ tracks/0/keys = {
 "values": [36, 37, 38, 39]
 }
 
+[sub_resource type="Animation" id="Animation_haga2"]
+resource_name = "dash"
+length = 0.1
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l5ops"]
 _data = {
 "RESET": SubResource("Animation_0w53b"),
 "dagger1": SubResource("Animation_s0eaw"),
 "dagger2": SubResource("Animation_vxdel"),
 "dagger3": SubResource("Animation_bquto"),
+"dash": SubResource("Animation_haga2"),
 "fall": SubResource("Animation_1sxoq"),
 "idle": SubResource("Animation_b8yob"),
 "jump": SubResource("Animation_frf7c"),
@@ -374,6 +393,7 @@ shape = SubResource("CapsuleShape2D_d63ka")
 disabled = true
 
 [node name="InteractionComponent" parent="." instance=ExtResource("13_v0s26")]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape2D" parent="InteractionComponent"]
 shape = SubResource("CircleShape2D_ieoua")

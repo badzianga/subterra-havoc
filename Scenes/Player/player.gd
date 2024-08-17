@@ -150,7 +150,9 @@ func _handle_animations() -> void:
 	# animation for falling and jumping
 	if is_attacking:
 		return
-	if not is_on_floor():
+	if _is_dashing:
+		_animation_player.play("dash")
+	elif not is_on_floor():
 		if _velocity.y > 0.0:
 			_animation_player.play("fall")
 		else:
