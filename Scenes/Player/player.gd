@@ -165,7 +165,7 @@ func _handle_animations() -> void:
 func _handle_attacking() -> void:
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
-		_animation_player.play("dagger_" + str(randi_range(1, 3)))
+		_animation_player.play("dagger" + str(randi_range(1, 3)))
 		await _animation_player.animation_finished
 		is_attacking = false
 
