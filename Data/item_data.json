@@ -6,6 +6,13 @@
 		"Description": "Your first melee weapon.",
 		"FileName": "spear_01.png"
 	},
+	"knifeIron": {
+		"Name": "Iron knife",
+		"Category": "Melee",
+		"StackSize": 1,
+		"Description": "Your another first melee weapon.",
+		"FileName": "stone sword.png"
+	},
 	"bowWooden": {
 		"Name": "Wooden bow",
 		"Category": "Ranged",

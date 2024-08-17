@@ -19,6 +19,7 @@ var inventory := {
 }
 var hotbar := {
 	0: ["spearBronze", 1],
+	1: ["knifeIron", 1],
 }
 var equips := {}
 
