@@ -103,13 +103,17 @@ func get_weapon_from_active_slot() -> Weapon:
 	# I think it's pretty bad method, but it will work for now
 	var _item_data: Array = hotbar.get(active_item_slot, [])
 	if _item_data.is_empty():
+		Logger.debug("Hotbar slot is empty - returning null")
 		return null
 	var _id: String = _item_data[0]
 	var _item_dict: Dictionary = ItemData.item_data[_id]
 	var _item_type: String = _item_dict["Category"]
 	if _item_type == "Weapon":
+		Logger.debug("Created weapon: %s" % ItemData.item_data[_id]["Name"])
 		return ItemData.create_weapon(_id)
+	Logger.debug("Item in the slot is not weapon - returning null")
 	return null
+	
 
 
 #func _update_slot_visual(slot_index: int, item_id: String, item_quantity: int) -> void:
