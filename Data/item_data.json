@@ -1,24 +1,33 @@
 {
 	"spearBronze": {
 		"Name": "Bronze spear",
-		"Category": "Melee",
+		"Category": "Weapon",
 		"StackSize": 1,
 		"Description": "Your first melee weapon.",
-		"FileName": "spear_01.png"
+		"FileName": "spear_01.png",
+		"WeaponType": "spear",
+		"Damage": 20,
+		"Combo": 3
 	},
 	"knifeIron": {
 		"Name": "Iron knife",
-		"Category": "Melee",
+		"Category": "Weapon",
 		"StackSize": 1,
 		"Description": "Your another first melee weapon.",
-		"FileName": "stone sword.png"
+		"FileName": "stone sword.png",
+		"WeaponType": "dagger",
+		"Damage": 12,
+		"Combo": 3
 	},
 	"bowWooden": {
 		"Name": "Wooden bow",
-		"Category": "Ranged",
+		"Category": "Weapon",
 		"StackSize": 1,
 		"Description": "Your first ranged weapon.",
-		"FileName": "bow_01.png"
+		"FileName": "bow_01.png",
+		"WeaponType": "ranged",
+		"Damage": 10,
+		"Combo": 1
 	},
 	"arrowWooden": {
 		"Name": "Wooden arrow",
