@@ -16,6 +16,9 @@ func _ready() -> void:
 func create_weapon(id: StringName) -> Weapon:
 	var _weapon := Weapon.new()
 	_weapon.type = item_data[id]["WeaponType"]
+	if _weapon.type == "ranged":
+		Logger.warning("Ranged weapons are not implemented yet - changed weapon type to dagger")
+		_weapon.type = "dagger"
 	_weapon.damage = item_data[id]["Damage"]
 	_weapon.combo = item_data[id]["Combo"]
 	return _weapon
