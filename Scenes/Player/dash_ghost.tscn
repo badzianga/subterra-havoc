@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://bda55b44bakl1"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/whiten.gdshader" id="1_0l6iy"]
+[ext_resource type="Texture2D" uid="uid://bjnggd18u06k1" path="res://Assets/Player/player2.png" id="1_ondw5"]
+[ext_resource type="Script" path="res://Scenes/Player/dash_ghost.gd" id="2_lge6v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sm625"]
+shader = ExtResource("1_0l6iy")
+
+[node name="DashGhost" type="Sprite2D"]
+material = SubResource("ShaderMaterial_sm625")
+texture = ExtResource("1_ondw5")
+hframes = 40
+frame = 3
+script = ExtResource("2_lge6v")

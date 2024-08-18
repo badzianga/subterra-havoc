@@ -7,10 +7,11 @@
 class_name Player
 extends CharacterBody2D
 
+const DashGhostScene := preload("res://Scenes/Player/dash_ghost.tscn")
 const SPEED := 300.0
 const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
-const DASH_MULTIPLIER := 2.5
+const DASH_MULTIPLIER := 2.0
 const AIR_RESISTANCE := 10.0
 
 var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
@@ -38,6 +39,7 @@ var _previous_velocity: Vector2  # used by air resistance
 @onready var _blinking_animation := $ImmunityFramesTimer/BlinkingAnimation
 @onready var _hitbox_component := $HitboxComponent as HitboxComponent
 @onready var _interaction_component := $InteractionComponent as InteractionComponent
+@onready var _dash_ghost_timer := $DashGhostTimer
 
 var is_attacking := false
 
@@ -194,14 +196,25 @@ func _check_dashing() -> void:
 		return
 	if _direction == 0.0:
 		return
+	# start dash
 	if _can_dash and _dash_cooldown.is_stopped():
+		_instance_dash_ghost()
 		_can_dash = false
 		_is_dashing = true
 		_dash_direction = _direction
 		_hurtbox_collider.set_deferred("disabled", true)
 		_dashing_timer.start()
+		_dash_ghost_timer.start()
 		# dashing while jumping makes player jump higher, multiplying velocity.y reduces this height
 		velocity.y *= 0.3
+
+
+func _instance_dash_ghost() -> void:
+	var _ghost := DashGhostScene.instantiate()
+	_ghost.global_position = global_position
+	_ghost.global_rotation = global_rotation
+	_ghost.flip_h = _sprite.flip_h
+	GlobalVariables.map_node.add_child(_ghost)
 
 
 func _on_health_component_health_changed() -> void:
@@ -234,9 +247,14 @@ func _on_dashing_timer_timeout() -> void:
 	if _immunity_frames_timer.is_stopped():
 		_hurtbox_collider.set_deferred("disabled", false)
 	_is_dashing = false
+	_dash_ghost_timer.stop()
 	_dash_cooldown.start()
 
 
 func _on_immunity_frames_timer_timeout() -> void:
 	_hurtbox_collider.set_deferred("disabled", false)
 	_blinking_animation.stop()
+
+
+func _on_dash_ghost_timer_timeout() -> void:
+	_instance_dash_ghost()
