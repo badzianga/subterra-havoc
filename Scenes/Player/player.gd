@@ -177,8 +177,9 @@ func _handle_attacking() -> void:
 		return
 	if Input.is_action_just_pressed("attack") and not _is_attacking:
 		_is_attacking = true
-		_animation_player.play(_weapon.type + str(randi_range(1, 3)))
+		_animation_player.play(_weapon.type + str(_weapon.current_combo))
 		await _animation_player.animation_finished
+		_weapon.current_combo = (_weapon.current_combo + 1) % _weapon.combo
 		_is_attacking = false
 
 
