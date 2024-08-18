@@ -3,6 +3,7 @@
 # FIXME: physics interpolation makes camera rotation very fast, possible solutions:
 # - change camera rotation smoothing from 8 to 4 (check speed on Max's PC)
 # - use own rotation smoothing (tests needed)
+# TODO: handling weapon will be pretty complex - do WeaponController in the future
 
 class_name Player
 extends CharacterBody2D
@@ -25,6 +26,8 @@ var _can_dash := true
 var _is_dashing := false
 var _dash_direction := 0.0
 var _previous_velocity: Vector2  # used by air resistance
+var _is_attacking := false
+var _weapon: Weapon
 
 @onready var health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
@@ -41,8 +44,6 @@ var _previous_velocity: Vector2  # used by air resistance
 @onready var _interaction_component := $InteractionComponent as InteractionComponent
 @onready var _dash_ghost_timer := $DashGhostTimer
 
-var is_attacking := false
-
 
 func _ready() -> void:
 	GlobalVariables.player = self
@@ -55,6 +56,11 @@ func _ready() -> void:
 	
 	_health_bar.max_value = health_component.max_health
 	_health_bar.value = health_component.health
+	
+	PlayerInventory.active_item_updated.connect(_on_active_item_updated)
+	
+	# TODO: temporary I think
+	_weapon = PlayerInventory.get_weapon_from_active_slot()
 
 
 # temporary
@@ -150,7 +156,7 @@ func _handle_animations() -> void:
 		_hitbox_component.rotation = PI
 	
 	# animation for falling and jumping
-	if is_attacking:
+	if _is_attacking:
 		return
 	if _is_dashing:
 		_animation_player.play("dash")
@@ -167,11 +173,13 @@ func _handle_animations() -> void:
 
 
 func _handle_attacking() -> void:
-	if Input.is_action_just_pressed("attack") and not is_attacking:
-		is_attacking = true
-		_animation_player.play("dagger" + str(randi_range(1, 3)))
+	if _weapon == null:
+		return
+	if Input.is_action_just_pressed("attack") and not _is_attacking:
+		_is_attacking = true
+		_animation_player.play(_weapon.type + str(randi_range(1, 3)))
 		await _animation_player.animation_finished
-		is_attacking = false
+		_is_attacking = false
 
 
 func _handle_inventory_inputs() -> void:
@@ -183,7 +191,6 @@ func _handle_inventory_inputs() -> void:
 		# check if user tries to leave inventory while holding item
 		else:
 			inventory.safely_close()
-		
 	
 	if Input.is_action_pressed("scroll_up"):
 		PlayerInventory.active_item_scroll_up()
@@ -258,3 +265,8 @@ func _on_immunity_frames_timer_timeout() -> void:
 
 func _on_dash_ghost_timer_timeout() -> void:
 	_instance_dash_ghost()
+
+
+func _on_active_item_updated() -> void:
+	_weapon = null
+	_weapon = PlayerInventory.get_weapon_from_active_slot()
