@@ -43,6 +43,7 @@ var _weapon: Weapon
 @onready var _hitbox_component := $HitboxComponent as HitboxComponent
 @onready var _interaction_component := $InteractionComponent as InteractionComponent
 @onready var _dash_ghost_timer := $DashGhostTimer
+@onready var _combo_timer := $ComboTimer
 
 
 func _ready() -> void:
@@ -176,8 +177,14 @@ func _handle_attacking() -> void:
 	if _weapon == null:
 		return
 	if Input.is_action_just_pressed("attack") and not _is_attacking:
+		_combo_timer.stop()
+		Logger.debug("Attack combo: %d" % _weapon.current_combo)
 		_is_attacking = true
 		_animation_player.play(_weapon.type + str(_weapon.current_combo))
+		# TODO: magic number - change in future
+		_combo_timer.wait_time = _animation_player.current_animation_length as float + 0.3
+		_combo_timer.start()
+		Logger.debug("Started timer with time: %.3fs" % _combo_timer.wait_time)
 		await _animation_player.animation_finished
 		_weapon.current_combo = (_weapon.current_combo + 1) % _weapon.combo
 		_is_attacking = false
@@ -271,3 +278,8 @@ func _on_dash_ghost_timer_timeout() -> void:
 func _on_active_item_updated() -> void:
 	_weapon = null
 	_weapon = PlayerInventory.get_weapon_from_active_slot()
+
+
+func _on_combo_timer_timeout() -> void:
+	Logger.debug("Combo ended")
+	_weapon.current_combo = 0

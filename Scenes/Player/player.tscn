@@ -383,6 +383,9 @@ libraries = {
 "": SubResource("AnimationLibrary_okd8l")
 }
 
+[node name="ComboTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="HitboxComponent" parent="." instance=ExtResource("13_p1k1h")]
 visible = false
 position = Vector2(0, 10)
@@ -408,3 +411,4 @@ shape = SubResource("CircleShape2D_ieoua")
 [connection signal="timeout" from="DashingTimer" to="." method="_on_dashing_timer_timeout"]
 [connection signal="timeout" from="DashGhostTimer" to="." method="_on_dash_ghost_timer_timeout"]
 [connection signal="timeout" from="ImmunityFramesTimer" to="." method="_on_immunity_frames_timer_timeout"]
+[connection signal="timeout" from="ComboTimer" to="." method="_on_combo_timer_timeout"]
