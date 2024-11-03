@@ -154,6 +154,7 @@ offset_bottom = -35.0
 text = "State: null"
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_4r4ry")
 
 [node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_state")]
@@ -201,6 +202,7 @@ libraries = {
 }
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -209,6 +211,7 @@ position = Vector2(-80, 0)
 shape = SubResource("RectangleShape2D_6y4jd")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("8_rfqwd")]
+visible = false
 collision_layer = 16
 collision_mask = 2
 damage = 34
@@ -218,6 +221,7 @@ shape = SubResource("RectangleShape2D_qjs17")
 disabled = true
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("9_v5wrf")]
+visible = false
 collision_layer = 8
 collision_mask = 4
 _health_component = NodePath("../HealthComponent")

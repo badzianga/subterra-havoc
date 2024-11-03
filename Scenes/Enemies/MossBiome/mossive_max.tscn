@@ -1,0 +1,50 @@
+[gd_scene load_steps=12 format=3 uid="uid://4wcmeivlo8pv"]
+
+[ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_876kq"]
+[ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/mossive_max.gd" id="1_s22r2"]
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="2_0aftc"]
+[ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="4_m2l7d"]
+[ext_resource type="PackedScene" uid="uid://cdy80jl7s457c" path="res://Scenes/EnemyStateMachine/wander_state.tscn" id="5_dtcwy"]
+[ext_resource type="PackedScene" uid="uid://dotyn4mp6jdd3" path="res://Scenes/EnemyStateMachine/prepare_state.tscn" id="6_terg6"]
+[ext_resource type="PackedScene" uid="uid://ifb2pgo7qc4p" path="res://Scenes/EnemyStateMachine/attack_state.tscn" id="7_1vnab"]
+[ext_resource type="PackedScene" uid="uid://dkngw8lejpmrs" path="res://Scenes/EnemyStateMachine/cooldown_state.tscn" id="8_tm72i"]
+[ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="9_vrxq6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05kwc"]
+size = Vector2(64, 96)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_btr4n"]
+
+[node name="MossiveMax" type="CharacterBody2D"]
+script = ExtResource("1_s22r2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.75)
+texture = ExtResource("1_876kq")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_05kwc")
+
+[node name="EnemyStateMachine" type="Node" parent="."]
+script = ExtResource("2_0aftc")
+
+[node name="IdleState" parent="EnemyStateMachine" instance=ExtResource("4_m2l7d")]
+_idle_time_min = 1.0
+_idle_time_max = 3.0
+
+[node name="WanderState" parent="EnemyStateMachine" instance=ExtResource("5_dtcwy")]
+
+[node name="PrepareState" parent="EnemyStateMachine" instance=ExtResource("6_terg6")]
+
+[node name="AttackState" parent="EnemyStateMachine" instance=ExtResource("7_1vnab")]
+
+[node name="CooldownState" parent="EnemyStateMachine" instance=ExtResource("8_tm72i")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_btr4n")
+}
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_vrxq6")]
+position = Vector2(0, -40)
+max_health = 250
