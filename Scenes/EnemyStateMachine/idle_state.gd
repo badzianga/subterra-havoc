@@ -33,7 +33,8 @@ func _physics_process(delta: float) -> void:
 func enter_state() -> void:
 	_enter_state()
 	_animator.play("idle")
-	_state_label.text = "State: idle"
+	if _state_label != null:
+		_state_label.text = "State: idle"
 	_idle_timer.wait_time = randf_range(_idle_time_min, _idle_time_max)
 	_idle_timer.start()
 

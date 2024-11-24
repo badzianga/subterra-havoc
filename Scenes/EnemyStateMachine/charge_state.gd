@@ -34,7 +34,8 @@ func _physics_process(delta: float) -> void:
 func enter_state() -> void:
 	_enter_state()
 	_animator.play("charge")
-	_state_label.text = "State: charge"
+	if _state_label != null:
+		_state_label.text = "State: charge"
 	_charge_timer.start()
 	
 	_hitbox_collision_shape.set_deferred("disabled", false)

@@ -30,7 +30,8 @@ func _physics_process(delta: float) -> void:
 func enter_state() -> void:
 	_enter_state()
 	_animator.play("idle")
-	_state_label.text = "State: cooldown"
+	if _state_label != null:
+		_state_label.text = "State: cooldown"
 	_cooldown_timer.start()
 
 

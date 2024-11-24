@@ -51,7 +51,8 @@ func _physics_process(delta: float) -> void:
 func enter_state() -> void:
 	_enter_state()
 	_animator.play("walk")
-	_state_label.text = "State: wander"
+	if _state_label != null:
+		_state_label.text = "State: wander"
 	_wander_timer.wait_time = randf_range(_wander_time_min, _wander_time_max)
 	_wander_timer.start()
 	

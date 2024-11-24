@@ -46,7 +46,8 @@ func _physics_process(delta: float) -> void:
 func enter_state() -> void:
 	_enter_state()
 	_animator.play("prepare")
-	_state_label.text = "State: prepare"
+	if _state_label != null:
+		_state_label.text = "State: prepare"
 	_prepare_timer.start()
 
 
