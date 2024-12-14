@@ -161,12 +161,7 @@ shape = SubResource("RectangleShape2D_4r4ry")
 script = ExtResource("1_x20l2")
 _state = NodePath("IdleState")
 
-[node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_state_label") instance=ExtResource("3_1spmh")]
-_actor = NodePath("../..")
-_animator = NodePath("../../AnimationPlayer")
-_state_label = NodePath("../../StateLabel")
-_idle_time_min = 1.0
-_idle_time_max = 3.0
+[node name="IdleState" parent="EnemyStateMachine" instance=ExtResource("3_1spmh")]
 
 [node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_sprite", "_detection_area", "_state_label") instance=ExtResource("4_t07wq")]
 _actor = NodePath("../..")
