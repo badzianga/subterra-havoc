@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://4wcmeivlo8pv"]
+[gd_scene load_steps=22 format=3 uid="uid://4wcmeivlo8pv"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/mossive_max.gd" id="1_s22r2"]
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="2_0aftc"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="4_m2l7d"]
 [ext_resource type="PackedScene" uid="uid://cdy80jl7s457c" path="res://Scenes/EnemyStateMachine/wander_state.tscn" id="5_dtcwy"]
 [ext_resource type="PackedScene" uid="uid://dotyn4mp6jdd3" path="res://Scenes/EnemyStateMachine/prepare_state.tscn" id="6_terg6"]
+[ext_resource type="PackedScene" uid="uid://ifb2pgo7qc4p" path="res://Scenes/EnemyStateMachine/attack_state.tscn" id="7_1vnab"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="7_ym2ny"]
+[ext_resource type="PackedScene" uid="uid://dkngw8lejpmrs" path="res://Scenes/EnemyStateMachine/cooldown_state.tscn" id="8_tm72i"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="9_vrxq6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2fwws"]
@@ -81,9 +83,41 @@ tracks/0/keys = {
 "values": [3]
 }
 
+[sub_resource type="Animation" id="Animation_ehwsb"]
+resource_name = "attack"
+length = 1.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_attack"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_btr4n"]
 _data = {
 "RESET": SubResource("Animation_i6ksx"),
+"attack": SubResource("Animation_ehwsb"),
 "idle": SubResource("Animation_0nsfg"),
 "prepare": SubResource("Animation_ddcgf"),
 "wander": SubResource("Animation_neuwe")
@@ -121,9 +155,8 @@ vertical_alignment = 1
 visible = false
 shape = SubResource("CapsuleShape2D_2fwws")
 
-[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_state")]
+[node name="EnemyStateMachine" type="Node" parent="."]
 script = ExtResource("2_0aftc")
-_state = NodePath("IdleState")
 
 [node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("4_m2l7d")]
 actor = NodePath("../..")
@@ -146,7 +179,17 @@ wandering_speed = 35.0
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
 state_label = NodePath("../../StateLabel")
-prepare_time = 3.0
+prepare_time = 2.0
+
+[node name="AttackState" parent="EnemyStateMachine" node_paths=PackedStringArray("animator", "state_label") instance=ExtResource("7_1vnab")]
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+
+[node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("8_tm72i")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+cooldown_time = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

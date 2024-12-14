@@ -11,8 +11,8 @@ extends Enemy
 @onready var idle := $EnemyStateMachine/IdleState as IdleState
 @onready var wander := $EnemyStateMachine/WanderState as WanderState
 @onready var prepare := $EnemyStateMachine/PrepareState as PrepareState
-#@onready var cooldown := $EnemyStateMachine/CooldownState as CooldownState
-#@onready var attack := $EnemyStateMachine/AttackState as AttackState
+@onready var attack := $EnemyStateMachine/AttackState as AttackState
+@onready var cooldown := $EnemyStateMachine/CooldownState as CooldownState
 
 
 func _ready() -> void:
@@ -24,12 +24,16 @@ func _ready() -> void:
 	wander.wandering_finished.connect(esm.change_state.bind(idle))
 
 	prepare.player_lost.connect(esm.change_state.bind(idle))
-	#prepare.preparing_finished.connect(esm.change_state.bind(attack))
-#
-	#attack.attacking_finished.connect(esm.change_state.bind(cooldown))
-	#
-	#cooldown.cooldown_finished.connect(esm.change_state.bind(idle))
-	#cooldown.player_seen.connect(esm.change_state.bind(prepare))
+	prepare.preparing_finished.connect(esm.change_state.bind(attack))
+
+	attack.attacking_finished.connect(esm.change_state.bind(cooldown))
+
+	cooldown.cooldown_finished.connect(esm.change_state.bind(wander))
+	cooldown.player_seen.connect(esm.change_state.bind(prepare))
+
+
+func _attack() -> void:
+	Logger.debug("Mossive Max attacked")
 
 
 func _on_detection_area_area_entered(_area: Area2D) -> void:
