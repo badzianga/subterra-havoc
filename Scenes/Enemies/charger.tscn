@@ -163,20 +163,9 @@ _state = NodePath("IdleState")
 
 [node name="IdleState" parent="EnemyStateMachine" instance=ExtResource("3_1spmh")]
 
-[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_sprite", "_detection_area", "_state_label") instance=ExtResource("4_t07wq")]
-_actor = NodePath("../..")
-_animator = NodePath("../../AnimationPlayer")
-_sprite = NodePath("../../Sprite")
-_detection_area = NodePath("../../DetectionArea")
-_state_label = NodePath("../../StateLabel")
-_wander_time_min = 3.0
-_wander_time_max = 5.0
+[node name="WanderState" parent="EnemyStateMachine" instance=ExtResource("4_t07wq")]
 
-[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_state_label") instance=ExtResource("5_xl4rn")]
-_actor = NodePath("../..")
-_animator = NodePath("../../AnimationPlayer")
-_state_label = NodePath("../../StateLabel")
-_prepare_time = 1.5
+[node name="PrepareState" parent="EnemyStateMachine" instance=ExtResource("5_xl4rn")]
 
 [node name="ChargeState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_animator", "_hitbox_collision_shape", "_state_label") instance=ExtResource("6_lvxtb")]
 _actor = NodePath("../..")
@@ -217,8 +206,6 @@ disabled = true
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("9_v5wrf")]
 visible = false
-collision_layer = 8
-collision_mask = 4
 _health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
