@@ -21,15 +21,6 @@ size = Vector2(128, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_874sw"]
 size = Vector2(32, 32)
 
-[sub_resource type="Animation" id="Animation_bd8kt"]
-resource_name = "idle"
-
-[sub_resource type="Animation" id="Animation_jrs84"]
-resource_name = "wander"
-
-[sub_resource type="Animation" id="Animation_biigt"]
-resource_name = "prepare"
-
 [sub_resource type="Animation" id="Animation_lw06e"]
 resource_name = "attack"
 step = 0.1
@@ -47,6 +38,15 @@ tracks/0/keys = {
 "method": &"_attack"
 }]
 }
+
+[sub_resource type="Animation" id="Animation_bd8kt"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_biigt"]
+resource_name = "prepare"
+
+[sub_resource type="Animation" id="Animation_jrs84"]
+resource_name = "wander"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dx0nr"]
 _data = {

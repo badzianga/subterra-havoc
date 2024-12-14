@@ -165,14 +165,14 @@ _state = NodePath("IdleState")
 [node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("4_m2l7d")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("")
+state_label = NodePath("../../StateLabel")
 idle_time_min = 1.0
 idle_time_max = 2.5
 
 [node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("5_dtcwy")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("")
+state_label = NodePath("../../StateLabel")
 wander_time_min = 1.0
 wander_time_max = 3.0
 wandering_speed = 35.0
@@ -180,17 +180,17 @@ wandering_speed = 35.0
 [node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("6_terg6")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("")
+state_label = NodePath("../../StateLabel")
 prepare_time = 2.0
 
 [node name="AttackState" parent="EnemyStateMachine" node_paths=PackedStringArray("animator", "state_label") instance=ExtResource("7_1vnab")]
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("")
+state_label = NodePath("../../StateLabel")
 
 [node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("8_tm72i")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("")
+state_label = NodePath("../../StateLabel")
 cooldown_time = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

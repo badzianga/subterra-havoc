@@ -1,5 +1,9 @@
 extends Enemy
 
+const SporeCloudScene := preload("res://Scenes/Enemies/Attacks/spore_cloud.tscn")
+
+@export var clouds_amount := 5
+
 @onready var esm := $EnemyStateMachine as EnemyStateMachine
 @onready var idle := $EnemyStateMachine/IdleState as IdleState
 @onready var wander := $EnemyStateMachine/WanderState as WanderState
@@ -36,7 +40,13 @@ func flip(flip_to_right: bool) -> void:
 
 
 func _attack() -> void:
-	pass
+	for _i in range(clouds_amount):
+		var spore_cloud := SporeCloudScene.instantiate()
+		spore_cloud.global_position = global_position
+		var dir := (GlobalVariables.player.global_position - global_position).normalized()
+		dir = dir.rotated(deg_to_rad(randf_range(-20.0, 20.0)))
+		spore_cloud.direction = dir
+		GlobalVariables.map_node.add_child(spore_cloud)
 
 
 func _on_detection_area_area_entered(_area: Area2D) -> void:
