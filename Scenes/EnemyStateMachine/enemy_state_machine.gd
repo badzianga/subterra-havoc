@@ -8,7 +8,9 @@ extends Node
 
 # Enables default state.
 func _ready() -> void:
-	assert(_state != null)
+	if _state == null:
+		Logger.warning("No starting state set in ESM, setting first children as default")
+		_state = get_child(0)
 	change_state(_state)
 
 

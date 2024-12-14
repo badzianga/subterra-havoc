@@ -6,26 +6,27 @@ extends Enemy
 
 @onready var esm := $EnemyStateMachine as EnemyStateMachine
 @onready var idle := $EnemyStateMachine/IdleState as IdleState
-@onready var wander := $EnemyStateMachine/WanderState as WanderState
-@onready var prepare := $EnemyStateMachine/PrepareState as PrepareState
-@onready var cooldown := $EnemyStateMachine/CooldownState as CooldownState
-@onready var attack := $EnemyStateMachine/AttackState as AttackState
+#@onready var wander := $EnemyStateMachine/WanderState as WanderState
+#@onready var prepare := $EnemyStateMachine/PrepareState as PrepareState
+#@onready var cooldown := $EnemyStateMachine/CooldownState as CooldownState
+#@onready var attack := $EnemyStateMachine/AttackState as AttackState
 
 
 func _ready() -> void:
-	idle.idling_finished.connect(esm.change_state.bind(wander))
-	idle.player_seen.connect(esm.change_state.bind(prepare))
-	
-	wander.player_seen.connect(esm.change_state.bind(prepare))
-	wander.wandering_finished.connect(esm.change_state.bind(idle))
-	
-	prepare.player_lost.connect(esm.change_state.bind(idle))
-	prepare.preparing_finished.connect(esm.change_state.bind(attack))
-
-	attack.attacking_finished.connect(esm.change_state.bind(cooldown))
-	
-	cooldown.cooldown_finished.connect(esm.change_state.bind(idle))
-	cooldown.player_seen.connect(esm.change_state.bind(prepare))
+	pass
+	#idle.idling_finished.connect(esm.change_state.bind(wander))
+	#idle.player_seen.connect(esm.change_state.bind(prepare))
+	#
+	#wander.player_seen.connect(esm.change_state.bind(prepare))
+	#wander.wandering_finished.connect(esm.change_state.bind(idle))
+	#
+	#prepare.player_lost.connect(esm.change_state.bind(idle))
+	#prepare.preparing_finished.connect(esm.change_state.bind(attack))
+#
+	#attack.attacking_finished.connect(esm.change_state.bind(cooldown))
+	#
+	#cooldown.cooldown_finished.connect(esm.change_state.bind(idle))
+	#cooldown.player_seen.connect(esm.change_state.bind(prepare))
 
 
 func _on_health_depleted() -> void:

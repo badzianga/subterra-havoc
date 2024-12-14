@@ -7,36 +7,36 @@ extends State
 signal idling_finished
 signal player_seen
 
-@export var _actor: Enemy
-@export var _animator: AnimationPlayer
-@export var _state_label: Label
-@export var _idle_time_min: float
-@export var _idle_time_max: float
+@export var actor: Enemy
+@export var animator: AnimationPlayer
+@export var state_label: Label
+@export var idle_time_min: float
+@export var idle_time_max: float
 
-@onready var _idle_timer := $IdleTimer
+@onready var idle_timer := $IdleTimer
 
 
 func _ready() -> void:
 	super._ready()
-	assert(_idle_time_min > 0 and _idle_time_min <= _idle_time_max)
+	assert(idle_time_min > 0 and idle_time_min <= idle_time_max)
 
 
 func _physics_process(delta: float) -> void:
-	_actor.apply_gravity(delta)
-	_actor.move_and_slide()
+	actor.apply_gravity(delta)
+	actor.move_and_slide()
 	
-	if _actor.player_in_detection_area:
-		_idle_timer.stop()
+	if actor.player_in_detection_area:
+		idle_timer.stop()
 		player_seen.emit()
 
 
 func enter_state() -> void:
 	_enter_state()
-	_animator.play("idle")
-	if _state_label != null:
-		_state_label.text = "State: idle"
-	_idle_timer.wait_time = randf_range(_idle_time_min, _idle_time_max)
-	_idle_timer.start()
+	animator.play("idle")
+	if state_label != null:
+		state_label.text = name
+	idle_timer.wait_time = randf_range(idle_time_min, idle_time_max)
+	idle_timer.start()
 
 
 func exit_state() -> void:
