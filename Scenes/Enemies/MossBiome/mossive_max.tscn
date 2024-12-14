@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://4wcmeivlo8pv"]
+[gd_scene load_steps=19 format=3 uid="uid://4wcmeivlo8pv"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/mossive_max.gd" id="1_s22r2"]
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="2_0aftc"]
 [ext_resource type="Texture2D" uid="uid://cylxtewagd56n" path="res://Assets/Enemies/MossBiome/MossiveMax.png" id="2_s5r4j"]
+[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="3_svsrm"]
 [ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="4_m2l7d"]
+[ext_resource type="PackedScene" uid="uid://cdy80jl7s457c" path="res://Scenes/EnemyStateMachine/wander_state.tscn" id="5_dtcwy"]
+[ext_resource type="PackedScene" uid="uid://dotyn4mp6jdd3" path="res://Scenes/EnemyStateMachine/prepare_state.tscn" id="6_terg6"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="7_ym2ny"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="9_vrxq6"]
 
@@ -13,10 +16,77 @@ height = 96.0
 
 [sub_resource type="Animation" id="Animation_0nsfg"]
 resource_name = "idle"
+length = 0.25
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i6ksx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_neuwe"]
+resource_name = "wander"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_ddcgf"]
+resource_name = "prepare"
+length = 0.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00407522),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_btr4n"]
 _data = {
-"idle": SubResource("Animation_0nsfg")
+"RESET": SubResource("Animation_i6ksx"),
+"idle": SubResource("Animation_0nsfg"),
+"prepare": SubResource("Animation_ddcgf"),
+"wander": SubResource("Animation_neuwe")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ep4p5"]
@@ -26,18 +96,24 @@ height = 96.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6fa4"]
 size = Vector2(54, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35l5g"]
+size = Vector2(138, 96)
+
 [node name="MossiveMax" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_s22r2")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_s5r4j")
+hframes = 5
 
 [node name="StateLabel" type="Label" parent="."]
 offset_left = -64.0
-offset_top = -72.0
+offset_top = -58.0
 offset_right = 64.0
-offset_bottom = -49.0
+offset_bottom = -45.0
+theme_override_fonts/font = ExtResource("3_svsrm")
+text = "IdleState"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -55,6 +131,22 @@ animator = NodePath("../../AnimationPlayer")
 state_label = NodePath("../../StateLabel")
 idle_time_min = 2.0
 idle_time_max = 4.0
+
+[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "sprite", "detection_area", "state_label") instance=ExtResource("5_dtcwy")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+sprite = NodePath("../../Sprite")
+detection_area = NodePath("../../DetectionArea")
+state_label = NodePath("../../StateLabel")
+wander_time_min = 1.0
+wander_time_max = 2.0
+wandering_speed = 35.0
+
+[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("6_terg6")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+prepare_time = 3.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -78,4 +170,17 @@ position = Vector2(0, -11.5)
 shape = SubResource("RectangleShape2D_v6fa4")
 debug_color = Color(1, 0.368627, 0.309804, 0.419608)
 
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, 32)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(-59, -32)
+shape = SubResource("RectangleShape2D_35l5g")
+debug_color = Color(0.67451, 0.541176, 0.694118, 0.101961)
+
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
