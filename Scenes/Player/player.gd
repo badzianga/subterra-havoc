@@ -4,6 +4,7 @@
 # - change camera rotation smoothing from 8 to 4 (check speed on Max's PC)
 # - use own rotation smoothing (tests needed)
 # TODO: handling weapon will be pretty complex - do WeaponController in the future
+# FIXME: physics interpolation smoothly rotates hitbox collider, this might be undesirable
 
 class_name Player
 extends CharacterBody2D
@@ -44,6 +45,7 @@ var _weapon: Weapon
 @onready var _interaction_component := $InteractionComponent as InteractionComponent
 @onready var _dash_ghost_timer := $DashGhostTimer
 @onready var _combo_timer := $ComboTimer
+@onready var _hitbox_collider := $HitboxComponent/CollisionShape
 
 
 func _ready() -> void:
@@ -185,9 +187,11 @@ func _handle_attacking() -> void:
 		_combo_timer.wait_time = _animation_player.current_animation_length as float + 0.3
 		_combo_timer.start()
 		Logger.debug("Started timer with time: %.3fs" % _combo_timer.wait_time)
+		_hitbox_collider.set_deferred("disabled", false)
 		await _animation_player.animation_finished
 		_weapon.current_combo = (_weapon.current_combo + 1) % _weapon.combo
 		_is_attacking = false
+		_hitbox_collider.set_deferred("disabled", true)
 
 
 func _handle_inventory_inputs() -> void:
