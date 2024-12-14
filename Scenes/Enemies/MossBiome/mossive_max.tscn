@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/mossive_max.gd" id="1_s22r2"]
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="2_0aftc"]
 [ext_resource type="Texture2D" uid="uid://cylxtewagd56n" path="res://Assets/Enemies/MossBiome/MossiveMax.png" id="2_s5r4j"]
-[ext_resource type="FontFile" uid="uid://cox558whqo2nt" path="res://Assets/Fonts/m5x7.ttf" id="3_svsrm"]
+[ext_resource type="PackedScene" uid="uid://gxk2fy51psr4" path="res://Scenes/Enemies/state_label.tscn" id="3_8dpal"]
 [ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="4_m2l7d"]
 [ext_resource type="PackedScene" uid="uid://cdy80jl7s457c" path="res://Scenes/EnemyStateMachine/wander_state.tscn" id="5_dtcwy"]
 [ext_resource type="PackedScene" uid="uid://dotyn4mp6jdd3" path="res://Scenes/EnemyStateMachine/prepare_state.tscn" id="6_terg6"]
@@ -153,15 +153,7 @@ script = ExtResource("1_s22r2")
 texture = ExtResource("2_s5r4j")
 hframes = 5
 
-[node name="StateLabel" type="Label" parent="."]
-offset_left = -64.0
-offset_top = -58.0
-offset_right = 64.0
-offset_bottom = -45.0
-theme_override_fonts/font = ExtResource("3_svsrm")
-text = "IdleState"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="StateLabel" parent="." instance=ExtResource("3_8dpal")]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_2fwws")
@@ -173,14 +165,14 @@ _state = NodePath("IdleState")
 [node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("4_m2l7d")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("../../StateLabel")
+state_label = NodePath("")
 idle_time_min = 1.0
 idle_time_max = 2.5
 
 [node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("5_dtcwy")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("../../StateLabel")
+state_label = NodePath("")
 wander_time_min = 1.0
 wander_time_max = 3.0
 wandering_speed = 35.0
@@ -188,17 +180,17 @@ wandering_speed = 35.0
 [node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("6_terg6")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("../../StateLabel")
+state_label = NodePath("")
 prepare_time = 2.0
 
 [node name="AttackState" parent="EnemyStateMachine" node_paths=PackedStringArray("animator", "state_label") instance=ExtResource("7_1vnab")]
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("../../StateLabel")
+state_label = NodePath("")
 
 [node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("8_tm72i")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-state_label = NodePath("../../StateLabel")
+state_label = NodePath("")
 cooldown_time = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

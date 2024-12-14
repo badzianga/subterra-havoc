@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Maps/map.gd" id="1_i763s"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="2_fwh6r"]
 [ext_resource type="PackedScene" uid="uid://xxblkft74jip" path="res://Scenes/Player/player.tscn" id="3_k31kp"]
-[ext_resource type="PackedScene" uid="uid://4wcmeivlo8pv" path="res://Scenes/Enemies/MossBiome/mossive_max.tscn" id="4_tihre"]
+[ext_resource type="PackedScene" uid="uid://dwvif0eqjqoe8" path="res://Scenes/Enemies/MossBiome/fungal_artillery.tscn" id="4_xstbx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4s2u"]
 size = Vector2(74, 770)
@@ -67,5 +67,5 @@ shape = SubResource("RectangleShape2D_d2bbs")
 [node name="Player" parent="." instance=ExtResource("3_k31kp")]
 position = Vector2(168, 616)
 
-[node name="MossiveMax" parent="." instance=ExtResource("4_tihre")]
-position = Vector2(472, 584)
+[node name="FungalArtillery" parent="." instance=ExtResource("4_xstbx")]
+position = Vector2(287, 466)

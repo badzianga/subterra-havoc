@@ -1,81 +1,134 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwvif0eqjqoe8"]
+[gd_scene load_steps=20 format=3 uid="uid://dwvif0eqjqoe8"]
 
+[ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/fungal_artillery.gd" id="1_ir13d"]
 [ext_resource type="Texture2D" uid="uid://di46bhed7kt21" path="res://icon.svg" id="1_r0pwv"]
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="2_wklwp"]
 [ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="3_phbn5"]
+[ext_resource type="PackedScene" uid="uid://gxk2fy51psr4" path="res://Scenes/Enemies/state_label.tscn" id="3_qggc4"]
 [ext_resource type="PackedScene" uid="uid://cdy80jl7s457c" path="res://Scenes/EnemyStateMachine/wander_state.tscn" id="4_rho0y"]
 [ext_resource type="PackedScene" uid="uid://dotyn4mp6jdd3" path="res://Scenes/EnemyStateMachine/prepare_state.tscn" id="5_18rao"]
 [ext_resource type="PackedScene" uid="uid://ifb2pgo7qc4p" path="res://Scenes/EnemyStateMachine/attack_state.tscn" id="6_45qy3"]
 [ext_resource type="PackedScene" uid="uid://dkngw8lejpmrs" path="res://Scenes/EnemyStateMachine/cooldown_state.tscn" id="7_xba3x"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="8_stq0n"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="9_3whaa"]
-[ext_resource type="PackedScene" uid="uid://bmidoyk8srmpb" path="res://Scenes/Components/item_drop_component.tscn" id="10_g4gqy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4r4ry"]
-size = Vector2(48, 64)
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6y4jd"]
-size = Vector2(160, 64)
+size = Vector2(128, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_874sw"]
-size = Vector2(64, 64)
+size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_bd8kt"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_jrs84"]
+resource_name = "wander"
+
+[sub_resource type="Animation" id="Animation_biigt"]
+resource_name = "prepare"
+
+[sub_resource type="Animation" id="Animation_lw06e"]
+resource_name = "attack"
+step = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_attack"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dx0nr"]
+_data = {
+"attack": SubResource("Animation_lw06e"),
+"idle": SubResource("Animation_bd8kt"),
+"prepare": SubResource("Animation_biigt"),
+"wander": SubResource("Animation_jrs84")
+}
 
 [node name="FungalArtillery" type="CharacterBody2D"]
 collision_layer = 0
+script = ExtResource("1_ir13d")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_r0pwv")
 
+[node name="StateLabel" parent="." instance=ExtResource("3_qggc4")]
+offset_top = -32.0
+offset_bottom = -19.0
+
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_4r4ry")
 
 [node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_state")]
 script = ExtResource("2_wklwp")
 _state = NodePath("IdleState")
 
-[node name="IdleState" parent="EnemyStateMachine" instance=ExtResource("3_phbn5")]
+[node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("3_phbn5")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+idle_time_min = 1.0
+idle_time_max = 3.0
 
-[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor", "_sprite", "_detection_area") instance=ExtResource("4_rho0y")]
-_actor = NodePath("../..")
-_sprite = NodePath("../../Sprite")
-_detection_area = NodePath("../../DetectionArea")
-_wander_time_min = 3.0
-_wander_time_max = 5.0
+[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("4_rho0y")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+wander_time_min = 2.0
+wander_time_max = 5.0
+wandering_speed = 100.0
 
-[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor") instance=ExtResource("5_18rao")]
-_actor = NodePath("../..")
-_prepare_time = 1.5
+[node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("5_18rao")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+prepare_time = 1.0
 
-[node name="AttackState" parent="EnemyStateMachine" instance=ExtResource("6_45qy3")]
+[node name="AttackState" parent="EnemyStateMachine" node_paths=PackedStringArray("animator", "state_label") instance=ExtResource("6_45qy3")]
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
 
-[node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("_actor") instance=ExtResource("7_xba3x")]
-_actor = NodePath("../..")
-_cooldown_time = 0.5
+[node name="CooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("7_xba3x")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+cooldown_time = 1.0
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(-80, 0)
+position = Vector2(-48, 0)
 shape = SubResource("RectangleShape2D_6y4jd")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("8_stq0n")]
-collision_layer = 8
-collision_mask = 4
 _health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_874sw")
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_3whaa")]
-position = Vector2(0, -32)
+position = Vector2(0, -16)
 max_health = 100
 
-[node name="ItemDropComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("10_g4gqy")]
-_health_component = NodePath("../HealthComponent")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dx0nr")
+}
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
 [connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
