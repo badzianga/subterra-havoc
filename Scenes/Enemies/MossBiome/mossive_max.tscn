@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4wcmeivlo8pv"]
+[gd_scene load_steps=25 format=3 uid="uid://4wcmeivlo8pv"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/mossive_max.gd" id="1_s22r2"]
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="2_0aftc"]
@@ -11,28 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="7_ym2ny"]
 [ext_resource type="PackedScene" uid="uid://dkngw8lejpmrs" path="res://Scenes/EnemyStateMachine/cooldown_state.tscn" id="8_tm72i"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="9_vrxq6"]
+[ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="12_aqsk0"]
+[ext_resource type="Texture2D" uid="uid://d3qur0o3cc84e" path="res://Assets/Particles/dust_cloud.png" id="13_ahrh5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2fwws"]
 radius = 16.0
 height = 96.0
-
-[sub_resource type="Animation" id="Animation_0nsfg"]
-resource_name = "idle"
-length = 0.25
-loop_mode = 1
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="Animation" id="Animation_i6ksx"]
 length = 0.001
@@ -49,44 +33,10 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_neuwe"]
-resource_name = "wander"
-loop_mode = 1
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [1, 0, 2, 0]
-}
-
-[sub_resource type="Animation" id="Animation_ddcgf"]
-resource_name = "prepare"
-length = 0.25
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.00407522),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-
 [sub_resource type="Animation" id="Animation_ehwsb"]
 resource_name = "attack"
 length = 1.5
-step = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -106,12 +56,70 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.25),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.25, 0.35, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
 "method": &"_attack"
+}, {
+"args": [],
+"method": &"_disable_hitbox_collider"
+}, {
+"args": [],
+"method": &"_disable_hurtbox_collider"
 }]
+}
+
+[sub_resource type="Animation" id="Animation_0nsfg"]
+resource_name = "idle"
+length = 0.25
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ddcgf"]
+resource_name = "prepare"
+length = 0.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00407522),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_neuwe"]
+resource_name = "wander"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 2, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_btr4n"]
@@ -127,11 +135,15 @@ _data = {
 radius = 16.0
 height = 96.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6fa4"]
-size = Vector2(54, 29)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35l5g"]
 size = Vector2(138, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfgv4"]
+size = Vector2(64, 56)
+
+[sub_resource type="Gradient" id="Gradient_6cuvk"]
+offsets = PackedFloat32Array(0, 0.729469, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="MossiveMax" type="CharacterBody2D"]
 collision_layer = 0
@@ -152,27 +164,25 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_2fwws")
 
-[node name="EnemyStateMachine" type="Node" parent="."]
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_state")]
 script = ExtResource("2_0aftc")
+_state = NodePath("IdleState")
 
 [node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("4_m2l7d")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
 state_label = NodePath("../../StateLabel")
-idle_time_min = 2.0
-idle_time_max = 4.0
+idle_time_min = 1.0
+idle_time_max = 2.5
 
-[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "sprite", "detection_area", "state_label") instance=ExtResource("5_dtcwy")]
+[node name="WanderState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("5_dtcwy")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
-sprite = NodePath("../../Sprite")
-detection_area = NodePath("../../DetectionArea")
 state_label = NodePath("../../StateLabel")
 wander_time_min = 1.0
-wander_time_max = 2.0
+wander_time_max = 3.0
 wandering_speed = 35.0
 
 [node name="PrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("6_terg6")]
@@ -201,20 +211,14 @@ position = Vector2(0, -40)
 max_health = 250
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("7_ym2ny")]
-visible = false
 _health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("CapsuleShape2D_ep4p5")
-debug_color = Color(1, 0.368627, 0.309804, 0.419608)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(0, -11.5)
-shape = SubResource("RectangleShape2D_v6fa4")
+disabled = true
 debug_color = Color(1, 0.368627, 0.309804, 0.419608)
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(0, 32)
 collision_layer = 0
 collision_mask = 2
@@ -223,6 +227,34 @@ collision_mask = 2
 position = Vector2(-59, -32)
 shape = SubResource("RectangleShape2D_35l5g")
 debug_color = Color(0.67451, 0.541176, 0.694118, 0.101961)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("12_aqsk0")]
+position = Vector2(0, 20)
+damage = 40
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-16, 0)
+shape = SubResource("RectangleShape2D_yfgv4")
+disabled = true
+
+[node name="DustCloudParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-32, 40)
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("13_ahrh5")
+emission_shape = 3
+emission_rect_extents = Vector2(6, 4)
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+angle_max = 360.0
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+color_ramp = SubResource("Gradient_6cuvk")
 
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]

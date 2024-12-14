@@ -11,8 +11,6 @@ signal preparing_finished
 
 @export var actor: Enemy
 @export var animator: AnimationPlayer
-#@export var sprite: Sprite2D
-#@export var detection_area: Area2D
 @export var state_label: Label
 @export var prepare_time: float
 
@@ -28,10 +26,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	actor.apply_gravity(delta)
 	actor.move_and_slide()
-	
-	# the commented logic below allows enemy to rotate to still see the player
-	#_sprite.flip_h = (_actor.global_position.x < GlobalVariables.player.global_position.x)
-	#_detection_area.rotation = float(_sprite.flip_h) * PI
 	
 	if not actor.player_in_detection_area:
 		prepare_timer.stop()

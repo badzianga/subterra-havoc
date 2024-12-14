@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://br1vdg3uy5vma"]
+
+[ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="1_kerc3"]
+[ext_resource type="Script" path="res://Scenes/Enemies/Attacks/shock_wave.gd" id="2_acaeg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jwvl"]
+size = Vector2(20, 40)
+
+[node name="ShockWave" instance=ExtResource("1_kerc3")]
+script = ExtResource("2_acaeg")
+damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 29)
+shape = SubResource("RectangleShape2D_4jwvl")
+
+[node name="Timer" type="Timer" parent="." index="1"]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

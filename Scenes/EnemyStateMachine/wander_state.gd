@@ -11,8 +11,6 @@ signal player_seen
 
 @export var actor: Enemy
 @export var animator: AnimationPlayer
-@export var sprite: Sprite2D
-@export var detection_area: Area2D
 @export var state_label: Label
 @export var wander_time_min: float
 @export var wander_time_max: float
@@ -33,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	if actor.is_on_wall():
 		actor.direction.x *= -1.0
 		actor.velocity.x = actor.direction.x * wandering_speed
-		detection_area.rotation = float(sprite.flip_h) * PI
+		actor.flip(actor.direction.x > 0.0)
 	actor.move_and_slide()
 	
 	if actor.player_in_detection_area:
@@ -55,8 +53,7 @@ func enter_state() -> void:
 	else:
 		actor.direction.x = -1.0
 	actor.velocity.x = actor.direction.x * wandering_speed
-	sprite.flip_h = (actor.direction.x > 0.0)
-	detection_area.rotation = float(sprite.flip_h) * PI
+	actor.flip(actor.direction.x > 0.0)
 
 
 func exit_state() -> void:
@@ -73,6 +70,4 @@ func _on_wander_timer_timeout() -> void:
 		#return
 	#actor.direction.x *= -1.0
 	#actor.velocity.x = actor.direction.x * wandering_speed
-	#sprite.flip_h = (actor.direction.x > 0.0)
-	#sprite.position.x = 8.0 - 16.0 * float(actor.direction.x > 0.0)
-	#detection_area.rotation = float(sprite.flip_h) * PI
+	#actor.flip(actor.direction.x > 0.0)
