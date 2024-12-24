@@ -40,15 +40,15 @@ func _ready() -> void:
 	cooldown.player_seen.connect(esm.change_state.bind(prepare))
 
 
-# INFO: flipping overrides dust cloud particles position.x
 func flip(flip_to_right: bool) -> void:
 	sprite.flip_h = flip_to_right
-	var flip_value := Vector2(1.0, 1.0)
+	var flip_value := Vector2.ONE
 	if flip_to_right:
 		flip_value.x *= -1.0
 	hitbox_component.set_deferred("scale", flip_value)
 	detection_area.set_deferred("scale", flip_value)
-	dust_cloud_particles.position.x = -flip_value.x * 32.0
+	dust_cloud_particles.position.x = \
+			-flip_value.x * absf(dust_cloud_particles.position.x)
 
 
 func _create_shock_wave(dir: float) -> void:
