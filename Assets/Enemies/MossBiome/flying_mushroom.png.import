@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csbtjv64r5q0i"
-path="res://.godot/imported/flying_shroom.png-39f1776f21ec62dece698e5ef8073728.ctex"
+uid="uid://c5jn1jjw8ihf2"
+path="res://.godot/imported/flying_mushroom.png-1242f01bcb9e92f08fab7bcdb97b46d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Enemies/flying_shroom.png"
-dest_files=["res://.godot/imported/flying_shroom.png-39f1776f21ec62dece698e5ef8073728.ctex"]
+source_file="res://Assets/Enemies/MossBiome/flying_mushroom.png"
+dest_files=["res://.godot/imported/flying_mushroom.png-1242f01bcb9e92f08fab7bcdb97b46d7.ctex"]
 
 [params]
 

@@ -1,0 +1,159 @@
+[gd_scene load_steps=16 format=3 uid="uid://bxlvtcvqual84"]
+
+[ext_resource type="Texture2D" uid="uid://c5jn1jjw8ihf2" path="res://Assets/Enemies/MossBiome/flying_mushroom.png" id="1_ofudo"]
+[ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/flying_shroom.gd" id="1_rissb"]
+[ext_resource type="PackedScene" uid="uid://gxk2fy51psr4" path="res://Scenes/Enemies/state_label.tscn" id="2_vqosv"]
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="3_0lg55"]
+[ext_resource type="PackedScene" uid="uid://c3htwosdpinol" path="res://Scenes/EnemyStateMachine/idle_state.tscn" id="4_6rroj"]
+[ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="10_mpwe0"]
+[ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="11_177iy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4u1qw"]
+radius = 13.0
+
+[sub_resource type="Animation" id="Animation_6sxei"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bbhpq"]
+resource_name = "attack"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_j7vps"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_daw4u"]
+resource_name = "prepare"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_gjssk"]
+resource_name = "wander"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dryc3"]
+_data = {
+"RESET": SubResource("Animation_6sxei"),
+"attack": SubResource("Animation_bbhpq"),
+"idle": SubResource("Animation_j7vps"),
+"prepare": SubResource("Animation_daw4u"),
+"wander": SubResource("Animation_gjssk")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s633s"]
+radius = 192.0
+
+[node name="FlyingShroom" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_rissb")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ofudo")
+hframes = 9
+
+[node name="StateLabel" parent="." instance=ExtResource("2_vqosv")]
+offset_top = -32.0
+offset_bottom = -19.0
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_4u1qw")
+
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("_state")]
+script = ExtResource("3_0lg55")
+_state = NodePath("IdleState")
+
+[node name="IdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("4_6rroj")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+idle_time_min = 3.0
+idle_time_max = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dryc3")
+}
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("10_mpwe0")]
+_health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CapsuleShape2D_4u1qw")
+
+[node name="HealthComponent" parent="." instance=ExtResource("11_177iy")]
+position = Vector2(0, -19)
+max_health = 100
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_s633s")
+
+[node name="VisionCast" type="RayCast2D" parent="."]
+
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
