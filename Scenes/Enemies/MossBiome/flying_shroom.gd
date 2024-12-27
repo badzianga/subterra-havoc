@@ -1,8 +1,8 @@
 extends Enemy
 
 @onready var esm := $EnemyStateMachine as EnemyStateMachine
-@onready var idle := $EnemyStateMachine/IdleState as IdleState
-#@onready var wander := $EnemyStateMachine/WanderState as WanderState
+@onready var idle := $EnemyStateMachine/FlyingIdleState as FlyingIdleState
+@onready var wander := $EnemyStateMachine/FlyingWanderState as FlyingWanderState
 #@onready var prepare := $EnemyStateMachine/PrepareState as PrepareState
 #@onready var attack := $EnemyStateMachine/AttackState as AttackState
 #@onready var cooldown := $EnemyStateMachine/CooldownState as CooldownState
@@ -13,12 +13,11 @@ extends Enemy
 
 
 func _ready() -> void:
-	pass
-	#idle.idling_finished.connect(esm.change_state.bind(wander))
+	idle.idling_finished.connect(esm.change_state.bind(wander))
 	#idle.player_seen.connect(esm.change_state.bind(prepare))
 #
 	#wander.player_seen.connect(esm.change_state.bind(prepare))
-	#wander.wandering_finished.connect(esm.change_state.bind(idle))
+	wander.wandering_finished.connect(esm.change_state.bind(idle))
 #
 	#prepare.player_lost.connect(esm.change_state.bind(idle))
 	#prepare.preparing_finished.connect(esm.change_state.bind(attack))

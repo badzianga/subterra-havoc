@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhbl6oxms1saj"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/flying_wander_state.gd" id="1_d0krv"]
+
+[node name="FlyingWanderState" type="Node"]
+script = ExtResource("1_d0krv")
