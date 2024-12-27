@@ -41,7 +41,8 @@ func enter_state() -> void:
 		state_label.text = name
 	
 	# TODO: this method of selecting random direction is really bad, especially
-	# when enemy will be in some cramped space, consider changing it 
+	# when enemy will be in some cramped space, consider changing it
+	# TODO: it probably doesn't work as intended
 	var can_move := false
 	while not can_move:
 		wander_cast.target_position = wander_cast.target_position.rotated(randf_range(-PI, PI))

@@ -156,6 +156,8 @@ position = Vector2(0, -19)
 max_health = 100
 
 [node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_s633s")

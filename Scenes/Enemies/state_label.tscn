@@ -8,6 +8,6 @@ offset_top = -58.0
 offset_right = 64.0
 offset_bottom = -45.0
 theme_override_fonts/font = ExtResource("1_cmegc")
-text = "IdleState"
+text = "StateLabel"
 horizontal_alignment = 1
 vertical_alignment = 1
