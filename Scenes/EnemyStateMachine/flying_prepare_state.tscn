@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://lop5fb5xv8m5"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/flying_prepare_state.gd" id="1_tcba2"]
+
+[node name="FlyingPrepareState" type="Node"]
+script = ExtResource("1_tcba2")
+
+[node name="PrepareTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PrepareTimer" to="." method="_on_prepare_timer_timeout"]

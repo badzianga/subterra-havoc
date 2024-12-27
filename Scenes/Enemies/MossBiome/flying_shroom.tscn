@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxlvtcvqual84"]
+[gd_scene load_steps=18 format=3 uid="uid://bxlvtcvqual84"]
 
 [ext_resource type="Texture2D" uid="uid://c5jn1jjw8ihf2" path="res://Assets/Enemies/MossBiome/flying_mushroom.png" id="1_ofudo"]
 [ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/flying_shroom.gd" id="1_rissb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/EnemyStateMachine/enemy_state_machine.gd" id="3_0lg55"]
 [ext_resource type="PackedScene" uid="uid://qycjatcecd20" path="res://Scenes/EnemyStateMachine/flying_idle_state.tscn" id="5_hjm0v"]
 [ext_resource type="PackedScene" uid="uid://bhbl6oxms1saj" path="res://Scenes/EnemyStateMachine/flying_wander_state.tscn" id="6_vff04"]
+[ext_resource type="PackedScene" uid="uid://lop5fb5xv8m5" path="res://Scenes/EnemyStateMachine/flying_prepare_state.tscn" id="7_20avx"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="10_mpwe0"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="11_177iy"]
 
@@ -126,10 +127,11 @@ shape = SubResource("CapsuleShape2D_4u1qw")
 script = ExtResource("3_0lg55")
 _state = NodePath("FlyingIdleState")
 
-[node name="FlyingIdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("5_hjm0v")]
+[node name="FlyingIdleState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label", "vision_cast") instance=ExtResource("5_hjm0v")]
 actor = NodePath("../..")
 animator = NodePath("../../AnimationPlayer")
 state_label = NodePath("../../StateLabel")
+vision_cast = NodePath("../../VisionCast")
 idle_time_min = 0.5
 idle_time_max = 1.5
 
@@ -139,6 +141,13 @@ animator = NodePath("../../AnimationPlayer")
 state_label = NodePath("../../StateLabel")
 vision_cast = NodePath("../../VisionCast")
 wander_cast = NodePath("../../WanderCast")
+
+[node name="FlyingPrepareState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label", "vision_cast") instance=ExtResource("7_20avx")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+vision_cast = NodePath("../../VisionCast")
+prepare_time = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -157,7 +166,7 @@ max_health = 100
 
 [node name="DetectionArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_s633s")
