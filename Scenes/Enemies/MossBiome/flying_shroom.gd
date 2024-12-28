@@ -4,8 +4,8 @@ extends Enemy
 @onready var idle := $EnemyStateMachine/FlyingIdleState as FlyingIdleState
 @onready var wander := $EnemyStateMachine/FlyingWanderState as FlyingWanderState
 @onready var prepare := $EnemyStateMachine/FlyingPrepareState as FlyingPrepareState
-#@onready var attack := $EnemyStateMachine/AttackState as AttackState
-#@onready var cooldown := $EnemyStateMachine/CooldownState as CooldownState
+@onready var attack := $EnemyStateMachine/FlyingAttackState as FlyingAttackState
+@onready var cooldown := $EnemyStateMachine/FlyingCooldownState as FlyingCooldownState
 
 @onready var sprite := $Sprite
 @onready var detection_area := $DetectionArea
@@ -20,12 +20,12 @@ func _ready() -> void:
 	wander.wandering_finished.connect(esm.change_state.bind(idle))
 #
 	prepare.player_lost.connect(esm.change_state.bind(idle))
-	#prepare.preparing_finished.connect(esm.change_state.bind(attack))
+	prepare.preparing_finished.connect(esm.change_state.bind(attack))
 #
-	#attack.attacking_finished.connect(esm.change_state.bind(cooldown))
+	attack.attacking_finished.connect(esm.change_state.bind(cooldown))
 #
-	#cooldown.cooldown_finished.connect(esm.change_state.bind(wander))
-	#cooldown.player_seen.connect(esm.change_state.bind(prepare))
+	cooldown.cooldown_finished.connect(esm.change_state.bind(wander))
+	cooldown.player_seen.connect(esm.change_state.bind(prepare))
 
 
 func _physics_process(_delta: float) -> void:

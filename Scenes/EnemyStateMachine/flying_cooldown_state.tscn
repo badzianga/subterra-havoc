@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://uobfynuq3tkm"]
+
+[ext_resource type="Script" path="res://Scenes/EnemyStateMachine/flying_cooldown_state.gd" id="1_3tt4d"]
+
+[node name="FlyingCooldownState" type="Node"]
+script = ExtResource("1_3tt4d")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

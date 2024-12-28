@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bxlvtcvqual84"]
+[gd_scene load_steps=20 format=3 uid="uid://bxlvtcvqual84"]
 
 [ext_resource type="Texture2D" uid="uid://c5jn1jjw8ihf2" path="res://Assets/Enemies/MossBiome/flying_mushroom.png" id="1_ofudo"]
 [ext_resource type="Script" path="res://Scenes/Enemies/MossBiome/flying_shroom.gd" id="1_rissb"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://qycjatcecd20" path="res://Scenes/EnemyStateMachine/flying_idle_state.tscn" id="5_hjm0v"]
 [ext_resource type="PackedScene" uid="uid://bhbl6oxms1saj" path="res://Scenes/EnemyStateMachine/flying_wander_state.tscn" id="6_vff04"]
 [ext_resource type="PackedScene" uid="uid://lop5fb5xv8m5" path="res://Scenes/EnemyStateMachine/flying_prepare_state.tscn" id="7_20avx"]
+[ext_resource type="PackedScene" uid="uid://bhiltdh05lwk7" path="res://Scenes/EnemyStateMachine/flying_attack_state.tscn" id="8_ctxlt"]
+[ext_resource type="PackedScene" uid="uid://uobfynuq3tkm" path="res://Scenes/EnemyStateMachine/flying_cooldown_state.tscn" id="9_yqtbn"]
 [ext_resource type="PackedScene" uid="uid://bjdn5xmk516ni" path="res://Scenes/Components/hurtbox_component.tscn" id="10_mpwe0"]
 [ext_resource type="PackedScene" uid="uid://dn2q2lgy8sekf" path="res://Scenes/Components/health_component.tscn" id="11_177iy"]
 
@@ -30,7 +32,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_bbhpq"]
 resource_name = "attack"
-loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -148,6 +149,16 @@ animator = NodePath("../../AnimationPlayer")
 state_label = NodePath("../../StateLabel")
 vision_cast = NodePath("../../VisionCast")
 prepare_time = 1.0
+
+[node name="FlyingAttackState" parent="EnemyStateMachine" node_paths=PackedStringArray("animator", "state_label") instance=ExtResource("8_ctxlt")]
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+
+[node name="FlyingCooldownState" parent="EnemyStateMachine" node_paths=PackedStringArray("actor", "animator", "state_label") instance=ExtResource("9_yqtbn")]
+actor = NodePath("../..")
+animator = NodePath("../../AnimationPlayer")
+state_label = NodePath("../../StateLabel")
+cooldown_time = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
