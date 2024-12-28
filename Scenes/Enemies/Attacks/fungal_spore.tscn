@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://djs8jqcn2ovj7"]
+
+[ext_resource type="Texture2D" uid="uid://bua1fwwy5ns7h" path="res://Assets/Particles/mushroom_bullet.png" id="1_jngis"]
+[ext_resource type="Script" path="res://Scenes/Enemies/Attacks/fungal_spore.gd" id="1_qik7c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5i1fw"]
+radius = 4.0
+
+[node name="FungalSpore" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_qik7c")
+damage = 10
+
+[node name="Sprite" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("1_jngis")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5i1fw")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

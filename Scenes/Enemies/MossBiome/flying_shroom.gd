@@ -1,5 +1,7 @@
 extends Enemy
 
+const FungalSporeScene := preload("res://Scenes/Enemies/Attacks/fungal_spore.tscn")
+
 @onready var esm := $EnemyStateMachine as EnemyStateMachine
 @onready var idle := $EnemyStateMachine/FlyingIdleState as FlyingIdleState
 @onready var wander := $EnemyStateMachine/FlyingWanderState as FlyingWanderState
@@ -34,6 +36,18 @@ func _physics_process(_delta: float) -> void:
 
 func flip(flip_to_right: bool) -> void:
 	sprite.flip_h = flip_to_right
+
+
+# TODO: create more spores, maybe randomize amount of spores - 1-3 per attack
+# also add proper bullet dispersion
+func _attack() -> void:
+	var fungal_spore := FungalSporeScene.instantiate()
+	fungal_spore.global_position = global_position
+	var dir := global_position.direction_to(GlobalVariables.player.global_position)
+	var angle := dir.angle() + randf_range(-0.1, 0.1)
+	fungal_spore.direction = Vector2.from_angle(angle)
+	fungal_spore.rotation = angle
+	GlobalVariables.map_node.add_child(fungal_spore)
 
 
 func _on_detection_area_area_entered(_area: Area2D) -> void:
