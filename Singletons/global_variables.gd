@@ -1,6 +1,10 @@
 # Singleton for holding all references to rather important nodes used by another
 # nodes without the need to use slow and bug-prone get_parent()/get_child()
 
+# TODO: change name to Global instead of GlobalVariables
+# TODO: tidy up folder structure
+# TODO: change game resolution
+
 extends Node
 
 var player: Player
