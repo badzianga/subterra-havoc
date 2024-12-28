@@ -54,6 +54,7 @@ func flip(flip_to_right: bool) -> void:
 func _create_shock_wave(dir: float) -> void:
 	var shock_wave := ShockWaveScene.instantiate()
 	shock_wave.direction.x = dir
+	shock_wave.flip(direction.x > 0.0)
 	shock_wave.global_position = global_position
 	GlobalVariables.map_node.add_child(shock_wave)
 

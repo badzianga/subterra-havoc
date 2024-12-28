@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://br1vdg3uy5vma"]
+[gd_scene load_steps=5 format=3 uid="uid://br1vdg3uy5vma"]
 
 [ext_resource type="PackedScene" uid="uid://c8s7fsn56b230" path="res://Scenes/Components/hitbox_component.tscn" id="1_kerc3"]
 [ext_resource type="Script" path="res://Scenes/Enemies/Attacks/shock_wave.gd" id="2_acaeg"]
+[ext_resource type="Texture2D" uid="uid://cmvap3sdwrys7" path="res://Assets/Particles/shock_wave.png" id="3_h8757"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jwvl"]
 size = Vector2(20, 40)
@@ -10,11 +11,16 @@ size = Vector2(20, 40)
 script = ExtResource("2_acaeg")
 damage = 10
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="Sprite" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, 29)
+scale = Vector2(0.454545, 1.66667)
+texture = ExtResource("3_h8757")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 29)
 shape = SubResource("RectangleShape2D_4jwvl")
 
-[node name="Timer" type="Timer" parent="." index="1"]
+[node name="Timer" type="Timer" parent="." index="2"]
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
