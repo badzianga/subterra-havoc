@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1bxg63qslq15"
-path="res://.godot/imported/spider.png-09b002ab1cfb968e0e653ef2ada61ded.ctex"
+uid="uid://5xblmsa81p2u"
+path="res://.godot/imported/mushroom_spider.png-1498a0db53b41e74f63bcbead462cc86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Enemies/spider.png"
-dest_files=["res://.godot/imported/spider.png-09b002ab1cfb968e0e653ef2ada61ded.ctex"]
+source_file="res://Assets/Enemies/MossBiome/mushroom_spider.png"
+dest_files=["res://.godot/imported/mushroom_spider.png-1498a0db53b41e74f63bcbead462cc86.ctex"]
 
 [params]
 
