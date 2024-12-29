@@ -14,6 +14,7 @@ height = 22.0
 
 [node name="SporeCloud" instance=ExtResource("1_6hdss")]
 modulate = Color(1, 1, 1, 0.501961)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("2_d5s16")
 movement_curve = SubResource("Curve_g215g")
 damage = 5

@@ -1,6 +1,8 @@
 class_name SporeCloud
 extends HitboxComponent
 
+# TODO: movement logic can be simpler
+
 const MIN_SPEED := 20.0
 const MAX_SPEED := 60.0
 
