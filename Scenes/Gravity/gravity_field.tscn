@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://mr7pdpmnnm5g"]
+
+[ext_resource type="Script" path="res://Scenes/Gravity/gravity_field.gd" id="1_n6kmg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_80xsn"]
+size = Vector2(160, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nrsag"]
+size = Vector2(160, 80)
+
+[sub_resource type="Curve" id="Curve_u107s"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_s2ih5"]
+curve = SubResource("Curve_u107s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5puvi"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -30, 0)
+emission_shape = 3
+emission_box_extents = Vector3(80, 10, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_s2ih5")
+
+[node name="GravityField" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_n6kmg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.12549)
+texture = SubResource("PlaceholderTexture2D_80xsn")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nrsag")
+
+[node name="GPUParticles" type="GPUParticles2D" parent="."]
+amount = 60
+process_material = SubResource("ParticleProcessMaterial_5puvi")
+lifetime = 2.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

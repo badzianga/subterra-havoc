@@ -17,6 +17,7 @@ const DASH_MULTIPLIER := 2.0
 const AIR_RESISTANCE := 10.0
 
 var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
+var _current_gravity_direction := GlobalVariables.Directions.DOWN
 var _current_rotation := 0.0
 var _direction := 0.0
 # HACK: movement, jumping and gravity works with this, at the end of the frame this vector
@@ -29,6 +30,7 @@ var _dash_direction := 0.0
 var _previous_velocity: Vector2  # used by air resistance
 var _is_attacking := false
 var _weapon: Weapon
+var _can_change_gravity := true
 
 @onready var health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
@@ -46,6 +48,7 @@ var _weapon: Weapon
 @onready var _dash_ghost_timer := $DashGhostTimer
 @onready var _combo_timer := $ComboTimer
 @onready var _hitbox_collider := $HitboxComponent/CollisionShape
+@onready var _gravity_change_cooldown := $GravityChangeCooldown
 
 
 func _ready() -> void:
@@ -103,6 +106,27 @@ func _physics_process(delta: float) -> void:
 			_pickup_item.pick_up_item()
 		elif _interaction_component.interactable != null:
 			_interaction_component.interactable.interact()
+
+
+func set_gravity_direction(dir: GlobalVariables.Directions) -> void:
+	if not _can_change_gravity:
+		return
+	if dir == _current_gravity_direction:
+		return
+	var _tween := create_tween()
+	var _cur_dir_int := _current_gravity_direction as int
+	var _new_dir_int := dir as int
+	var _delta_angle := (PI / 2) * (_new_dir_int - _cur_dir_int)
+	_tween.tween_property(self, "rotation", rotation - _delta_angle, 0.05)
+	_current_rotation += _delta_angle
+	up_direction = Vector2.UP.rotated(-_current_rotation)
+	# leaving velocity as it is makes some weird accelerations,
+	# zeroing velocity resets movement speed, so the best I came up with
+	# is multiplying velocity by some value smaller than 1
+	velocity *= 0.6
+	_current_gravity_direction = dir
+	_can_change_gravity = false
+	_gravity_change_cooldown.start()
 
 
 func _handle_movement(delta: float) -> void:
@@ -287,3 +311,7 @@ func _on_active_item_updated() -> void:
 func _on_combo_timer_timeout() -> void:
 	Logger.debug("Combo ended")
 	_weapon.current_combo = 0
+
+
+func _on_gravity_change_cooldown_timeout() -> void:
+	_can_change_gravity = true

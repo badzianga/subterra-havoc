@@ -7,6 +7,21 @@
 
 extends Node
 
+# TODO: move it elsewhere
+enum Directions {
+	DOWN,
+	RIGHT,
+	UP,
+	LEFT,
+}
+
+const DirectionsVectors: Array[Vector2] = [
+	Vector2.DOWN,
+	Vector2.RIGHT,
+	Vector2.UP,
+	Vector2.LEFT,
+]
+
 var player: Player
 var user_interface_node: UserInterface
 var inventory_node: Inventory
