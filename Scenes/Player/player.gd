@@ -113,10 +113,18 @@ func set_gravity_direction(dir: GlobalVariables.Directions) -> void:
 		return
 	if dir == _current_gravity_direction:
 		return
-	var _tween := create_tween()
 	var _cur_dir_int := _current_gravity_direction as int
 	var _new_dir_int := dir as int
-	var _delta_angle := (PI / 2) * (_new_dir_int - _cur_dir_int)
+	var _diff := (_new_dir_int - _cur_dir_int)
+	# TODO: refactor this section, make it cleaner
+	var _delta_angle: float
+	if _diff < -2:
+		_delta_angle = (PI / 2) * (_diff + 4) 
+	elif _diff > 2:
+		_delta_angle = (PI / 2) * (_diff - 4) 
+	else:
+		_delta_angle = (PI / 2) * _diff
+	var _tween := create_tween()
 	_tween.tween_property(self, "rotation", rotation - _delta_angle, 0.05)
 	_current_rotation += _delta_angle
 	up_direction = Vector2.UP.rotated(-_current_rotation)

@@ -7,6 +7,8 @@ extends Node
 @warning_ignore("unused_signal")
 signal state_finished  # emitted by derived classes
 
+# TODO: consider changing set_physics_process to process_mode = DISABLED
+# for now, only physics_process is enabled/disabled, maybe all processes should be
 
 # All states should be disabled by default, so only one state can work
 # simultaneously. To call it in derived classes, use super._ready().
