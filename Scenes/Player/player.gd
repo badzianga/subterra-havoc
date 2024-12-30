@@ -131,7 +131,7 @@ func set_gravity_direction(dir: GlobalVariables.Directions) -> void:
 	# leaving velocity as it is makes some weird accelerations,
 	# zeroing velocity resets movement speed, so the best I came up with
 	# is multiplying velocity by some value smaller than 1
-	velocity *= 0.6
+	velocity = velocity.rotated(-_current_rotation)
 	_current_gravity_direction = dir
 	_can_change_gravity = false
 	_gravity_change_cooldown.start()
@@ -285,7 +285,8 @@ func _on_health_component_health_depleted() -> void:
 	# TODO: inventory is not cleared - there should be another method which
 	# will clear other global variables than nodes. Also, there should be a some
 	# sort of death screen 
-	MapSwitch.call_deferred("change_map", "res://Scenes/Maps/village.tscn")
+	#MapSwitch.call_deferred("change_map", "res://Scenes/Maps/village.tscn")
+	get_tree().call_deferred("reload_current_scene")
 
 
 func _on_dash_cooldown_timeout() -> void:

@@ -200,7 +200,7 @@ libraries = {
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_vrxq6")]
 position = Vector2(0, -40)
-max_health = 250
+max_health = 200
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("_health_component") instance=ExtResource("7_ym2ny")]
 _health_component = NodePath("../HealthComponent")

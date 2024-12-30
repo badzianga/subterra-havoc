@@ -8,6 +8,11 @@ extends Area2D
 @export var direction := GlobalVariables.Directions.DOWN
 
 
+func _ready() -> void:
+	$Particles.amount *= scale.x
+	$Particles.speed_scale /= scale.y
+
+
 func _on_body_entered(body: Node2D) -> void:
 	Logger.debug("Player entered gravity field")
 	var player := body as Player
