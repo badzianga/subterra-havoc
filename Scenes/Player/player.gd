@@ -15,6 +15,7 @@ const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
 const DASH_MULTIPLIER := 2.0
 const AIR_RESISTANCE := 10.0
+const COMBO_TIME_MULTIPLIER := 1.5
 
 var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
 var _current_gravity_direction := GlobalVariables.Directions.DOWN
@@ -31,6 +32,7 @@ var _previous_velocity: Vector2  # used by air resistance
 var _is_attacking := false
 var _weapon: Weapon
 var _can_change_gravity := true
+var _attack_movement_speed_multiplier := 0.0  # set in animation player
 
 @onready var health_component := $HealthComponent as HealthComponent
 @onready var _health_bar := $UserInterface/HealthBar
@@ -144,20 +146,28 @@ func _handle_movement(delta: float) -> void:
 	if not is_on_floor() and not _is_dashing:
 		_velocity.y += _gravity_value * delta
 
-	# jump
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		_velocity.y = JUMP_VELOCITY
+	if not _is_attacking:
+		_direction = Input.get_axis("left", "right")
+		
+		# jump
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			_velocity.y = JUMP_VELOCITY
 	# variable jump height
 	if Input.is_action_just_released("jump"):
 		if _velocity.y < 0.0:
 			_velocity.y *= CUT_JUMP_HEIGHT
 	
-	_direction = Input.get_axis("left", "right")
-	
 	_check_dashing()
 	
+	# movement while attacking
+	if _attack_movement_speed_multiplier != 0.0:
+		_direction = -1.0 if _sprite.flip_h else 1.0
+		_velocity.x = _direction * SPEED * _attack_movement_speed_multiplier
+		# TODO: magic number here
+		# TODO: this movement makes jagged movement, so it should be fixed
+		_attack_movement_speed_multiplier = move_toward(_attack_movement_speed_multiplier, 0.0, 4 * delta)
 	# dash to the same direction even if player releases left/right 
-	if _is_dashing:
+	elif _is_dashing:
 		_velocity.x = _dash_direction * DASH_MULTIPLIER * SPEED
 	# normal movement 
 	elif _direction:
@@ -211,12 +221,12 @@ func _handle_attacking() -> void:
 	if _weapon == null:
 		return
 	if Input.is_action_just_pressed("attack") and not _is_attacking:
+		_direction = 0.0
 		_combo_timer.stop()
 		Logger.debug("Attack combo: %d" % _weapon.current_combo)
 		_is_attacking = true
 		_animation_player.play(_weapon.type + str(_weapon.current_combo))
-		# TODO: magic number - change in future
-		_combo_timer.wait_time = _animation_player.current_animation_length as float + 0.3
+		_combo_timer.wait_time = _animation_player.current_animation_length as float * COMBO_TIME_MULTIPLIER
 		_combo_timer.start()
 		Logger.debug("Started timer with time: %.3fs" % _combo_timer.wait_time)
 		_hitbox_collider.set_deferred("disabled", false)
@@ -266,6 +276,10 @@ func _instance_dash_ghost() -> void:
 	_ghost.global_rotation = global_rotation
 	_ghost.flip_h = _sprite.flip_h
 	GlobalVariables.map_node.add_child(_ghost)
+
+
+func _set_attack_movement(multiplier: float) -> void:
+	_attack_movement_speed_multiplier = multiplier
 
 
 func _on_health_component_health_changed() -> void:
