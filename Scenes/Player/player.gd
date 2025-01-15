@@ -10,12 +10,12 @@ class_name Player
 extends CharacterBody2D
 
 const DashGhostScene := preload("res://Scenes/Player/dash_ghost.tscn")
-const SPEED := 300.0
+const SPEED := 240.0
 const JUMP_VELOCITY := -400.0
 const CUT_JUMP_HEIGHT := 0.4
 const DASH_MULTIPLIER := 2.0
 const AIR_RESISTANCE := 10.0
-const COMBO_TIME_MULTIPLIER := 1.5
+const COMBO_TIME_MULTIPLIER := 1.75
 
 var _gravity_value := ProjectSettings.get_setting("physics/2d/default_gravity") as float
 var _current_gravity_direction := GlobalVariables.Directions.DOWN
